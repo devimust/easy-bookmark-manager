@@ -1,0 +1,66 @@
+@import "partials/bs-callout";
+@import "partials/angucomplete";
+@import "partials/tags";
+@import "partials/tag-cloud";
+
+
+.highlight {
+  color: #ff0000;
+}
+
+.bookmark-me-link, .bookmark-me-link:hover, .bookmark-me-link:link, .bookmark-me-link:visited, .bookmark-me-link:active {
+  text-decoration: none;
+}
+
+.li-item-selected {
+  font-weight: bold;
+  /*background-color: chocolate;*/
+  /*color: red;*/
+}
+
+.click-item {
+  cursor: pointer;
+}
+
+.edit-bookmark {
+  padding: 15px 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+.prev-next {
+  padding-bottom: 8px;
+}
+
+.prev-next-pages {
+  margin-right: 18px;
+  margin-top: 7px;
+}
+
+.ace_editor  {
+  height : 200px;
+}

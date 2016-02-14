@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'api/v1/'], function () {
+
+    Route::get('users', 'Api\v1\UserController@index');
+
 });
+
+Route::get('/', 'PagesController@index');
 
 /*
 |--------------------------------------------------------------------------

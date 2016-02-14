@@ -1,0 +1,25 @@
+.tags {
+  padding: 4px 0;
+}
+
+.tags .tag {
+  border-radius: 10px;
+  padding: 6px 4px 6px 8px;
+  background-color: #EFEFEF;
+  margin-right: 10px;
+  line-height: 32px;
+}
+
+.tags .tag:hover {
+  color: red;
+  text-decoration: none;
+}
+
+.tags input {
+  width: 80px;
+  border: none;
+}
+
+.tag-item {
+  margin-right: 1px;
+}

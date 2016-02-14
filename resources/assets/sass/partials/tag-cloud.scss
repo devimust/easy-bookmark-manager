@@ -1,0 +1,63 @@
+#tagcloud ul {
+  margin: 1em 0;
+  padding: .5em 10px;
+  text-align: center;
+  /*background-color:#71b5e9;*/
+}
+
+#tagcloud li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: inline;
+}
+
+#tagcloud li a {
+  text-decoration: none;
+  /*color:#fff;*/
+  padding: 0 2px;
+}
+
+#tagcloud li a:hover {
+  color: #cff400;
+}
+
+.tag1 {
+  font-size: 100%;
+}
+
+.tag2 {
+  font-size: 120%;
+}
+
+.tag3 {
+  font-size: 140%;
+}
+
+.tag4 {
+  font-size: 160%;
+}
+
+.tag5 {
+  font-size: 180%;
+}
+
+.tag6 {
+  font-size: 200%;
+}
+
+.tag7 {
+  font-size: 220%;
+}
+
+.tag8 {
+  font-size: 240%;
+}
+
+.tag9 {
+  font-size: 260%;
+}
+
+.tag10 {
+  font-size: 280%;
+}

@@ -1,0 +1,75 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label for="inputLogin" class="col-sm-4 control-label">Username</label>
+
+				<div class="col-sm-8">
+					<input type="text" class="form-control" ng-model="profile.username" id="inputLogin">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputLogin" class="col-sm-4 control-label">Theme</label>
+
+				<div class="col-sm-8">
+					<select class="form-control" select ng-model="profile.theme" ng-change="changeTheme(profile.theme);">
+						<option value="bootstrap.min">Default bootstrap</option>
+						<option value="bootstrap-yeti">bootstrap-yeti</option>
+						<option value="bootstrap-darkly">bootstrap-darkly</option>
+						<option value="bootstrap-sandstone">bootstrap-sandstone</option>
+						<option value="bootstrap-united">bootstrap-united</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputPassword1" class="col-sm-4 control-label">New Password</label>
+
+				<div class="col-sm-8">
+					<input type="password" class="form-control" ng-model="profile.password1" id="inputPassword1">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputPassword2" class="col-sm-4 control-label">Re-type new password</label>
+
+				<div class="col-sm-8">
+					<input type="password" class="form-control" ng-model="profile.password2" id="inputPassword2">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputPasswordOld" class="col-sm-4 control-label">Old password</label>
+
+				<div class="col-sm-8">
+					<input type="password" class="form-control" ng-model="profile.passwordOld" id="inputPasswordOld">
+				</div>
+			</div>
+
+			<div class="alert alert-danger" role="alert" ng-show="errorMessage">
+				<strong>Oh snap!</strong> {{ errorMessage }}
+			</div>
+
+			<div class="alert alert-success" role="alert" ng-show="goodMessage">
+				<strong>Success!</strong> {{ goodMessage }}
+			</div>
+
+			<div>
+				<div class="col-sm-8 col-sm-offset-4 alert" role="alert" ng-if="busyWithAction">
+					<i class="fa fa-spinner fa-pulse fa-lg"></i>
+				</div>
+
+				<div class="col-sm-8 col-sm-offset-4" ng-if="!busyWithAction">
+					<button type="button" class="btn btn-primary" ng-click="updateUser()">Save</button>
+
+					<button type="button" class="btn btn-default" ng-click="cancelUpdate()">Back</button>
+
+					<!--<button type="button" class="btn btn-danger pull-right" ng-click="resetPassword()">Reset Password</button>-->
+				</div>
+			</div>
+		</form>
+
+		<br/>
+	</div>
+</div>
