@@ -11,13 +11,48 @@
 |
 */
 
-Route::group(['prefix' => 'api/v1/'], function () {
+Route::group(['prefix' => 'api/v1/', 'middleware' => ['web']], function () {
 
     Route::get('users', 'Api\v1\UserController@index');
+//    Route::get('user/login', 'Api\v1\UserController@login');
+//    Route::get('user/logout', 'Api\v1\UserController@logout');
+    Route::get('user/token', 'Api\v1\UserController@token');
+    Route::get('user/status', 'Api\v1\UserController@loginStatus');
 
 });
 
-Route::get('/', 'PagesController@index');
+Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function () {
+
+    Route::get('bookmarks', 'Api\v1\BookmarkController@index');
+    Route::get('bookmarks/categories-and-tags', 'Api\v1\BookmarkController@categoriesAndTags');
+
+});
+
+
+Route::group(['middleware' => ['web']], function () {
+
+    Route::get('/', 'PagesController@showIndex');
+
+    //Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+    Route::get('login', 'PagesController@showLogin');
+    Route::post('auth/login', 'PagesController@login');
+    Route::get('auth/logout', 'PagesController@logout');
+
+    /**
+     * User admin process
+     */
+    Route::get('admin/users', 'UserAdminController@index');
+    Route::get('admin/user/create', 'UserAdminController@create');
+    Route::post('admin/user/store', 'UserAdminController@store');
+    Route::get('admin/user/{id}/edit', 'UserAdminController@edit');
+    Route::put('admin/user/{id}', 'UserAdminController@update');
+    Route::delete('admin/user/{id}', 'UserAdminController@destroy');
+
+});
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +65,19 @@ Route::get('/', 'PagesController@index');
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
-});
+//Route::group(['middleware' => ['web']], function () {
+//
+////    Route::get('user/login', function() {
+////        return view('auth.login');
+////    });
+////
+////// Authentication routes...
+////    Route::get('auth/login', 'Auth\AuthController@getLogin');
+////    Route::post('auth/login', 'Auth\AuthController@postLogin');
+////    Route::get('auth/logout', 'Auth\AuthController@getLogout');
+////
+////// Registration routes...
+////    Route::get('auth/register', 'Auth\AuthController@getRegister');
+////    Route::post('auth/register', 'Auth\AuthController@postRegister');
+//
+//});

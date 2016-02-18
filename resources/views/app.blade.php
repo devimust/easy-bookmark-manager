@@ -30,12 +30,12 @@
         }
         function loadTheme() {
             var theme = localStorage.getItem('theme') || 'bootstrap-yeti';
-            loadResourceFile('css/'+theme+'.css', 'css');
+            loadResourceFile('/css/'+theme+'.css', 'css');
         }
         loadTheme();
     </script>
 
-    <link href="css/vendor.css" rel="stylesheet">
+    <link href="/css/vendor.css" rel="stylesheet">
     <link href="{{ elixir('css/main.css') }}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -50,7 +50,7 @@
 
     @yield('content')
 
-    <script src="js/vendor.js"></script>
+    <script src="/js/vendor.js"></script>
     <script src="{{ elixir('js/main.js') }}"></script>
 </body>
 

@@ -1,119 +1,127 @@
 (function () {
 
-	var bookmarkService = function ($location, $http, userService) {
+    var bookmarkService = function ($location, $http, userService) {
 
-		var service = {
+        var service = {
 
-			fetchCategories: function () {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL + 'categories?' + $.param(user))
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            fetchCategoriesAndTags: function () {
+                return $http
+                    .get(API_URL + 'bookmarks/categories-and-tags')
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-			fetchTags: function () {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL + 'tags?' + $.param(user))
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            //fetchCategories: function () {
+            //    var user = userService.getModel();
+            //    return $http
+            //        .get(API_URL + 'categories?' + $.param(user))
+            //        .then(function (response) {
+            //            return response.data;
+            //        });
+            //},
+            //
+            //fetchTags: function () {
+            //    var user = userService.getModel();
+            //    return $http
+            //        .get(API_URL + 'tags?' + $.param(user))
+            //        .then(function (response) {
+            //            return response.data;
+            //        });
+            //},
 
-			fetchBookmarks: function () {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL + 'bookmarks?' + $.param(user))
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            fetchBookmarks: function () {
+                var user = userService.getModel();
+                return $http
+                    .get(API_URL + 'bookmarks?' + $.param(user))
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-			fetchFilteredBookmarks: function (categories, tags, search, page, limit) {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL +
-					'bookmarks?' +
-					$.param(user) +
-					'&categories=' + categories +
-					'&tags=' + tags +
-					'&search=' + search +
-					'&page=' + page +
-					'&limit=' + limit
-				)
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            fetchFilteredBookmarks: function (categories, tags, search, page, limit) {
+                var user = userService.getModel();
+                return $http
+                    .get(API_URL +
+                    'bookmarks?' +
+                    $.param(user) +
+                    '&categories=' + categories +
+                    '&tags=' + tags +
+                    '&search=' + search +
+                    '&page=' + page +
+                    '&limit=' + limit
+                )
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-			fetchBookmark: function (bookmarkId) {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL + 'bookmark/' + bookmarkId + '?' + $.param(user))
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            fetchBookmark: function (bookmarkId) {
+                var user = userService.getModel();
+                return $http
+                    .get(API_URL + 'bookmark/' + bookmarkId + '?' + $.param(user))
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-			createBookmark: function (data) {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL + 'bookmark/new?' + $.param(user) + '&' + $.param(data))
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            createBookmark: function (data) {
+                var user = userService.getModel();
+                return $http
+                    .get(API_URL + 'bookmark/new?' + $.param(user) + '&' + $.param(data))
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-			checkDuplicates: function (data) {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL + 'bookmarks/duplicates?' + $.param(user) + '&' + $.param(data))
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            checkDuplicates: function (data) {
+                var user = userService.getModel();
+                return $http
+                    .get(API_URL + 'bookmarks/duplicates?' + $.param(user) + '&' + $.param(data))
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-			updateBookmark: function (bookmarkId, data) {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL + 'bookmark/update/' + bookmarkId + '?' + $.param(user) + '&' + $.param(data))
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            updateBookmark: function (bookmarkId, data) {
+                var user = userService.getModel();
+                return $http
+                    .get(API_URL + 'bookmark/update/' + bookmarkId + '?' + $.param(user) + '&' + $.param(data))
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-			deleteBookmark: function (bookmarkId, data) {
-				var user = userService.getModel();
-				return $http
-					.get(API_URL + 'bookmark/delete/' + bookmarkId + '?' + $.param(user) + '&' + $.param(data))
-					.then(function (response) {
-						return response.data;
-					});
-			},
+            deleteBookmark: function (bookmarkId, data) {
+                var user = userService.getModel();
+                return $http
+                    .get(API_URL + 'bookmark/delete/' + bookmarkId + '?' + $.param(user) + '&' + $.param(data))
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-			importBookmarks: function (data) {
-				var user = userService.getModel();
+            importBookmarks: function (data) {
+                var user = userService.getModel();
 
-				return $http
-					.post(API_URL + 'bookmark/import?' + $.param(user), data, {
-						withCredentials: true,
-						headers: {'Content-Type': undefined},
-						transformRequest: angular.identity
-					})
-					.then(function (response) {
-						return response.data;
-					});
-			},
+                return $http
+                    .post(API_URL + 'bookmark/import?' + $.param(user), data, {
+                        withCredentials: true,
+                        headers: {'Content-Type': undefined},
+                        transformRequest: angular.identity
+                    })
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
 
-		};
+        };
 
-		return service;
-	};
+        return service;
+    };
 
-	angular.module('bookmarksApp')
-		.service('bookmarkService',
-		['$location', '$http', 'userService', bookmarkService]);
+    angular.module('bookmarksApp')
+        .service('bookmarkService',
+        ['$location', '$http', 'userService', bookmarkService]);
 
 }());
