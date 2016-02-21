@@ -2,8 +2,8 @@
     <div class="col-md-12">
         <div class="page-header">
             <h1>
-                <small><a href class="bookmark-me-link glyphicon glyphicon-bookmark" role="button" aria-hidden="true"></a></small>
-                Bookmarks <small>Easy Bookmark Manager 2</small>
+                <small class="hide-for-window"><a href class="bookmark-me-link glyphicon glyphicon-bookmark" role="button" aria-hidden="true"></a></small>
+                <span class="hide-for-window">Bookmarks</span> <small>Easy Bookmark Manager 2</small>
             </h1>
         </div>
     </div>

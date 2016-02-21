@@ -8,25 +8,24 @@
         $scope.viewReady = false;
         $scope.busyImporting = false;
         $scope.loadingBookmarks = true;
-        // $scope.search = '';
         $scope.badDataResponse = '';
+        $scope.selectedCategories = [];
+        $scope.selectedTags = [];
         $scope.bookmarkResults = {
             page: 1,
             maxPages: 0,
             limit: 10,
             totalCount: 0
         };
+        $scope.maxCloudTagValue = 0;
 
         $scope.globalErrorMessage = '';
         $scope.globalGoodMessage = '';
 
-        $scope.user = userService.getModel();
-
-        //console.log($scope.user);
-        //
-        //return;
-
+        var filterTextTimeout;
+        //$scope.user = userService.getModel();
         var session = sessionService.getModel();
+
         $scope.search = session.search;
         $scope.bookmarkResults.page = session.pageNo;
 
@@ -35,18 +34,58 @@
         //    return false;
         //}
 
-        function fetchFilteredBookmarks() {
+        this.run = function () {
+
+            userService
+                //.checkAuthToken()
+                .checkLoginStatus()
+                .then(function (response) {
+
+                    $scope.errorMessage = '';
+                    if (response.result != 'ok') {
+                        $scope.globalErrorMessage = response.message;
+                        //$location.path('/logout');
+                        window.location = '/login';
+                        return;
+                    }
+
+                    bookmarkService
+                        .fetchCategoriesAndTags()
+                        .then(function (response) {
+                            if (response.result == 'ok') {
+                                $scope.categories = response.data.categories;
+                                // sort tags randomly
+                                $scope.tags = response.data.tags.sort(function() {
+                                    return 0.5 - Math.random();
+                                });
+                            }
+                        });
+
+                    $scope.fetchFilteredBookmarks();
+
+                    $scope.viewReady = true;
+
+                });
+        };
+
+        $scope.clearSearch = function () {
+            $scope.search = '';
+            $scope.searchKeyUp('');
+            $('#searchText').val('');
+        };
+
+        $scope.fetchFilteredBookmarks = function () {
             $scope.bookmarks = null;
             $scope.loadingBookmarks = true;
             $scope.badDataResponse = '';
 
             bookmarkService
                 .fetchFilteredBookmarks(
-                $scope.selectedCategories,
-                $scope.selectedTags,
-                $scope.search,
-                $scope.bookmarkResults.page,
-                $scope.bookmarkResults.limit
+                    $scope.selectedCategories,
+                    $scope.selectedTags,
+                    $scope.search,
+                    $scope.bookmarkResults.page,
+                    $scope.bookmarkResults.limit
             )
                 .then(function (response) {
                     $scope.loadingBookmarks = false;
@@ -58,54 +97,8 @@
                         $scope.badDataResponse = response.message;
                     }
                 });
-        }
+        };
 
-        userService
-            //.checkAuthToken()
-            .checkLoginStatus()
-            .then(function (response) {
-
-                $scope.errorMessage = '';
-                if (response.result != 'ok') {
-                    $scope.globalErrorMessage = response.message;
-                    //$location.path('/logout');
-                    window.location = '/login';
-                    return;
-                }
-
-                bookmarkService
-                    .fetchCategoriesAndTags()
-                    .then(function (response) {
-                        if (response.result == 'ok') {
-                            $scope.categories = response.data.categories;
-                            $scope.tags = response.data.tags;
-                        }
-                    });
-
-                //bookmarkService
-                //    .fetchTags()
-                //    .then(function (response) {
-                //        if (response.result == 'ok') {
-                //            $scope.tags = response.data.tags;
-                //        }
-                //    });
-
-                fetchFilteredBookmarks();
-
-                // bookmarkService
-                // 	.fetchBookmarks()
-                // 	.then(function(response) {
-                // 		$scope.loadingBookmarks = false;
-                // 		if (response.result == 'ok') {
-                // 			$scope.bookmarks = response.data.bookmarks
-                // 		}
-                // 	});
-
-                $scope.viewReady = true;
-
-            });
-
-        $scope.selectedTags = [];
         $scope.toggleTag = function (tag) {
             $scope.bookmarkResults.page = 1;
             tag.selected = !tag.selected;
@@ -114,34 +107,24 @@
             } else {
                 $scope.selectedTags.push(tag.name);
             }
+            $scope.fetchFilteredBookmarks();
+        };
 
-            //$scope.query = '';
-            fetchFilteredBookmarks();
-            // bookmarkService
-            // 	.fetchFilteredBookmarks($scope.selectedCategories, $scope.selectedTags)
-            // 	.then(function(response) {
-            // 		$scope.loadingBookmarks = false;
-            // 		if (response.result == 'ok') {
-            // 			$scope.bookmarks = response.data.bookmarks
-            // 		}
-            // 	});
-
+        $scope.calculateMaxCloudTagValue = function () {
+            $scope.maxCloudTagValue = 0;
+            for (var i in $scope.tags) {
+                if ($scope.tags[i].count > $scope.maxCloudTagValue) {
+                    $scope.maxCloudTagValue = $scope.tags[i].count;
+                }
+            }
         };
 
         $scope.getCloudClass = function (tag) {
-            var total = 0;
             var maxVal = 10;
-            for (var i in $scope.tags) {
-                total += $scope.tags[i].count;
-            }
-            var num = Math.ceil(tag.count * maxVal / total);
-            if (num > maxVal) {
-                num = maxVal;
-            }
+            var num = Math.ceil(tag.count * maxVal / $scope.maxCloudTagValue);
             return 'tag' + num;
         };
 
-        $scope.selectedCategories = [];
         $scope.toggleCategory = function (category) {
             $scope.bookmarkResults.page = 1;
             category.selected = !category.selected;
@@ -150,20 +133,9 @@
             } else {
                 $scope.selectedCategories.push(category.name);
             }
-            //$scope.query = '';
-            fetchFilteredBookmarks();
-            // bookmarkService
-            // 	.fetchFilteredBookmarks($scope.selectedCategories, $scope.selectedTags)
-            // 	.then(function(response) {
-            // 		$scope.loadingBookmarks = false;
-            // 		if (response.result == 'ok') {
-            // 			$scope.bookmarks = response.data.bookmarks
-            // 		}
-            // 	});
-
+            $scope.fetchFilteredBookmarks();
         };
 
-        var filterTextTimeout;
         $scope.searchKeyUp = function (search) {
             $scope.bookmarkResults.page = 1;
             if (filterTextTimeout) {
@@ -173,7 +145,7 @@
                 $scope.search = search;
                 session.search = search;
                 sessionService.setModel(session);
-                fetchFilteredBookmarks();
+                $scope.fetchFilteredBookmarks();
             }, 250); // delay 250 ms
         };
 
@@ -189,14 +161,14 @@
             $scope.bookmarkResults.page++;
             session.pageNo = $scope.bookmarkResults.page;
             sessionService.setModel(session);
-            fetchFilteredBookmarks();
+            $scope.fetchFilteredBookmarks();
         };
 
         $scope.prevPage = function () {
             $scope.bookmarkResults.page--;
             session.pageNo = $scope.bookmarkResults.page;
             sessionService.setModel(session);
-            fetchFilteredBookmarks();
+            $scope.fetchFilteredBookmarks();
         };
 
         $scope.editUser = function () {
@@ -267,6 +239,9 @@
                     }, 1500);
                 });
         };
+
+        this.run();
+
     };
 
     angular.module('bookmarksApp')

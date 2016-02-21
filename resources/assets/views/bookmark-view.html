@@ -1,142 +1,148 @@
 <div class="row" ng-if="viewReady">
-	<div class="col-md-12">
-		<div class="alert alert-danger" role="alert" ng-show="globalErrorMessage" ng-click="globalErrorMessage=''">
-			<strong>Oh snap!</strong> {{ globalErrorMessage }}
-		</div>
+    <div class="col-md-12">
+        <div class="alert alert-danger" role="alert" ng-show="globalErrorMessage" ng-click="globalErrorMessage=''">
+            <strong>Oh snap!</strong> {{ globalErrorMessage }}
+        </div>
 
-		<div class="alert alert-success" role="alert" ng-show="globalGoodMessage" ng-click="globalGoodMessage=''">
-			<strong>Success!</strong> {{ globalGoodMessage }}
-		</div>
-	</div>
+        <div class="alert alert-success" role="alert" ng-show="globalGoodMessage" ng-click="globalGoodMessage=''">
+            <strong>Success!</strong> {{ globalGoodMessage }}
+        </div>
+    </div>
 
-	<div class="col-md-3">
+    <div class="col-md-3">
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">Categories</div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">Tags</div>
 
-			<ul class="list-group">
-				<li ng-repeat="category in categories"
-						class="list-group-item click-item"
-						ng-click="toggleCategory(category)"
-						ng-class="{'li-item-selected': category.selected}">
-					<span class="badge">{{category.count}}</span>
-					{{category.name}}
-				</li>
+            <div id="tagcloud">
+                <ul>
+                    <li ng-init="calculateMaxCloudTagValue()" ng-repeat="tag in tags" ng-class="getCloudClass(tag)">
+                        <a href
+                           class="text-primary"
+                           ng-click="toggleTag(tag)"
+                           ng-class="{'li-item-selected': tag.selected}"
+                                >
+                            {{ tag.name | cut:true:40 }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-				<li class="list-group-item" ng-if="categories.length === 0">
-					No items found
-				</li>
-			</ul>
-		</div>
+        <div class="panel panel-primary categories">
+            <div class="panel-heading">Categories</div>
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">Tags</div>
+            <ul class="list-group text-primary">
+                <li ng-repeat="category in categories"
+                    class="list-group-item click-item"
+                    ng-click="toggleCategory(category)"
+                    ng-class="{'li-item-selected': category.selected}">
+                    <span class="badge">{{category.count}}</span>
+                    {{category.name}}
+                </li>
 
-			<div id="tagcloud">
-				<ul>
-					<li ng-repeat="tag in tags" ng-class="getCloudClass(tag)">
-						<a href
-							 class="text-primary"
-							 ng-click="toggleTag(tag)"
-							 ng-class="{'li-item-selected': tag.selected}"
-							>
-							{{ tag.name | cut:true:40 }}
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+                <li class="list-group-item" ng-if="categories.length === 0">
+                    No items found
+                </li>
+            </ul>
+        </div>
 
-		<div class="panel">
-			<p>
-				<a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="newBookmark()">New Bookmark</a>
+        <div class="panel">
+            <p>
+                <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="newBookmark()">New Bookmark</a>
 
-				<span class="btn btn-sm btn-primary btn-file btn-block">
-					Import Bookmarks <input type="file" name="bookmarkfile"
-																	onchange="angular.element(this).scope().uploadFile(this.files)" role="button"/>
-					<i class="fa fa-spinner fa-pulse fa-lg" ng-if="busyImporting"></i>
-				</span>
+                <!--<span class="btn btn-sm btn-primary btn-file btn-block">-->
+                    <!--Import Bookmarks <input type="file" name="bookmarkfile"-->
+                                            <!--onchange="angular.element(this).scope().uploadFile(this.files)"-->
+                                            <!--role="button"/>-->
+                    <!--<i class="fa fa-spinner fa-pulse fa-lg" ng-if="busyImporting"></i>-->
+                <!--</span>-->
 
-				<a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="editUser()">Update User</a>
+                <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="editUser()">Update User</a>
 
-				<a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="resetAuthToken()">Reset Auth Token</a>
+                <!--<a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="resetAuthToken()">Reset Auth-->
+                    <!--Token</a>-->
 
-				<a href class="btn btn-sm btn-default btn-block" role="button" ng-click="logout()">Logout</a>
-			</p>
-		</div>
+                <a href class="btn btn-sm btn-default btn-block" role="button" ng-click="logout()">Logout</a>
+            </p>
+        </div>
 
-	</div>
+    </div>
 
-	<div class="col-md-9">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<!--<div class="input-group">-->
-				<div class="has-feedback">
-					<input class="form-control" ng-model="search" type="text" placeholder="Refine search" autofocus
-								 ng-keyup="searchKeyUp(search)">
-					<!--<a href ng-click="search = ''" class="form-control-feedback text-primary">-->
-					<!--	<span class="glyphicon glyphicon-remove">xxx</span>-->
-					<!--</a>-->
-				</div>
-			</div>
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <!--<div class="input-group">-->
+                <div class="has-feedback">
+                    <input id="searchText" class="form-control" ng-model="search" type="text" placeholder="Refine search" autofocus
+                           ng-keyup="searchKeyUp(search)">
+                    <span id="searchclear" class="glyphicon glyphicon-remove-circle" ng-click="clearSearch()"></span>
 
-			<div>
-				<div class="alert" role="alert" ng-if="loadingBookmarks">
-					Loading <i class="fa fa-spinner fa-pulse fa-lg"></i>
-				</div>
+                    <!--<a href ng-click="search = ''" class="form-control-feedback text-primary">-->
+                    <!--	<span class="glyphicon glyphicon-remove">xxx</span>-->
+                    <!--</a>-->
+                </div>
+            </div>
 
-				<div
-					class="bs-callout bs-callout-primary custom-bs-callout"
-					ng-repeat="bookmark in filteredBookmarks = (
-						bookmarks | filter:query
-					)"
-					ng-click="gotoBookmark($event, bookmark)"
-					ng-class="{ 'bg-success': bookmark.favourite }"
-					>
-					<div>
-						<h4>
-							<span>
-								<img ng-src="{{ bookmark.icon }}" ng-if="bookmark.icon"/>
-							</span>
+            <div>
+                <div class="alert" role="alert" ng-if="loadingBookmarks">
+                    Loading <i class="fa fa-spinner fa-pulse fa-lg"></i>
+                </div>
 
-							{{ bookmark.title || '( No Title )' }}
-						</h4>
+                <div
+                        class="bs-callout bs-callout-primary custom-bs-callout"
+                        ng-repeat="bookmark in filteredBookmarks = (
+                                        bookmarks | filter:query
+                                    )"
+                        ng-click="gotoBookmark($event, bookmark)"
+                        ng-class="{ 'bg-success': bookmark.favourite }">
+                    <div>
+                        <h4>
+                            <span>
+                                <img ng-src="{{ bookmark.icon }}" ng-if="bookmark.icon"/>
+                            </span>
 
-						<a href="{{ bookmark.link }}" target="_blank">{{ bookmark.link | cut:true:80 }}</a>
+                            {{ bookmark.title || '( No Title )' }}
+                        </h4>
 
-						<span ng-click="editBookmark($event, bookmark)"
-									class="pull-right glyphicon glyphicon-option-vertical edit-bookmark"
-									aria-hidden="true">
-	        	</span>
-					</div>
+                        <a href="{{ bookmark.link }}" target="_blank">{{ bookmark.link | cut:true:80 }}</a>
 
-					<div>
-						<span ng-repeat="tag in bookmark.tags" class="tag-item label label-info">{{ tag }}</span>
-					</div>
-				</div>
+                        <span ng-click="editBookmark($event, bookmark)"
+                              class="pull-right glyphicon glyphicon-option-vertical edit-bookmark"
+                              aria-hidden="true">
+                </span>
+                    </div>
 
-				<div class="text-center prev-next" ng-if="!loadingBookmarks">
-					<button type="button" class="btn btn-primary" ng-if="bookmarkResults.page > 1" ng-click="prevPage()">
-						Previous
-					</button>
+                    <div>
+                        <span ng-repeat="tag in bookmark.tags" class="tag-item label label-info">{{ tag }}</span>
+                    </div>
+                </div>
 
-					<button type="button" class="btn btn-primary" ng-if="bookmarkResults.page < bookmarkResults.maxPages"
-									ng-click="nextPage()">Next
-					</button>
+                <div class="text-center prev-next" ng-if="!loadingBookmarks">
+                    <button type="button" class="btn btn-primary" ng-if="bookmarkResults.page > 1"
+                            ng-click="prevPage()">
+                        Previous
+                    </button>
 
-					<p class="pull-right text-center text-primary prev-next-pages"
-						 ng-if="bookmarkResults.page > 1 || bookmarkResults.page < bookmarkResults.maxPages">{{ bookmarkResults.page
-						}} / {{ bookmarkResults.maxPages }}</p>
-				</div>
+                    <button type="button" class="btn btn-primary"
+                            ng-if="bookmarkResults.page < bookmarkResults.maxPages"
+                            ng-click="nextPage()">Next
+                    </button>
 
-				<div class="alert" role="alert" ng-if="!loadingBookmarks && filteredBookmarks.length === 0">
-					no data found, try clicking on some filters
-				</div>
+                    <p class="pull-right text-center text-primary prev-next-pages"
+                       ng-if="bookmarkResults.page > 1 || bookmarkResults.page < bookmarkResults.maxPages">{{
+                        bookmarkResults.page
+                        }} / {{ bookmarkResults.maxPages }}</p>
+                </div>
 
-				<div class="alert" role="alert" ng-if="badDataResponse">
-					{{ badDataResponse }}
-				</div>
-			</div>
-		</div>
-	</div>
+                <div class="alert" role="alert" ng-if="!loadingBookmarks && filteredBookmarks.length === 0">
+                    no data found, try clicking on some filters
+                </div>
+
+                <div class="alert" role="alert" ng-if="badDataResponse">
+                    {{ badDataResponse }}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

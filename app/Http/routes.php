@@ -13,10 +13,10 @@
 
 Route::group(['prefix' => 'api/v1/', 'middleware' => ['web']], function () {
 
-    Route::get('users', 'Api\v1\UserController@index');
+
 //    Route::get('user/login', 'Api\v1\UserController@login');
 //    Route::get('user/logout', 'Api\v1\UserController@logout');
-    Route::get('user/token', 'Api\v1\UserController@token');
+//    Route::get('user/token', 'Api\v1\UserController@token');
     Route::get('user/status', 'Api\v1\UserController@loginStatus');
 
 });
@@ -24,7 +24,16 @@ Route::group(['prefix' => 'api/v1/', 'middleware' => ['web']], function () {
 Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function () {
 
     Route::get('bookmarks', 'Api\v1\BookmarkController@index');
+    Route::put('bookmark/create', 'Api\v1\BookmarkController@create');
+    Route::get('bookmark/{id}', 'Api\v1\BookmarkController@edit');
+    Route::put('bookmark/{id}', 'Api\v1\BookmarkController@update');
+    Route::delete('bookmark/{id}', 'Api\v1\BookmarkController@delete');
+
     Route::get('bookmarks/categories-and-tags', 'Api\v1\BookmarkController@categoriesAndTags');
+    Route::get('categories', 'Api\v1\BookmarkController@categories');
+
+    Route::get('user', 'Api\v1\UserController@edit');
+    Route::put('user', 'Api\v1\UserController@update');
 
 });
 
@@ -39,19 +48,23 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('auth/login', 'PagesController@login');
     Route::get('auth/logout', 'PagesController@logout');
 
-    /**
-     * User admin process
-     */
-    Route::get('admin/users', 'UserAdminController@index');
-    Route::get('admin/user/create', 'UserAdminController@create');
-    Route::post('admin/user/store', 'UserAdminController@store');
-    Route::get('admin/user/{id}/edit', 'UserAdminController@edit');
-    Route::put('admin/user/{id}', 'UserAdminController@update');
-    Route::delete('admin/user/{id}', 'UserAdminController@destroy');
+
 
 });
 
-
+/**
+ * User admin process
+ */
+Route::group(['prefix' => 'admin/', 'middleware' => ['web', 'auth']], function () {
+    Route::get('users', 'UserAdminController@index');
+});
+Route::group(['prefix' => 'admin/', 'middleware' => ['web', 'auth']], function () {
+    Route::get('user/create', 'UserAdminController@create');
+    Route::post('user/store', 'UserAdminController@store');
+    Route::get('user/{id}/edit', 'UserAdminController@edit');
+    Route::put('user/{id}', 'UserAdminController@update');
+    Route::delete('user/{id}', 'UserAdminController@destroy');
+});
 
 
 /*

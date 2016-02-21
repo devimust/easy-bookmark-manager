@@ -64,3 +64,19 @@
 .ace_editor  {
   height : 200px;
 }
+
+#searchclear {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  height: 18px;
+  margin: auto;
+  font-size: 18px;
+  cursor: pointer;
+  color: #bbb;
+}
+
+div.categories ul li.list-group-item {
+  padding: 4px 5px;
+}

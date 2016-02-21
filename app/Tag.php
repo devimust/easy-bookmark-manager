@@ -28,7 +28,14 @@ class Tag extends Model
      */
     public function bookmarks()
     {
-        return $this->belongsToMany('App\Bookmark');
+        return $this->belongsToMany('App\Bookmark', 'bookmark_tag');
     }
 
+    /**
+     * Get the user linked to the tag.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

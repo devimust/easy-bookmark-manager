@@ -32,7 +32,6 @@ class UserController extends Controller
         ];
     }
 
-
     /**
      * Log the user in via username and password.
      *
@@ -81,77 +80,152 @@ class UserController extends Controller
     }
 
     /**
-     * Check if token is valid for current user.
+     * Return current user details.
      *
      * @param Request $request
+     * @return array
      */
-    public function token(Request $request) {
-        $token = $request->input('token');
+    public function edit(Request $request) {
+        $user = Auth::user();
 
-        // Check if token is not empty
-        if ($token == '') {
+        if (!$user) {
             return [
                 'result' => 'error',
-                'message' => 'The token is invalid.'
+                'message' => 'No session found, please login again.'
             ];
         }
 
-        $userToken = \App\UserToken::where('token', $token)
-            ->where('expires_at', '>', \Carbon\Carbon::now())
-            ->first();
+        $userData = [
+            'name' => $user->name,
+            'email' => $user->username
+        ];
 
-        // Token does not exist
-        if (!$userToken) {
+        return [
+            'result' => 'ok',
+            'message' => '',
+            'data' => [
+                'user' => $userData
+            ]
+        ];
+    }
+
+    /**
+     * Update current user details.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function update(Request $request) {
+        $user = Auth::user();
+
+        if (!$user) {
             return [
                 'result' => 'error',
-                'message' => 'The token is invalid or has expired.'
+                'message' => 'No session found, please login again.'
             ];
         }
 
-        // Refresh current token expiry timestamp
-        $userToken->update([
-            'expires_at' => \Carbon\Carbon::now()->addSeconds(self::$session_expiry)
-        ]);
+        if ($request->input('name') != '')
+            $user->name = $request->input('name');
 
-        // Clean up expired tokens
-        foreach ($userToken
-                     ->user
-                     ->tokens()
-                     ->where('expires_at', '<', \Carbon\Carbon::now())
-                     ->get() as $tokenObject) {
-            $tokenObject->delete();
+        if ($request->input('email') != '')
+            $user->username = $request->input('email');
+
+        if ($request->input('password1') != '' && $request->input('password2') != '') {
+            if ($request->input('password1') != $request->input('password2')) {
+                return [
+                    'result' => 'error',
+                    'message' => 'Both passwords must match.'
+                ];
+            }
+            $user->password = \Hash::make($request->input('password1'));
         }
 
-        // At this point we are happy that the user has a valid token
+        $user->save();
+
+//        $userData = [
+//            'name' => $user->name,
+//            'email' => $user->username
+//        ];
+
         return [
             'result' => 'ok',
             'message' => ''
         ];
     }
 
-    /**
-     * Generate unique token.
-     *
-     * @return string
-     */
-    private function generateToken() {
-        $uuid4 = Uuid::uuid4();
-
-        return $uuid4->toString();
-    }
-
-    /**
-     * Associate usertoken with user model.
-     *
-     * @param $token
-     */
-    private function associateToken($token) {
-        \App\UserToken::create([
-            'token' => $token,
-            'user_id' => Auth::id(),
-            'expires_at' => \Carbon\Carbon::now()->addSeconds(self::$session_expiry)
-        ]);
-    }
+//    /**
+//     * Check if token is valid for current user.
+//     *
+//     * @param Request $request
+//     */
+//    public function token(Request $request) {
+//        $token = $request->input('token');
+//
+//        // Check if token is not empty
+//        if ($token == '') {
+//            return [
+//                'result' => 'error',
+//                'message' => 'The token is invalid.'
+//            ];
+//        }
+//
+//        $userToken = \App\UserToken::where('token', $token)
+//            ->where('expires_at', '>', \Carbon\Carbon::now())
+//            ->first();
+//
+//        // Token does not exist
+//        if (!$userToken) {
+//            return [
+//                'result' => 'error',
+//                'message' => 'The token is invalid or has expired.'
+//            ];
+//        }
+//
+//        // Refresh current token expiry timestamp
+//        $userToken->update([
+//            'expires_at' => \Carbon\Carbon::now()->addSeconds(self::$session_expiry)
+//        ]);
+//
+//        // Clean up expired tokens
+//        foreach ($userToken
+//                     ->user
+//                     ->tokens()
+//                     ->where('expires_at', '<', \Carbon\Carbon::now())
+//                     ->get() as $tokenObject) {
+//            $tokenObject->delete();
+//        }
+//
+//        // At this point we are happy that the user has a valid token
+//        return [
+//            'result' => 'ok',
+//            'message' => ''
+//        ];
+//    }
+//
+//    /**
+//     * Generate unique token.
+//     *
+//     * @return string
+//     */
+//    private function generateToken() {
+//        $uuid4 = Uuid::uuid4();
+//
+//        return $uuid4->toString();
+//    }
+//
+//    /**
+//     * Associate usertoken with user model.
+//     *
+//     * @param $token
+//     */
+//    private function associateToken($token) {
+//        \App\UserToken::create([
+//            'token' => $token,
+//            'user_id' => Auth::id(),
+//            'expires_at' => \Carbon\Carbon::now()->addSeconds(self::$session_expiry)
+//        ]);
+//    }
 
     /**
      * Log the user in if logged in.

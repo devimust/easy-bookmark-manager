@@ -32,7 +32,8 @@ elixir(function(mix) {
         .styles([
             'normalize.css/normalize.css',
             'bootstrap/dist/css/bootstrap.min.css',
-            'font-awesome/css/font-awesome.min.css'
+            'font-awesome/css/font-awesome.min.css',
+            'select2/dist/css/select2.min.css'
         ], 'public/css/vendor.css', 'node_modules')
         .sass('bootstrap-darkly.scss')
         .sass('bootstrap-sandstone.scss')
@@ -46,7 +47,9 @@ elixir(function(mix) {
             'node_modules/bootstrap/dist/js/bootstrap.min.js',
             'node_modules/angular/angular.min.js',
             'node_modules/angular-route/angular-route.min.js',
-            'node_modules/ace-editor-builds/src-min-noconflict/ace.js'
+            'node_modules/select2/dist/js/select2.full.min.js',
+            'node_modules/ace-editor-builds/src-min-noconflict/ace.js',
+            'node_modules/ace-editor-builds/src-min-noconflict/theme-twilight.js'
         ], 'public/js/vendor.js', 'node_modules')
 
 
@@ -56,6 +59,7 @@ elixir(function(mix) {
 
     // app scripts
     mix
+        .jshint('resources/assets/js/**/*.js')
         .scripts([
             'main.js',
             '' // include everything except main.js

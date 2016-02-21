@@ -51,6 +51,7 @@
     @yield('content')
 
     <script src="/js/vendor.js"></script>
+
     <script src="{{ elixir('js/main.js') }}"></script>
 </body>
 

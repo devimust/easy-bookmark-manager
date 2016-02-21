@@ -15,12 +15,21 @@ class Bookmark extends Model
     protected $table = 'bookmarks';
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'favourite' => 'boolean'
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'title', 'link', 'favourite', 'snippet', 'icon'
+        'title', 'link', 'favourite', 'snippet', 'icon', 'category'
     ];
 
     /**
@@ -28,6 +37,35 @@ class Bookmark extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag');
+        return $this->belongsToMany('App\Tag', 'bookmark_tag');
+    }
+
+    /**
+     * Get the user linked to the bookmark.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Cast input to boolean type.
+     *
+     * @param $value
+     */
+    public function setFavouriteAttribute($value)
+    {
+        $this->attributes['favourite'] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
+     * Cast output to boolean type.
+     *
+     * @param $value
+     * @return bool
+     */
+    public function getFavouriteAttribute($value)
+    {
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
 }

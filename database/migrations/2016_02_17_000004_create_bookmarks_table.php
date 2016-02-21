@@ -18,7 +18,7 @@ class CreateBookmarksTable extends Migration
             $table->boolean('favourite');
             $table->string('link');
             $table->text('snippet');
-            $table->string('icon');
+            $table->text('icon');
             $table->integer('user_id')->unsigned();
             $table->string('category');
             $table->timestamps();

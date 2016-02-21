@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+
 use App\User;
 use App\Http\Requests;
 use Redirect;
@@ -25,6 +27,14 @@ class UserAdminController extends Controller
      */
     public function index()
     {
+        if (!Auth::check()) {
+            return \Redirect::to('/');
+        }
+
+        if (!Auth::user()->administrator) {
+            \App::abort(403, 'Access denied');
+        }
+
         $users = User::all();
 
         return view('useradmin.index', compact('users'));
