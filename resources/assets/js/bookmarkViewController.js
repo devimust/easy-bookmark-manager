@@ -1,6 +1,6 @@
 (function () {
 
-    var bookmarkViewController = function ($scope, $location, $http, userService, bookmarkService, sessionService, $interval, $timeout) {
+    var bookmarkViewController = function ($scope, $location, $http, userService, bookmarkService, sessionService, $interval, $timeout, $window) {
 
         $scope.categories = [];
         $scope.tags = [];
@@ -54,6 +54,11 @@
                         .then(function (response) {
                             if (response.result == 'ok') {
                                 $scope.categories = response.data.categories;
+
+                                for(var i = 5; i < $scope.categories.length; i++){
+                                    $scope.categories[i].hidden = true;
+                                }
+
                                 // sort tags randomly
                                 $scope.tags = response.data.tags.sort(function() {
                                     return 0.5 - Math.random();
@@ -66,6 +71,13 @@
                     $scope.viewReady = true;
 
                 });
+        };
+
+        // Set all categories to be shown when clicking on load more link.
+        $scope.loadMore = function () {
+            for(var i = 5; i < $scope.categories.length; i++){
+                $scope.categories[i].hidden = false;
+            }
         };
 
         $scope.clearSearch = function () {
@@ -235,7 +247,7 @@
                     $scope.globalGoodMessage = 'Imported ' + response.data.imported + ' record(s), reloading...';
                     var interval = $interval(function () {
                         $interval.cancel(interval);
-                        $location.path('/login');
+                        $window.location.reload();
                     }, 1500);
                 });
         };
@@ -246,7 +258,7 @@
 
     angular.module('bookmarksApp')
         .controller('bookmarkViewController',
-        ['$scope', '$location', '$http', 'userService', 'bookmarkService', 'sessionService', '$interval', '$timeout',
+        ['$scope', '$location', '$http', 'userService', 'bookmarkService', 'sessionService', '$interval', '$timeout', '$window',
             bookmarkViewController]);
 
 }());

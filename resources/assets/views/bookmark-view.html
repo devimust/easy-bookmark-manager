@@ -11,6 +11,32 @@
 
     <div class="col-md-3">
 
+        <div class="panel panel-primary categories">
+            <div class="panel-heading">Categories</div>
+
+            <ul class="list-group text-primary">
+                <li ng-repeat="category in categories"
+                    class="list-group-item click-item"
+                    ng-click="toggleCategory(category)"
+                    ng-class="{'li-item-selected': category.selected,'li-hidden': category.hidden}">
+                    {{category.name}}
+                    <span class="badge">{{category.count}}</span>
+                </li>
+
+                <li class="list-group-item click-item text-center"
+                    ng-class="{'li-hidden': !showDetails}"
+                    ng-init="showDetails = true"
+                    ng-if="categories.length > 5"
+                    ng-click="loadMore(this); showDetails = !showDetails;">
+                    load more...
+                </li>
+
+                <li class="list-group-item" ng-if="categories.length === 0">
+                    No items found
+                </li>
+            </ul>
+        </div>
+
         <div class="panel panel-primary">
             <div class="panel-heading">Tags</div>
 
@@ -29,34 +55,16 @@
             </div>
         </div>
 
-        <div class="panel panel-primary categories">
-            <div class="panel-heading">Categories</div>
-
-            <ul class="list-group text-primary">
-                <li ng-repeat="category in categories"
-                    class="list-group-item click-item"
-                    ng-click="toggleCategory(category)"
-                    ng-class="{'li-item-selected': category.selected}">
-                    <span class="badge">{{category.count}}</span>
-                    {{category.name}}
-                </li>
-
-                <li class="list-group-item" ng-if="categories.length === 0">
-                    No items found
-                </li>
-            </ul>
-        </div>
-
         <div class="panel">
             <p>
                 <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="newBookmark()">New Bookmark</a>
 
-                <!--<span class="btn btn-sm btn-primary btn-file btn-block">-->
-                    <!--Import Bookmarks <input type="file" name="bookmarkfile"-->
-                                            <!--onchange="angular.element(this).scope().uploadFile(this.files)"-->
-                                            <!--role="button"/>-->
-                    <!--<i class="fa fa-spinner fa-pulse fa-lg" ng-if="busyImporting"></i>-->
-                <!--</span>-->
+                <span class="btn btn-sm btn-primary btn-file btn-block">
+                    Import Bookmarks <input type="file" name="bookmarkfile"
+                                            onchange="angular.element(this).scope().uploadFile(this.files)"
+                                            role="button"/>
+                    <i class="fa fa-spinner fa-pulse fa-lg" ng-if="busyImporting"></i>
+                </span>
 
                 <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="editUser()">Update User</a>
 

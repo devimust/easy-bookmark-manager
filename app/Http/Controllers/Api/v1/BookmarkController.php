@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use Auth;
 use DB;
+use App\Bookmark;
 use Illuminate\Http\Request;
 
 use App;
@@ -155,6 +156,7 @@ class BookmarkController extends Controller
             ->join('bookmark_tag', 'tags.id', '=', 'bookmark_tag.tag_id')
             ->select('name', DB::raw('COUNT(name) as count'))
             ->where('user_id', '=', Auth::id())
+            ->where('name', '<>', '')
             ->groupBy('name')
             ->get();
 
@@ -177,6 +179,7 @@ class BookmarkController extends Controller
         $categories = DB::table('bookmarks')
             ->select('category as name', DB::raw('COUNT(category) as count'))
             ->where('user_id', '=', Auth::id())
+            ->where('category', '<>', '')
             ->groupBy('category')
             ->orderBy('count', 'desc')
             ->get();
@@ -293,6 +296,130 @@ class BookmarkController extends Controller
     }
 
     /**
+     * Import bookmarks via a file POST method containing chrome-exported html
+     * bookmark data.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function import(Request $request) {
+        if (
+            !$request->hasFile('bookmarkfile') ||
+            !$request->file('bookmarkfile')->isValid()
+        ) {
+            return [
+                'result' => 'error',
+                'message' => 'There was a problem with uploading the file.'
+            ];
+        }
+
+        $fileObject = $request->file('bookmarkfile');
+
+        $file = $fileObject->getRealPath();
+
+        $count = 0;
+
+        switch ($fileObject->getClientOriginalExtension()) {
+            case 'html' :
+                $count = $this->importHtml($file);
+                break;
+            case 'json' :
+                $count = $this->importJson($file);
+                break;
+        }
+
+        return [
+            'result' => 'ok',
+            'message' => '',
+            'data' => [
+                'imported' => $count
+            ]
+        ];
+    }
+
+    /**
+     * Import json file type as exported by application.
+     *
+     * @param $file
+     * @return int
+     */
+    private function importJson($file) {
+        $data = file_get_contents($file);
+        $importObject = json_decode($data);
+
+        if (!isset($importObject->bookmarks)) {
+            return 0;
+        }
+
+        $count = 0;
+
+        foreach ($importObject->bookmarks as $bookmark) {
+
+            $tagIds = [];
+
+            foreach ($bookmark->tags as $tagString) {
+                $tag = Auth::user()
+                    ->tags()
+                    ->where('name', '=', $tagString)
+                    ->first();
+                if (!$tag) {
+                    $tag = Auth::user()
+                        ->tags()
+                        ->create([ 'name' => $tagString ]);
+                }
+                $tagIds[] = $tag->id;
+            }
+
+            Auth::user()->bookmarks()->create([
+                'title'      => $bookmark->title,
+                'link'       => $bookmark->link,
+                'category'   => $bookmark->category,
+                'favourite'  => $bookmark->favourite,
+                'snippet'    => isset($bookmark->snippet) ? $bookmark->snippet : '',
+                'icon'       => $bookmark->icon,
+                'created_at' => $bookmark->created,
+                'updated_at' => $bookmark->modified
+            ])->tags()->attach($tagIds);
+
+            $count++;
+
+        }
+        return $count;
+    }
+
+    /**
+     * Import html (xml) file type.
+     *
+     * @param $file
+     * @return int
+     */
+    private function importHtml($file) {
+        // check if file is valid xml
+        $xml = new \XMLReader;
+        $xml->open($file);
+        $xml->setParserProperty(\XMLReader::VALIDATE, true);
+        if (!$xml->isValid()) {
+            return 0;
+        }
+
+        $doc = @\DOMDocument::loadHTMLFile($file);
+        $count = 0;
+        foreach ($doc->getElementsByTagName('a') as $node) {
+            Auth::user()->bookmarks()->create([
+                'title'         => $node->nodeValue,
+                'link'          => $node->getAttribute("href"),
+                'category'      => 'Unsorted',
+                'favourite'     => false,
+                'icon'          => $node->getAttribute("icon"),
+                'created_at'    => $node->getAttribute("add_date"),
+                'updated_at'    => $node->getAttribute("add_date")
+            ]);
+            $count++;
+        }
+        return $count;
+    }
+
+    /**
      * Build up json format structure.
      *
      * @param App\Bookmark $bookmark
@@ -359,5 +486,48 @@ class BookmarkController extends Controller
             }
             $bookmark->tags()->attach($tag->id);
         }
+    }
+
+    /**
+     * Check how many duplicates exist of a potential new bookmark. We match by
+     * the bookmark title as the link might contain multiple domains e.g. stackoverflow.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function duplicates(Request $request) {
+        if ($request->input('title') == '') {
+            return [
+                'result' => 'ok',
+                'message' => ''
+            ];
+        }
+
+        $collection = Auth::user()
+            ->bookmarks()
+            ->select('title', 'link', DB::raw('COUNT(*) as total'))
+            ->where('title', '=', $request->input('title'))
+            ->groupBy('title', 'link')
+            ->get();
+
+        $data = [];
+        $total = 0;
+
+        foreach ($collection as $bookmark) {
+            $data[] = [
+                'link' => $bookmark->link,
+                'title' => $bookmark->title
+            ];
+            $total++;
+        }
+
+        return [
+            'result' => 'ok',
+            'message' => '',
+            'data' => [
+                'totalCount' => $total,
+                'bookmarks' => $data
+            ]
+        ];
     }
 }

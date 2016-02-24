@@ -128,8 +128,12 @@
                 <strong>Success!</strong> {{ goodMessage }}
             </div>
 
-            <div class="alert alert-warning" role="alert" ng-if="duplicateDomains > 0">
-                <strong>Warning</strong> the domain found in the Link has been used {{ duplicateDomains }} time(s)
+            <div class="alert alert-warning" role="alert" ng-if="duplicates.length > 0">
+
+                <strong>Warning</strong> {{ duplicates.length }} duplicates found:
+                <ul>
+                    <li ng-repeat="dup in duplicates"> <a href="{{ dup.link }}" target="_blank">{{ dup.title }}</a></li>
+                </ul>
             </div>
 
             <div>

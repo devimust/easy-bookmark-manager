@@ -13,7 +13,7 @@
         $scope.categories = [];
         $scope.busyWithAction = false;
         $scope.openFromWindow = false;
-        $scope.duplicateDomains = 0;
+        $scope.duplicates = [];
 
         $scope.bookmark = {
             favourite: false,
@@ -110,6 +110,16 @@
                                 var snippet = $scope.bookmark.snippet || '';
                                 if (snippet !== '') {
                                     $scope.canViewSnippet = true;
+                                }
+                            });
+                    } else {
+                        bookmarkService
+                            .checkDuplicates($scope.bookmark)
+                            .then(function (response) {
+                                if (response.result == 'ok') {
+                                    if (typeof response.data !== 'undefined') {
+                                        $scope.duplicates = response.data.bookmarks;
+                                    }
                                 }
                             });
                     }

@@ -102,10 +102,10 @@
             },
 
             importBookmarks: function (data) {
-                var user = userService.getModel();
+                //var user = userService.getModel();
 
                 return $http
-                    .post(API_URL + 'bookmark/import?' + $.param(user), data, {
+                    .post(API_URL + 'bookmarks/import?', data, { //$.param(user), data, {
                         withCredentials: true,
                         headers: {'Content-Type': undefined},
                         transformRequest: angular.identity

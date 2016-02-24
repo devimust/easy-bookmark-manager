@@ -47,4 +47,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Bookmark');
     }
+
+    /**
+     * Get the bookmarks for the tag.
+     */
+    public function tags()
+    {
+        return $this->hasMany('App\Tag');
+    }
 }
