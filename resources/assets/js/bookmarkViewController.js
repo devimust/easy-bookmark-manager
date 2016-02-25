@@ -114,17 +114,22 @@
         };
 
         $scope.calculateMaxCloudTagValue = function () {
-            $scope.maxCloudTagValue = 0;
-            for (var i in $scope.tags) {
-                if ($scope.tags[i].count > $scope.maxCloudTagValue) {
+            for (var i=0; i<$scope.tags.length; i++) {
+                if (parseInt($scope.tags[i].count) > parseInt($scope.maxCloudTagValue)) {
                     $scope.maxCloudTagValue = $scope.tags[i].count;
                 }
             }
         };
 
         $scope.getCloudClass = function (tag) {
-            var maxVal = 10;
+            // Return more readable size if there are not many tags.
+            if ($scope.tags.length < 6) {
+                return 'tag1';
+            }
+
+            var maxVal = 5;
             var num = Math.ceil(tag.count * maxVal / $scope.maxCloudTagValue);
+
             return 'tag' + num;
         };
 
@@ -158,7 +163,6 @@
 
         $scope.logout = function () {
             $window.location = '/auth/logout';
-            //$location.path('/auth/logout');
         };
 
         $scope.nextPage = function () {

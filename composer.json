@@ -31,13 +31,8 @@
         ]
     },
     "scripts": {
-        "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "php artisan key:generate"
-        ],
         "post-install-cmd": [
+            "[ ! -f .env ] && php -r \"copy('.env.example', '.env');\" && php artisan key:generate || echo 'Found .env file!'",
             "php artisan clear-compiled",
             "php artisan optimize"
         ],

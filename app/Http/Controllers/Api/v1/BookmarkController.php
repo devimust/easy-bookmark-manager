@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Mockery\CountValidator\Exception;
 
 class BookmarkController extends Controller
 {
@@ -78,9 +79,9 @@ class BookmarkController extends Controller
         $totalCount = $collection->count();
 
         // Ensure page count starts at 0
-        $pageNr--;
+        $skip = ($pageNr-1) * $limit;
         $collection = $collection
-            ->skip($pageNr)
+            ->skip($skip)
             ->take($limit)
             ->orderBy('bookmarks.updated_at', 'desc')
             ->get();
@@ -392,7 +393,7 @@ class BookmarkController extends Controller
      * @return int
      */
     private function importJson($file) {
-        $data = file_get_contents($file);
+        $data = @file_get_contents($file);
         $importObject = json_decode($data);
 
         if (!isset($importObject->bookmarks)) {
@@ -640,15 +641,19 @@ class BookmarkController extends Controller
         if (empty($link)) {
             return '';
         }
-        $str = file_get_contents($link);
-        if (strlen($str) == 0) {
+        try {
+            $str = @file_get_contents($link);
+            if (strlen($str) == 0) {
+                return '';
+            }
+            $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+            preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title); // ignore case
+            if (count($title) <= 1) {
+                return '';
+            }
+            return $title[1];
+        } catch (Exception $e) {
             return '';
         }
-        $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
-        preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title); // ignore case
-        if (count($title) <= 1) {
-            return '';
-        }
-        return $title[1];
     }
 }

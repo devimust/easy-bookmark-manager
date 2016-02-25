@@ -22,13 +22,6 @@ class DatabaseSeeder extends Seeder
             'administrator' => true
         ]);
 
-        User::create([
-            'name'          => 'John Doe',
-            'username'      => 'john',
-            'password'      => Hash::make('john'),
-            'administrator' => false
-        ]);
-
         if (file_exists(dirname(__FILE__) . '/import.json')) {
             $data = file_get_contents(dirname(__FILE__) . '/import.json');
             $importObject = json_decode($data);
@@ -43,8 +36,8 @@ class DatabaseSeeder extends Seeder
                     $tag = Tag::where('name', '=', $tagString)->first();
                     if (!$tag) {
                         $tag = Tag::create([
-                            'name'          => $tagString,
-                            'user_id'       => 1
+                            'name' => $tagString,
+                            'user_id' => 1
                         ]);
                     }
                     $tagIds[] = $tag->id;

@@ -143,89 +143,11 @@ class UserController extends Controller
 
         $user->save();
 
-//        $userData = [
-//            'name' => $user->name,
-//            'email' => $user->username
-//        ];
-
         return [
             'result' => 'ok',
             'message' => ''
         ];
     }
-
-//    /**
-//     * Check if token is valid for current user.
-//     *
-//     * @param Request $request
-//     */
-//    public function token(Request $request) {
-//        $token = $request->input('token');
-//
-//        // Check if token is not empty
-//        if ($token == '') {
-//            return [
-//                'result' => 'error',
-//                'message' => 'The token is invalid.'
-//            ];
-//        }
-//
-//        $userToken = \App\UserToken::where('token', $token)
-//            ->where('expires_at', '>', \Carbon\Carbon::now())
-//            ->first();
-//
-//        // Token does not exist
-//        if (!$userToken) {
-//            return [
-//                'result' => 'error',
-//                'message' => 'The token is invalid or has expired.'
-//            ];
-//        }
-//
-//        // Refresh current token expiry timestamp
-//        $userToken->update([
-//            'expires_at' => \Carbon\Carbon::now()->addSeconds(self::$session_expiry)
-//        ]);
-//
-//        // Clean up expired tokens
-//        foreach ($userToken
-//                     ->user
-//                     ->tokens()
-//                     ->where('expires_at', '<', \Carbon\Carbon::now())
-//                     ->get() as $tokenObject) {
-//            $tokenObject->delete();
-//        }
-//
-//        // At this point we are happy that the user has a valid token
-//        return [
-//            'result' => 'ok',
-//            'message' => ''
-//        ];
-//    }
-//
-//    /**
-//     * Generate unique token.
-//     *
-//     * @return string
-//     */
-//    private function generateToken() {
-//        $uuid4 = Uuid::uuid4();
-//
-//        return $uuid4->toString();
-//    }
-//
-//    /**
-//     * Associate usertoken with user model.
-//     *
-//     * @param $token
-//     */
-//    private function associateToken($token) {
-//        \App\UserToken::create([
-//            'token' => $token,
-//            'user_id' => Auth::id(),
-//            'expires_at' => \Carbon\Carbon::now()->addSeconds(self::$session_expiry)
-//        ]);
-//    }
 
     /**
      * Log the user in if logged in.

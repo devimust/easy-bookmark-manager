@@ -4,7 +4,7 @@
 
     <div class='col-lg-4 col-lg-offset-4'>
 
-        <h1><i class='fa fa-user'></i> Edit User <a href="/admin/users" class="btn btn-default pull-right">Back</a></h1>
+        <h1>Edit User <a href="/admin/users" class="btn btn-default pull-right">Back</a></h1>
 
         {{ Form::model($user, ['role' => 'form', 'url' => '/admin/user/' . $user->id, 'method' => 'PUT']) }}
 

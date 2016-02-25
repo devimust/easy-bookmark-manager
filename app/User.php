@@ -33,14 +33,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the tokens for the user.
-     */
-    public function tokens()
-    {
-        return $this->hasMany('App\UserToken');
-    }
-
-    /**
      * Get the bookmarks for the user.
      */
     public function bookmarks()
