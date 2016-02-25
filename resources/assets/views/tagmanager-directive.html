@@ -1,11 +1,10 @@
 <div class="tags ">
-	<a ng-repeat="(idx, tag) in tags track by $index" class="tag" ng-click="remove(idx)">
-		{{tag}}
-	</a>
+    <a ng-repeat="(idx, tag) in tags track by $index" class="tag" ng-click="remove(idx)">
+        {{tag}}
+    </a>
 
-	<input type="text" placeholder="Add a tag..."
-				 ng-model="new_value"
-				 ng-blur="add()"
-				 ng-keyup="$event.keyCode == 13 && add()"
-		>
+    <input type="text" placeholder="Add a tag..."
+           ng-model="new_value"
+           ng-blur="add()"
+           ng-keyup="$event.keyCode == 13 && add()">
 </div>

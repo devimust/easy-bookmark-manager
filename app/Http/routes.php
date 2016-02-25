@@ -24,8 +24,9 @@ Route::group(['prefix' => 'api/v1/', 'middleware' => ['web']], function () {
 Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function () {
 
     Route::get('bookmarks', 'Api\v1\BookmarkController@index');
-    Route::put('bookmark/create', 'Api\v1\BookmarkController@create');
+    Route::post('bookmark/create', 'Api\v1\BookmarkController@create');
     Route::get('bookmark/{id}', 'Api\v1\BookmarkController@edit');
+//    Route::get('bookmark/{id}/tags', 'Api\v1\BookmarkController@bookmarkTags');
     Route::put('bookmark/{id}', 'Api\v1\BookmarkController@update');
     Route::delete('bookmark/{id}', 'Api\v1\BookmarkController@delete');
     Route::post('bookmarks/import', 'Api\v1\BookmarkController@import');
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function 
 
     Route::get('bookmarks/categories-and-tags', 'Api\v1\BookmarkController@categoriesAndTags');
     Route::get('categories', 'Api\v1\BookmarkController@categories');
+    Route::get('tags', 'Api\v1\BookmarkController@tags');
 
     Route::get('user', 'Api\v1\UserController@edit');
     Route::put('user', 'Api\v1\UserController@update');

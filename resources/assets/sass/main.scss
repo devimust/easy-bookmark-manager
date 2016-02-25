@@ -14,8 +14,6 @@
 
 .li-item-selected {
   font-weight: bold;
-  /*background-color: chocolate;*/
-  /*color: red;*/
 }
 
 .click-item {
@@ -65,7 +63,7 @@
   height : 200px;
 }
 
-#searchclear {
+#search-clear {
   position: absolute;
   right: 10px;
   top: 0;
@@ -75,10 +73,6 @@
   font-size: 18px;
   cursor: pointer;
   color: #bbb;
-}
-
-div.categories ul li.list-group-item {
-  xxpadding: 4px 5px;
 }
 
 .li-hidden {

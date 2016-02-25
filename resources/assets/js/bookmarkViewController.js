@@ -23,29 +23,20 @@
         $scope.globalGoodMessage = '';
 
         var filterTextTimeout;
-        //$scope.user = userService.getModel();
         var session = sessionService.getModel();
 
         $scope.search = session.search;
         $scope.bookmarkResults.page = session.pageNo;
 
-        //if ($scope.user.userId === '' || $scope.user.userToken === '') {
-        //    $location.path('/login');
-        //    return false;
-        //}
-
         this.run = function () {
 
             userService
-                //.checkAuthToken()
                 .checkLoginStatus()
                 .then(function (response) {
-
                     $scope.errorMessage = '';
                     if (response.result != 'ok') {
                         $scope.globalErrorMessage = response.message;
-                        //$location.path('/logout');
-                        window.location = '/login';
+                        $window.location = '/login';
                         return;
                     }
 
@@ -166,7 +157,8 @@
         };
 
         $scope.logout = function () {
-            $location.path('/logout');
+            $window.location = '/auth/logout';
+            //$location.path('/auth/logout');
         };
 
         $scope.nextPage = function () {
@@ -202,29 +194,6 @@
                 win.focus();
             } else {
                 $scope.editBookmark(event, bookmark);
-            }
-        };
-
-        $scope.resetAuthToken = function () {
-            if (confirm("Are you sure you want to reset the auth token?") === true) {
-                $scope.globalErrorMessage = '';
-                $scope.globalGoodMessage = '';
-                userService
-                    .resetAuthToken()
-                    .then(function (response) {
-                        $scope.errorMessage = '';
-                        if (response.result != 'ok') {
-                            $scope.globalErrorMessage = response.message;
-                            return;
-                        }
-                        $scope.globalGoodMessage = 'Token reset...';
-                        userService.clearModel();
-                        //window.location.reload();
-                        var interval = $interval(function () {
-                            $interval.cancel(interval);
-                            $location.path('/login');
-                        }, 1500);
-                    });
             }
         };
 

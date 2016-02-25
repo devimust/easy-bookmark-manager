@@ -60,16 +60,15 @@
                 <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="newBookmark()">New Bookmark</a>
 
                 <span class="btn btn-sm btn-primary btn-file btn-block">
-                    Import Bookmarks <input type="file" name="bookmarkfile"
-                                            onchange="angular.element(this).scope().uploadFile(this.files)"
-                                            role="button"/>
+                    Import Bookmarks
+
+                    <input type="file" name="bookmarkfile" role="button"
+                        onchange="angular.element(this).scope().uploadFile(this.files)"
+                        />
                     <i class="fa fa-spinner fa-pulse fa-lg" ng-if="busyImporting"></i>
                 </span>
 
                 <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="editUser()">Update User</a>
-
-                <!--<a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="resetAuthToken()">Reset Auth-->
-                    <!--Token</a>-->
 
                 <a href class="btn btn-sm btn-default btn-block" role="button" ng-click="logout()">Logout</a>
             </p>
@@ -80,15 +79,10 @@
     <div class="col-md-9">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <!--<div class="input-group">-->
                 <div class="has-feedback">
-                    <input id="searchText" class="form-control" ng-model="search" type="text" placeholder="Refine search" autofocus
-                           ng-keyup="searchKeyUp(search)">
-                    <span id="searchclear" class="glyphicon glyphicon-remove-circle" ng-click="clearSearch()"></span>
-
-                    <!--<a href ng-click="search = ''" class="form-control-feedback text-primary">-->
-                    <!--	<span class="glyphicon glyphicon-remove">xxx</span>-->
-                    <!--</a>-->
+                    <input id="searchText" class="form-control" ng-model="search" type="text" placeholder="Refine search"
+                           autofocus ng-keyup="searchKeyUp(search)">
+                    <span id="search-clear" class="glyphicon glyphicon-remove-circle" ng-click="clearSearch()"></span>
                 </div>
             </div>
 
@@ -99,9 +93,7 @@
 
                 <div
                         class="bs-callout bs-callout-primary custom-bs-callout"
-                        ng-repeat="bookmark in filteredBookmarks = (
-                                        bookmarks | filter:query
-                                    )"
+                        ng-repeat="bookmark in filteredBookmarks = ( bookmarks | filter:query )"
                         ng-click="gotoBookmark($event, bookmark)"
                         ng-class="{ 'bg-success': bookmark.favourite }">
                     <div>

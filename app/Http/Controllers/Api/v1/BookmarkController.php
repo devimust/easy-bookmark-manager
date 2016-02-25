@@ -154,7 +154,7 @@ class BookmarkController extends Controller
     public function tags(Request $request) {
         $tags = DB::table('tags')
             ->join('bookmark_tag', 'tags.id', '=', 'bookmark_tag.tag_id')
-            ->select('name', DB::raw('COUNT(name) as count'))
+            ->select('name', DB::raw('COUNT(name) AS count'))
             ->where('user_id', '=', Auth::id())
             ->where('name', '<>', '')
             ->groupBy('name')
@@ -169,6 +169,42 @@ class BookmarkController extends Controller
         ];
     }
 
+//    /**
+//     * Return list of tags for a specified bookmark id.
+//     *
+//     * @return array
+//     */
+//    public function bookmarkTags(Request $request, $id) {
+//        $tags = DB::table('tags')
+//            ->select('name', 'bookmark_id')
+//            ->leftJoin('bookmark_tag', function ($join) use ($id) {
+//                $join
+//                    ->on('tags.id', '=', 'bookmark_tag.tag_id')
+//                    ->where('bookmark_tag.bookmark_id', '=', $id);
+//            })
+//            ->where('user_id', '=', Auth::id())
+//            ->orderBy('name', 'ASC')
+//            ->get();
+//
+//        $tagData = [];
+//
+//        foreach ($tags as $tag) {
+//            $tagData[] = [
+//                'name' => $tag->name,
+//                'selected' => $tag->bookmark_id == '' ? false : true
+//            ];
+//        }
+//
+//        return [
+//            'result' => 'ok',
+//            'message' => '',
+//            'data' => [
+//                'tags' => $tagData
+//            ]
+//        ];
+//    }
+
+
     /**
      * Return list of categories.
      *
@@ -177,11 +213,11 @@ class BookmarkController extends Controller
     public function categories(Request $request) {
         // Get list of categories
         $categories = DB::table('bookmarks')
-            ->select('category as name', DB::raw('COUNT(category) as count'))
+            ->select('category as name', DB::raw('COUNT(category) AS count'))
             ->where('user_id', '=', Auth::id())
             ->where('category', '<>', '')
             ->groupBy('category')
-            ->orderBy('count', 'desc')
+            ->orderBy('count', 'DESC')
             ->get();
 
         return [
@@ -227,6 +263,11 @@ class BookmarkController extends Controller
     public function create(Request $request) {
         $bookmark = Auth::user()->bookmarks()->create($request->all());
 
+        if ($bookmark->icon == '' && $bookmark->link != '') {
+            $bookmark->icon = self::getSiteFavicon($bookmark->link);
+            $bookmark->save();
+        }
+
         $this->syncTags($bookmark, $request->input('tags'));
 
         return [
@@ -257,7 +298,14 @@ class BookmarkController extends Controller
 
         $bookmark->update($request->all());
 
-        $this->syncTags($bookmark, $request->input('tags'));
+        if ($bookmark->icon == '' && $bookmark->link != '') {
+            $bookmark->icon = self::getSiteFavicon($bookmark->link);
+            $bookmark->save();
+        }
+
+        $tags = $request->input('tags') != '' ? $request->input('tags') : [];
+
+        $this->syncTags($bookmark, $tags);
 
         return [
             'result' => 'ok',
@@ -406,13 +454,13 @@ class BookmarkController extends Controller
         $count = 0;
         foreach ($doc->getElementsByTagName('a') as $node) {
             Auth::user()->bookmarks()->create([
-                'title'         => $node->nodeValue,
-                'link'          => $node->getAttribute("href"),
-                'category'      => 'Unsorted',
-                'favourite'     => false,
-                'icon'          => $node->getAttribute("icon"),
-                'created_at'    => $node->getAttribute("add_date"),
-                'updated_at'    => $node->getAttribute("add_date")
+                'title'      => $node->nodeValue,
+                'link'       => $node->getAttribute("href"),
+                'category'   => 'Unsorted',
+                'favourite'  => false,
+                'icon'       => $node->getAttribute("icon"),
+                'created_at' => $node->getAttribute("add_date"),
+                'updated_at' => $node->getAttribute("add_date")
             ]);
             $count++;
         }
@@ -426,6 +474,33 @@ class BookmarkController extends Controller
      * @return array
      */
     private function buildBookmark(App\Bookmark $bookmark) {
+//        $tags = [];
+//        foreach ($bookmark->tags()->get() as $tag) {
+//            $tags[] = $tag->name;
+//        }
+
+        $bookmarkId = $bookmark->id;
+
+//        $tags = DB::table('tags')
+//            ->select('name', 'bookmark_id')
+//            ->leftJoin('bookmark_tag', function ($join) use ($bookmarkId) {
+//                $join
+//                    ->on('tags.id', '=', 'bookmark_tag.tag_id')
+//                    ->where('bookmark_tag.bookmark_id', '=', $bookmarkId);
+//            })
+//            ->where('user_id', '=', Auth::id())
+//            ->orderBy('name', 'ASC')
+//            ->get();
+//
+//        $tagData = [];
+//
+//        foreach ($tags as $tag) {
+//            $tagData[] = [
+//                'name' => $tag->name,
+//                'selected' => $tag->bookmark_id == '' ? false : true
+//            ];
+//        }
+
         $tags = [];
         foreach ($bookmark->tags()->get() as $tag) {
             $tags[] = $tag->name;
@@ -529,5 +604,51 @@ class BookmarkController extends Controller
                 'bookmarks' => $data
             ]
         ];
+    }
+
+
+    /**
+     * Retrieve favicon via google of target url
+     *
+     * @param $url
+     * @return string
+     */
+    public static function getSiteFavicon($link) {
+        if (empty($link)) {
+            return '';
+        }
+        $ch = curl_init('http://www.google.com/s2/favicons?domain=' . $link);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        if ($data == '') {
+            return '';
+        }
+        $base64 = 'data:image/png;base64,' . base64_encode($data);
+        return $base64;
+    }
+
+    /**
+     * Retrieve title of target link.
+     *
+     * @param $link
+     * @return string
+     */
+    public static function getSiteTitle($link) {
+        if (empty($link)) {
+            return '';
+        }
+        $str = file_get_contents($link);
+        if (strlen($str) == 0) {
+            return '';
+        }
+        $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+        preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title); // ignore case
+        if (count($title) <= 1) {
+            return '';
+        }
+        return $title[1];
     }
 }

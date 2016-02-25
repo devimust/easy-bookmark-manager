@@ -13,15 +13,7 @@
             theme: '',
             password1: '',
             password2: ''
-            //passwordOld: ''
         };
-
-        //var user = userService.getModel();
-        //
-        //if (user.userId === '' || user.userToken === '') {
-        //  $location.path('/login');
-        //  return false;
-        //}
 
         var theme = localStorage.getItem('theme') || 'bootstrap-yeti';
         $scope.profile.theme = theme;
@@ -59,10 +51,6 @@
                     $scope.errorMessage = 'Both passwords must match';
                     return;
                 }
-                //if ($scope.profile.password1 == $scope.profile.passwordOld) {
-                //    $scope.errorMessage = 'Your old and new passwords are the same';
-                //    return;
-                //}
             }
 
             $scope.busyWithAction = true;
@@ -78,7 +66,6 @@
                     $scope.goodMessage = 'Details updated.';
                     $scope.profile.password1 = '';
                     $scope.profile.password2 = '';
-                    //$scope.profile.passwordOld = '';
                 });
         };
 

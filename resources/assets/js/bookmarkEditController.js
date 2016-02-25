@@ -22,70 +22,13 @@
             snippet: '',
             category: '',
             tags: []
-            //window: $routeParams.window || 0
         };
-
-
-        $scope.multipleOptionsArray = [
-            { key: "1", value: "One" },
-            { key: "2", value: "Two" },
-            { key: "3", value: "Three", selected: true },
-            { key: "4", value: "Four" },
-        ];
-        $scope.queryOptions = {
-            query: function (query) {
-                query.callback({
-                    results: [
-                        { id: "1", text: "A" },
-                        { id: "2", text: "B" }
-                    ]
-                });
-                //console.log('in here');
-                //
-                //var data = {
-                //    results: [
-                //        { id: "1", text: "A" },
-                //        { id: "2", text: "B" }
-                //    ]
-                //};
-                //
-                //query.callback(data);
-            },
-            tags: true,
-            placeHolder: 'hello myself'
-
-        };
-        $scope.xxx = '';
-        $scope.selectData = [
-            { id: "1", text: "A" },
-            { id: "2", text: "B" }
-        ];
-
-        //var user = userService.getModel();
-
-        //if ($routeParams.window == 1) {
-        //    $scope.openFromWindow = true;
-        //} else {
-        //    //$scope.canViewSnippet = true;
-        //}
-
-        //if (user.userId === '' || user.userToken === '') {
-        //	//window.location.href.split("#")[1]);
-        //	if ($location.path() === '/bookmark/add') {
-        //		localStorage.setItem('gotoAddAfterLogin', true);
-        //	}
-        //	$location.path('/login');
-        //	return false;
-        //}
 
         this.run = function () {
 
             $scope.checkStatus();
 
-
-
             userService
-                //.checkAuthToken()
                 .checkLoginStatus()
                 .then(function (response) {
                     bookmarkService
@@ -96,23 +39,7 @@
                             }
                         });
 
-                    if (!$scope.newItem) {
-                        bookmarkService
-                            .fetchBookmark($routeParams.bookmarkId || '')
-                            .then(function (response) {
-                                $scope.globalErrorMessage = '';
-                                if (response.result != 'ok') {
-                                    $scope.globalErrorMessage = response.message;
-                                    return;
-                                }
-                                $scope.viewReady = true;
-                                $scope.bookmark = response.data.bookmark;
-                                var snippet = $scope.bookmark.snippet || '';
-                                if (snippet !== '') {
-                                    $scope.canViewSnippet = true;
-                                }
-                            });
-                    } else {
+                    if ($scope.newItem) {
                         bookmarkService
                             .checkDuplicates($scope.bookmark)
                             .then(function (response) {
@@ -122,16 +49,28 @@
                                     }
                                 }
                             });
+                    } else {
+                        bookmarkService
+                            .fetchBookmark($routeParams.bookmarkId || '')
+                            .then(function (response) {
+                                $scope.globalErrorMessage = '';
+                                if (response.result != 'ok') {
+                                    $scope.globalErrorMessage = response.message;
+                                    $scope.viewReady = false;
+                                    return;
+                                }
+
+                                $scope.bookmark = response.data.bookmark;
+                                var snippet = $scope.bookmark.snippet || '';
+                                if (snippet !== '') {
+                                    $scope.canViewSnippet = true;
+                                }
+
+                            });
+
                     }
 
                     $scope.viewReady = true;
-
-                    //console.log('in here');
-
-                    //$('#my-multi1').select2({
-                    //    palceholder: 'Pleeasese choose a tag',
-                    //    tags: true
-                    //});
 
                 });
         };

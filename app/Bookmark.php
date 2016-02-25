@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\Api\v1\BookmarkController;
 use Illuminate\Database\Eloquent\Model;
 
 class Bookmark extends Model
@@ -67,5 +68,21 @@ class Bookmark extends Model
     public function getFavouriteAttribute($value)
     {
         return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
+     * Update bookmark title if title is empty and link exist.
+     *
+     * @param array $attributes
+     * @return $this
+     */
+    public function fill(array $attributes)
+    {
+        $title = isset($attributes['title']) ? $attributes['title'] : '';
+        $link = isset($attributes['link']) ? $attributes['link'] : '';
+        if (isset($attributes['title']) && $title == '' && $link != '') {
+            $attributes['title'] = BookmarkController::getSiteTitle($link);
+        }
+        return parent::fill($attributes);
     }
 }

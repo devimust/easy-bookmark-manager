@@ -44,11 +44,8 @@
 
                 <div class="col-sm-10" ng-if="canViewSnippet">
                     <section>
-                        <div ng-model="bookmark.snippet" ui-ace="{
-      useWrapMode : true,
-      showGutter: false,
-      theme:'twilight'
-    }"></div>
+                        <div ng-model="bookmark.snippet"
+                             ui-ace="{ useWrapMode : true, showGutter: false, theme:'twilight' }"></div>
                     </section>
                 </div>
 
@@ -74,51 +71,26 @@
                          title-field="name"
                          minlength="1"
                          input-class="form-control"
-                         match-class="highlight"
-                            ></div>
-                    <!--<input type="text" class="form-control" ng-model="bookmark.category" id="inputCategory" placeholder="Category">-->
+                         match-class="highlight"></div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputTags" class="col-sm-2 control-label">Tags</label>
+                <label for="inputTags2" class="col-sm-2 control-label">Tags 2</label>
 
                 <div class="col-sm-10">
-                    <tag-manager tags="bookmark.tags"></tag-manager>
+                    <span class="loading-tags">loading tags...</span>
+
+                    <select custom-select-2
+                            id="tagsSelect2"
+                            multiple
+                            tagsattribute="bookmark.tags"
+                            newitemattribute="newItem"
+                            style="width: 100%"
+                            ng-model="bookmark.tags"
+                            class="hidden"></select>
                 </div>
             </div>
-
-            <!--<div class="form-group">-->
-                <!--<label for="inputTags2" class="col-sm-2 control-label">Tags 2</label>-->
-
-                <!--<div class="col-sm-10">-->
-
-                    <!--&lt;!&ndash;<select2 multiple&ndash;&gt;-->
-                            <!--&lt;!&ndash;ng-model="xxx"&ndash;&gt;-->
-                            <!--&lt;!&ndash;s2-options="id as name for (id, name) in multipleOptions"&ndash;&gt;-->
-                            <!--&lt;!&ndash;options="queryOptions">&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select2>&ndash;&gt;-->
-
-                    <!--<select custom-select-2 style="width: 100%" tags="bookmark.tags" multiple>-->
-                        <!--&lt;!&ndash;<option ng-repeat="tag in bookmark.tags" selected="selected">&ndash;&gt;-->
-                            <!--&lt;!&ndash;{{ tag }}&ndash;&gt;-->
-                        <!--&lt;!&ndash;</option>&ndash;&gt;-->
-                    <!--</select>-->
-
-                    <!--&lt;!&ndash;<selectc xxng-model="bookmark.tags">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>Peter</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>Pan</option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<select id="inputTags2" class="js-example-tags form-control" multiple="" tabindex="-1">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option selected="selected">orange</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>white</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option selected="selected">purple</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option value="red">red</option><option value="blue">blue</option><option value="green">green</option><option value="someone" data-select2-tag="true">someone</option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-
-                <!--</div>-->
-            <!--</div>-->
 
             <div class="alert alert-danger" role="alert" ng-show="errorMessage">
                 <strong>Oh snap!</strong> {{ errorMessage }}
@@ -129,8 +101,8 @@
             </div>
 
             <div class="alert alert-warning" role="alert" ng-if="duplicates.length > 0">
-
                 <strong>Warning</strong> {{ duplicates.length }} duplicates found:
+
                 <ul>
                     <li ng-repeat="dup in duplicates"> <a href="{{ dup.link }}" target="_blank">{{ dup.title }}</a></li>
                 </ul>

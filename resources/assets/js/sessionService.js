@@ -1,38 +1,38 @@
 (function () {
 
-	var sessionService = function () {
+    var sessionService = function () {
 
-		var service = {
+        var service = {
 
-			model: {
-				theme: '',
-				search: '',
-				pageNo: 1
-			},
+            model: {
+                theme: '',
+                search: '',
+                pageNo: 1
+            },
 
-			setModel: function (data) {
-				this.model = data;
-			},
+            setModel: function (data) {
+                this.model = data;
+            },
 
-			getModel: function () {
-				return this.model;
-			},
+            getModel: function () {
+                return this.model;
+            },
 
-			clearModel: function () {
-				this.model = {
-					theme: '',
-					search: '',
-					pageNo: 1
-				};
-			}
+            clearModel: function () {
+                this.model = {
+                    theme: '',
+                    search: '',
+                    pageNo: 1
+                };
+            }
 
-		};
+        };
 
-		return service;
+        return service;
 
-	};
+    };
 
-	angular.module('bookmarksApp')
-		.service('sessionService', [sessionService]);
+    angular.module('bookmarksApp')
+        .service('sessionService', [sessionService]);
 
 }());
