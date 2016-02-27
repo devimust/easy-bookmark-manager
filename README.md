@@ -89,8 +89,7 @@ $ gulp && gulp watch
 
 - Write tests
 - Reset password via email
-- Add more data stores (mysql, redis, postgres, etc)
- 
+- Add localstorage token session control to work more nicely with Chrome extension
 
 ### License
 
