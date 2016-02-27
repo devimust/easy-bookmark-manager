@@ -31,7 +31,7 @@
 
                 $scope.$watch("newitem", function (value) {
 
-                    if (value && data.length == 0) {
+                    if (value && data.length === 0) {
 
                         bookmarkService
                             .fetchTags()
@@ -63,14 +63,15 @@
 
                     // The first watch iteration is to check initial state. Once loaded in parent controller
                     // this watch should iterate for a second time. Not the best solution so this needs work.
-                    if (loaded > 1 && data.length == 0) {
+                    if (loaded > 1 && data.length === 0) {
 
                         bookmarkService
                             .fetchTags()
                             .then(function (response) {
+                                var i;
 
                                 // Convert source data structure.
-                                for (var i=0; i<val.length; i++) {
+                                for (i=0; i<val.length; i++) {
                                     data.push({
                                         id: val[i],
                                         text: val[i],
@@ -79,7 +80,7 @@
                                 }
 
                                 if (response.result == 'ok') {
-                                    for (var i=0; i<response.data.tags.length; i++){
+                                    for (i=0; i<response.data.tags.length; i++){
                                         var tagName = response.data.tags[i].name;
 
                                         var found = false;
