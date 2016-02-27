@@ -87,8 +87,7 @@
                     Loading <i class="fa fa-spinner fa-pulse fa-lg"></i>
                 </div>
 
-                <div
-                        class="bs-callout bs-callout-primary custom-bs-callout"
+                <div class="bs-callout custom-bs-callout"
                         ng-repeat="bookmark in filteredBookmarks = ( bookmarks | filter:query )"
                         ng-click="gotoBookmark($event, bookmark)"
                         ng-class="{ 'bg-success': bookmark.favourite }">
@@ -110,7 +109,7 @@
                     </div>
 
                     <div>
-                        <span ng-repeat="tag in bookmark.tags" class="tag-item label label-info">{{ tag }}</span>
+                        <span ng-repeat="tag in bookmark.tags" class="tag-item label bg-primary">{{ tag }}</span>
                     </div>
                 </div>
 

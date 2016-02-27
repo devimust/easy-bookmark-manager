@@ -5,7 +5,6 @@
         $scope.errorMessage = '';
         $scope.goodMessage = '';
         $scope.busyWithAction = true;
-        $scope.openFromWindow = false;
 
         $scope.profile = {
             name: '',

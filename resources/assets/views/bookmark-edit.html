@@ -10,7 +10,7 @@
 
         <form class="form-horizontal" ng-if="viewReady">
 
-            <div class="form-group">
+            <div class="form-group" ng-if="!newItem && !fromWindow">
                 <label for="inputFavourite" class="col-sm-2 control-label">Favourite</label>
 
                 <div class="col-sm-10">
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-if="!newItem && !fromWindow">
                 <label class="col-sm-2 control-label">Snippet</label>
 
                 <div class="col-sm-10" ng-if="canViewSnippet">
@@ -76,7 +76,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputTags2" class="col-sm-2 control-label">Tags 2</label>
+                <label for="inputTags2" class="col-sm-2 control-label">Tags</label>
 
                 <div class="col-sm-10">
                     <span class="loading-tags">loading tags...</span>
@@ -121,15 +121,15 @@
                         Save
                     </button>
 
-                    <button type="button" class="btn btn-primary" ng-if="!newItem && !openFromWindow"
+                    <button type="button" class="btn btn-primary" ng-if="!newItem && !fromWindow"
                             ng-click="updateBookmark(true)">Save and Close
                     </button>
 
-                    <button type="button" class="btn btn-default" ng-if="!openFromWindow" ng-click="cancelUpdate()">
+                    <button type="button" class="btn btn-default" ng-if="!fromWindow" ng-click="cancelUpdate()">
                         Back
                     </button>
 
-                    <button type="button" class="btn btn-default" ng-if="openFromWindow" ng-click="closeWindow();">
+                    <button type="button" class="btn btn-default" ng-if="!newItem && fromWindow" ng-click="closeWindow();">
                         Close
                     </button>
 

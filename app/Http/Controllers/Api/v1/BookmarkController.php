@@ -28,7 +28,7 @@ class BookmarkController extends Controller
         $tags = $request->input('tags') != '' ? explode(',', $request->input('tags')) : [];
         $search = $request->input('search');
         $pageNr = is_numeric($request->input('page')) ? $request->input('page') : 1;
-        $limit = is_numeric($request->input('limit')) && $request->input('limit') < 250 ? $request->input('limit') : 250;
+        $limit = is_numeric($request->input('limit')) && $request->input('limit') < 100 ? $request->input('limit') : 100;
 
         $collection = Auth::user()
             ->bookmarks();
@@ -83,6 +83,7 @@ class BookmarkController extends Controller
         $collection = $collection
             ->skip($skip)
             ->take($limit)
+            ->orderBy('bookmarks.favourite', 'desc')
             ->orderBy('bookmarks.updated_at', 'desc')
             ->get();
 
@@ -169,42 +170,6 @@ class BookmarkController extends Controller
             ]
         ];
     }
-
-//    /**
-//     * Return list of tags for a specified bookmark id.
-//     *
-//     * @return array
-//     */
-//    public function bookmarkTags(Request $request, $id) {
-//        $tags = DB::table('tags')
-//            ->select('name', 'bookmark_id')
-//            ->leftJoin('bookmark_tag', function ($join) use ($id) {
-//                $join
-//                    ->on('tags.id', '=', 'bookmark_tag.tag_id')
-//                    ->where('bookmark_tag.bookmark_id', '=', $id);
-//            })
-//            ->where('user_id', '=', Auth::id())
-//            ->orderBy('name', 'ASC')
-//            ->get();
-//
-//        $tagData = [];
-//
-//        foreach ($tags as $tag) {
-//            $tagData[] = [
-//                'name' => $tag->name,
-//                'selected' => $tag->bookmark_id == '' ? false : true
-//            ];
-//        }
-//
-//        return [
-//            'result' => 'ok',
-//            'message' => '',
-//            'data' => [
-//                'tags' => $tagData
-//            ]
-//        ];
-//    }
-
 
     /**
      * Return list of categories.
@@ -475,32 +440,7 @@ class BookmarkController extends Controller
      * @return array
      */
     private function buildBookmark(App\Bookmark $bookmark) {
-//        $tags = [];
-//        foreach ($bookmark->tags()->get() as $tag) {
-//            $tags[] = $tag->name;
-//        }
-
         $bookmarkId = $bookmark->id;
-
-//        $tags = DB::table('tags')
-//            ->select('name', 'bookmark_id')
-//            ->leftJoin('bookmark_tag', function ($join) use ($bookmarkId) {
-//                $join
-//                    ->on('tags.id', '=', 'bookmark_tag.tag_id')
-//                    ->where('bookmark_tag.bookmark_id', '=', $bookmarkId);
-//            })
-//            ->where('user_id', '=', Auth::id())
-//            ->orderBy('name', 'ASC')
-//            ->get();
-//
-//        $tagData = [];
-//
-//        foreach ($tags as $tag) {
-//            $tagData[] = [
-//                'name' => $tag->name,
-//                'selected' => $tag->bookmark_id == '' ? false : true
-//            ];
-//        }
 
         $tags = [];
         foreach ($bookmark->tags()->get() as $tag) {
@@ -556,7 +496,7 @@ class BookmarkController extends Controller
                 ->first();
             if (!$tag) {
                 $tag = new App\Tag();
-                $tag->name = $tagName;
+                $tag->name = trim(strtolower($tagName));
                 $tag->user()->associate(Auth::user());
                 $tag->save();
             }

@@ -100,7 +100,6 @@
     };
 
     angular.module('bookmarksApp')
-        .service('bookmarkService',
-        ['$location', '$http', bookmarkService]);
+        .service('bookmarkService', ['$location', '$http', bookmarkService]);
 
 }());

@@ -2,7 +2,7 @@
 
 Easy (and fast) self-hosted bookmark manager.
 
-![alt text](https://github.com/devimust/easy-bookmark-manager/raw/master/src/images/screenshot1.png "Screenshot 1")
+![alt text](https://github.com/devimust/easy-bookmark-manager/raw/master/resources/assets/images/screenshot1.png "Screenshot 1")
 
 
 ### Requirements

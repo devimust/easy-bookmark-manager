@@ -31,14 +31,14 @@ elixir(function(mix) {
     mix
         .styles([
             'normalize.css/normalize.css',
-            'bootstrap/dist/css/bootstrap.min.css',
             'font-awesome/css/font-awesome.min.css',
             'select2/dist/css/select2.min.css'
         ], 'public/css/vendor.css', 'node_modules')
         .sass('bootstrap-darkly.scss')
         .sass('bootstrap-sandstone.scss')
         .sass('bootstrap-united.scss')
-        .sass('bootstrap-yeti.scss');
+        .sass('bootstrap-yeti.scss')
+        .sass('bootstrap-default.scss');
 
     // vendor scripts
     mix

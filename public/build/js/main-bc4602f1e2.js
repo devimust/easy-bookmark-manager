@@ -49,7 +49,8 @@ $(function () {
 
 (function () {
 
-    var bookmarkEditController = function ($scope, $location, $routeParams, $http, $interval, userService, bookmarkService) {
+    var bookmarkEditController = function ($scope, $location, $routeParams, $http, $interval, userService,
+                                           bookmarkService, $window) {
 
         $scope.viewReady = false;
         $scope.errorMessage = '';
@@ -61,7 +62,6 @@ $(function () {
         $scope.canViewSnippet = false;
         $scope.categories = [];
         $scope.busyWithAction = false;
-        $scope.openFromWindow = false;
         $scope.duplicates = [];
 
         $scope.bookmark = {
@@ -75,53 +75,47 @@ $(function () {
 
         this.run = function () {
 
-            $scope.checkStatus();
-
-            userService
-                .checkLoginStatus()
+            bookmarkService
+                .fetchCategories()
                 .then(function (response) {
-                    bookmarkService
-                        .fetchCategories()
-                        .then(function (response) {
-                            if (response.result == 'ok') {
-                                $scope.categories = response.data.categories;
-                            }
-                        });
-
-                    if ($scope.newItem) {
-                        bookmarkService
-                            .checkDuplicates($scope.bookmark)
-                            .then(function (response) {
-                                if (response.result == 'ok') {
-                                    if (typeof response.data !== 'undefined') {
-                                        $scope.duplicates = response.data.bookmarks;
-                                    }
-                                }
-                            });
-                    } else {
-                        bookmarkService
-                            .fetchBookmark($routeParams.bookmarkId || '')
-                            .then(function (response) {
-                                $scope.globalErrorMessage = '';
-                                if (response.result != 'ok') {
-                                    $scope.globalErrorMessage = response.message;
-                                    $scope.viewReady = false;
-                                    return;
-                                }
-
-                                $scope.bookmark = response.data.bookmark;
-                                var snippet = $scope.bookmark.snippet || '';
-                                if (snippet !== '') {
-                                    $scope.canViewSnippet = true;
-                                }
-
-                            });
-
+                    if (response.result == 'ok') {
+                        $scope.categories = response.data.categories;
                     }
-
-                    $scope.viewReady = true;
-
                 });
+
+            if ($scope.newItem) {
+                bookmarkService
+                    .checkDuplicates($scope.bookmark)
+                    .then(function (response) {
+                        if (response.result == 'ok') {
+                            if (typeof response.data !== 'undefined') {
+                                $scope.duplicates = response.data.bookmarks;
+                            }
+                        }
+                    });
+            } else {
+                bookmarkService
+                    .fetchBookmark($routeParams.bookmarkId || '')
+                    .then(function (response) {
+                        $scope.globalErrorMessage = '';
+                        if (response.result != 'ok') {
+                            $scope.globalErrorMessage = response.message;
+                            $scope.viewReady = false;
+                            return;
+                        }
+
+                        $scope.bookmark = response.data.bookmark;
+                        var snippet = $scope.bookmark.snippet || '';
+                        if (snippet !== '') {
+                            $scope.canViewSnippet = true;
+                        }
+
+                    });
+
+            }
+
+            $scope.viewReady = true;
+
         };
 
         $scope.checkStatus = function () {
@@ -244,13 +238,34 @@ $(function () {
                 });
         };
 
-        this.run();
+        $scope.checkStatus();
+
+        var that = this;
+
+        userService
+            .checkLoginStatus()
+            .then(function (response) {
+                $scope.errorMessage = '';
+                if (response.result != 'ok') {
+                    if ($scope.newItem && $scope.fromWindow) {
+                        $scope.globalErrorMessage = 'No session found, please login via the browser.';
+                        return;
+                    }
+
+                    $scope.globalErrorMessage = response.message;
+                    $window.location = '/login';
+
+                    return;
+                }
+                that.run();
+            });
 
     };
 
     angular.module('bookmarksApp')
         .controller('bookmarkEditController',
-        ['$scope', '$location', '$routeParams', '$http', '$interval', 'userService', 'bookmarkService', bookmarkEditController]);
+        ['$scope', '$location', '$routeParams', '$http', '$interval', 'userService', 'bookmarkService',
+            '$window', bookmarkEditController]);
 
 }());
 
@@ -356,8 +371,7 @@ $(function () {
     };
 
     angular.module('bookmarksApp')
-        .service('bookmarkService',
-        ['$location', '$http', bookmarkService]);
+        .service('bookmarkService', ['$location', '$http', bookmarkService]);
 
 }());
 
@@ -739,7 +753,6 @@ $(function () {
         $scope.errorMessage = '';
         $scope.goodMessage = '';
         $scope.busyWithAction = true;
-        $scope.openFromWindow = false;
 
         $scope.profile = {
             name: '',
