@@ -90,6 +90,7 @@ $ gulp && gulp watch
 - Write tests
 - Reset password via email
 - Add localstorage token session control to work more nicely with Chrome extension
+- Add export functionality
 
 ### License
 

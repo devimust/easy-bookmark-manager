@@ -23,10 +23,10 @@
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                         <td>{{ $user->administrator ? 'yes' : '' }}</td>
-                        <td>
+                        <td width="110">
                             <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-info btn-xs pull-left" style="margin-right: 3px;">Edit</a>
                             {{ Form::open(['url' => '/admin/user/' . $user->id, 'method' => 'DELETE']) }}
-                            {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs '])}}
+                            {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs'])}}
                             {{ Form::close() }}
                         </td>
                     </tr>

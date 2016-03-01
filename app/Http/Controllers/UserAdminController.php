@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
+use App;
+use Hash;
 
 use App\User;
 use App\Http\Requests;
@@ -28,11 +30,11 @@ class UserAdminController extends Controller
     public function index()
     {
         if (!Auth::check()) {
-            return \Redirect::to('/');
+            return Redirect::to('/');
         }
 
         if (!Auth::user()->administrator) {
-            \App::abort(403, 'Access denied');
+            App::abort(403, 'Access denied');
         }
 
         $users = User::all();
@@ -104,7 +106,7 @@ class UserAdminController extends Controller
         ];
 
         if ($request->input('password') != '') {
-            $userData['password'] = \Hash::make($request->input('password'));
+            $userData['password'] = Hash::make($request->input('password'));
         }
 
         $user->update($userData);
