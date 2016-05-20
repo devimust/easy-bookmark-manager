@@ -94,6 +94,9 @@
                     });
             },
 
+            getExportBookmarksUrl: function () {
+                return API_URL + 'bookmarks/export';
+            },
         };
 
         return service;
