@@ -29,8 +29,7 @@ Step 3:
 $ php artisan migrate --seed #this will create the default admin user
 ```
 
-Step 4: Update `.env` file with `APP_ENV=production`. Ensure webserver user (apache, www-data or nginx) can read and write to the `./storage` folder recursively.
-
+Step 4: Update `.env` file with `APP_ENV=production`. Ensure webserver user (apache, www-data or nginx) can read and write to the `./storage` and `./bootstrap/cache` folders recursively.
 
 Step 5: Navigate to http://insert-your-domain.com/ and login with email `admin` and password `nimda`. Go add some bookmarks or navigate to http://insert-your-domain.com/admin/users to create more users and *important* update the admin user's password.
 
