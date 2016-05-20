@@ -87,10 +87,8 @@ $ gulp && gulp watch
 
 ### Todos
 
-- Write tests
-- Reset password via email
-- Add localstorage token session control to work more nicely with Chrome extension
-- Add export functionality
+* Reset password via email
+
 
 ### License
 

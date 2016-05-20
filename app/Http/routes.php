@@ -13,7 +13,6 @@
 
 Route::group(['prefix' => 'api/v1/', 'middleware' => ['web']], function () {
     Route::get('user/status', 'Api\v1\UserController@loginStatus');
-
 });
 
 Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function () {
@@ -23,6 +22,7 @@ Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function 
     Route::put('bookmark/{id}', 'Api\v1\BookmarkController@update');
     Route::delete('bookmark/{id}', 'Api\v1\BookmarkController@delete');
     Route::post('bookmarks/import', 'Api\v1\BookmarkController@import');
+    Route::get('bookmarks/export', 'Api\v1\BookmarkController@export');
     Route::get('bookmarks/duplicates', 'Api\v1\BookmarkController@duplicates');
 
     Route::get('bookmarks/categories-and-tags', 'Api\v1\BookmarkController@categoriesAndTags');

@@ -365,6 +365,9 @@ $(function () {
                     });
             },
 
+            getExportBookmarksUrl: function () {
+                return API_URL + 'bookmarks/export';
+            },
         };
 
         return service;
@@ -576,6 +579,10 @@ $(function () {
             } else {
                 $scope.editBookmark(event, bookmark);
             }
+        };
+
+        $scope.exportData = function () {
+            $window.location = bookmarkService.getExportBookmarksUrl();
         };
 
         $scope.uploadFile = function (files) {

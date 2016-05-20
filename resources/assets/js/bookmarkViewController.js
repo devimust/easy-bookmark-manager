@@ -201,6 +201,10 @@
             }
         };
 
+        $scope.exportData = function () {
+            $window.location = bookmarkService.getExportBookmarksUrl();
+        };
+
         $scope.uploadFile = function (files) {
             $scope.busyImporting = true;
             $scope.globalErrorMessage = '';
