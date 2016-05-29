@@ -101,7 +101,7 @@ class BookmarkController extends Controller
                 'link' => $bookmark->link,
                 'snippet' => $bookmark->snippet,
                 'icon' => $bookmark->icon,
-                'category' => $bookmark->category,
+                'category' => $this->getCategoryIfEmpty($bookmark->category),
                 'tags' => $tags
             ];
 
@@ -179,7 +179,7 @@ class BookmarkController extends Controller
     public function categories(Request $request) {
         // Get list of categories
         $categories = DB::table('bookmarks')
-            ->select('category as name', DB::raw('COUNT(category) AS count'))
+            ->select('category AS name', DB::raw('COUNT(category) AS count'))
             ->where('user_id', '=', Auth::id())
             ->where('category', '<>', '')
             ->groupBy('category')
@@ -352,6 +352,23 @@ class BookmarkController extends Controller
     }
 
     /**
+     * Returns category given environment rules.
+     *
+     * @param string $category
+     * @return string
+     */
+    private function getCategoryIfEmpty($category='') {
+        // set category to Unsorted if empty string and env is configured
+        if ($category == '') {
+            if (env('ALLOW_UNSORTED_CATEGORY', true)) {
+                $category = 'Unsorted';
+            }
+        }
+
+        return $category;
+    }
+
+    /**
      * Import json file type as exported by application.
      *
      * @param $file
@@ -396,8 +413,8 @@ class BookmarkController extends Controller
             ])->tags()->attach($tagIds);
 
             $count++;
-
         }
+
         return $count;
     }
 
@@ -422,7 +439,7 @@ class BookmarkController extends Controller
             Auth::user()->bookmarks()->create([
                 'title'      => $node->nodeValue,
                 'link'       => $node->getAttribute("href"),
-                'category'   => 'Unsorted',
+                'category'   => '',
                 'favourite'  => false,
                 'icon'       => $node->getAttribute("icon"),
                 'created_at' => $node->getAttribute("add_date"),
