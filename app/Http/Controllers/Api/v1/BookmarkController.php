@@ -7,6 +7,7 @@ use DB;
 use App\Bookmark;
 use Illuminate\Http\Request;
 
+use Response;
 use App;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -349,6 +350,49 @@ class BookmarkController extends Controller
                 'imported' => $count
             ]
         ];
+    }
+
+
+    /**
+     * Export bookmark data to downloadable json file.
+     *
+     * @param Request $request
+     * @return file
+     */
+    public function export(Request $request) {
+        $bookmarks = Auth::user()
+            ->bookmarks()
+            ->orderBy('id')
+            ->get();
+
+        $objects = [];
+        foreach ($bookmarks as $bookmark) {
+            $tags = [];
+            foreach ($bookmark->tags as $tag) {
+                $tags[] = $tag->name;
+            }
+
+            $objects[] = [
+                'title'      => $bookmark->title,
+                'link'       => $bookmark->link,
+                'category'   => $bookmark->category,
+                'favourite'  => $bookmark->favourite,
+                'snippet'    => $bookmark->snippet,
+                'icon'       => $bookmark->icon,
+                'created'    => $bookmark->created_at->format('Y-m-d H:i:s'),
+                'modified'   => $bookmark->updated_at->format('Y-m-d H:i:s'),
+                'tags'       => $tags
+            ];
+        }
+
+        $headers = array(
+            'Content-Type' => 'application/json; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="bookmarks-export-' . date('Ymd-His') . '.json"',
+        );
+
+        $responseData = json_encode(['bookmarks' => $objects]);
+
+        return Response::make($responseData, 200, $headers);
     }
 
     /**
