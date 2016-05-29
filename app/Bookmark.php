@@ -71,6 +71,26 @@ class Bookmark extends Model
     }
 
     /**
+     * Set the bookmark category based on env setting.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setCategoryAttribute($value)
+    {
+        $category = $value;
+
+        // set category to Unsorted if empty string and env is configured
+        if ($category == '') {
+            if (env('ALLOW_UNSORTED_CATEGORY', true)) {
+                $category = 'Unsorted';
+            }
+        }
+
+        $this->attributes['category'] = $category;
+    }
+
+    /**
      * Update bookmark title if title is empty and link exist.
      *
      * @param array $attributes
