@@ -11,7 +11,7 @@ before_script:
   - php artisan key:generate
   - php artisan migrate --seed
   - php artisan db:seed --class=DummyBookmarksSeeder
-  - php -S localhost:8000 -t public/
+#  - php -S localhost:8000 -t public/
 
 script:
   - vendor/bin/phpunit
