@@ -13,9 +13,9 @@ before_script:
   - php artisan migrate --seed
   - php artisan db:seed --class=DummyBookmarksSeeder
   - wget "https://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar"
-  - java -jar selenium-server-standalone-2.48.2.jar
+  - java -jar selenium-server-standalone-2.48.2.jar > /dev/null 2>&1 &
+  - php -S localhost:8000 -t public/ > /dev/null 2>&1 &
   - sleep 5
-#  - php -S localhost:8000 -t public/
 
 script:
   - vendor/bin/phpunit

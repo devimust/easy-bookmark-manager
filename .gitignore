@@ -3,3 +3,4 @@
 /public/storage
 .env
 /.idea
+/tests/node_modules
