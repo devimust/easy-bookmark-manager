@@ -6,7 +6,6 @@ php:
 before_script:
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
-  - npm install
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
@@ -14,6 +13,7 @@ before_script:
   - php artisan db:seed --class=DummyBookmarksSeeder
   - wget "https://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar"
   - java -jar selenium-server-standalone-2.48.2.jar > /dev/null 2>&1 &
+  - cd tests && npm install && cd ..
   - php -S localhost:8000 -t public/ > /dev/null 2>&1 &
   - sleep 5
 
