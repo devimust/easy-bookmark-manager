@@ -19,4 +19,4 @@ before_script:
 
 script:
   - vendor/bin/phpunit
-  - npm test
+  - cd tests && npm test
