@@ -3,6 +3,12 @@ language: php
 php:
   - '5.6'
 
+install:
+  - wget "https://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar"
+  - java -jar selenium-server-standalone-2.48.2.jar &
+#  - java -jar selenium-server-standalone-2.48.2.jar > /dev/null 2>&1 &
+  - cd tests && npm install && cd ..
+
 before_script:
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
@@ -11,12 +17,7 @@ before_script:
   - php artisan key:generate
   - php artisan migrate --seed
   - php artisan db:seed --class=DummyBookmarksSeeder
-  - wget "https://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar"
-  - java -jar selenium-server-standalone-2.48.2.jar
-#  - java -jar selenium-server-standalone-2.48.2.jar > /dev/null 2>&1 &
-  - cd tests && npm install && cd ..
-  - pwd
-  - php -S localhost:8000 -t public/
+  - php -S localhost:8000 -t public/ &
 #  - php -S localhost:8000 -t public/ > /dev/null 2>&1 &
   - sleep 5
 
