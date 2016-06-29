@@ -2,6 +2,7 @@
 @import "partials/angucomplete";
 @import "partials/tags";
 @import "partials/tag-cloud";
+@import "partials/code-pre-tags";
 
 
 .highlight {
@@ -81,4 +82,12 @@
 
 .tag-item {
   font-weight: normal;
+}
+
+.ace-snippet-container {
+  padding:0;
+
+  &.list {
+    padding: 10px 0;
+  }
 }

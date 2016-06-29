@@ -61,6 +61,9 @@ angular.module('ui.ace', [])
 			if (angular.isDefined(opts.showPrintMargin)) {
 				acee.setShowPrintMargin(opts.showPrintMargin);
 			}
+			if (angular.isDefined(opts.maxLines)) {
+				acee.setOption("maxLines", opts.maxLines);
+			}
 
 			// commands
 			if (angular.isDefined(opts.disableSearch) && opts.disableSearch) {

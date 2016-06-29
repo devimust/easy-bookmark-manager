@@ -18,6 +18,8 @@
                 var loaded = 0;
                 var data = [];
 
+                var that = this;
+
                 this.initSelect2 = function (el, data) {
                     $('.loading-tags').hide();
 
@@ -48,7 +50,7 @@
                                 }
 
                                 // Init select2 on current directive element.
-                                this.initSelect2(el, data);
+                                that.initSelect2(el, data);
                             });
 
                     }
@@ -103,7 +105,7 @@
                                 }
 
                                 // Init select2 on current directive element.
-                                this.initSelect2(el, data);
+                                that.initSelect2(el, data);
 
                             });
 
