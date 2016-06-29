@@ -1,3 +1,5 @@
+<ng-include src="'/views/hero.html'"></ng-include>
+
 <div class="row" ng-if="viewReady">
     <div class="col-md-12">
         <div class="alert alert-danger" role="alert" ng-show="globalErrorMessage" ng-click="globalErrorMessage=''">
@@ -91,9 +93,8 @@
 
                 <div class="bs-callout custom-bs-callout"
                         ng-repeat="bookmark in filteredBookmarks = ( bookmarks | filter:query )"
-                        ng-click="gotoBookmark($event, bookmark)"
                         ng-class="{ 'bg-success': bookmark.favourite }">
-                    <div>
+                    <div ng-click="gotoBookmark($event, bookmark)" class="click-item">
                         <h4>
                             <span>
                                 <img ng-src="{{ bookmark.icon }}" ng-if="bookmark.icon"/>
@@ -107,7 +108,13 @@
                         <span ng-click="editBookmark($event, bookmark)"
                               class="pull-right glyphicon glyphicon-option-vertical edit-bookmark"
                               aria-hidden="true">
-                </span>
+                        </span>
+                    </div>
+
+                    <div ng-if="bookmark.snippet" class="ace-snippet-container list">
+                        <div ng-model="bookmark.snippet"
+                             ui-ace="{ useWrapMode : true, showGutter: false, theme:'github', mode:'snippets', maxLines:6 }">
+                        </div>
                     </div>
 
                     <div>

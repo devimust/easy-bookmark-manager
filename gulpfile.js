@@ -49,7 +49,8 @@ elixir(function(mix) {
             'node_modules/angular-route/angular-route.min.js',
             'node_modules/select2/dist/js/select2.full.min.js',
             'node_modules/ace-editor-builds/src-min-noconflict/ace.js',
-            'node_modules/ace-editor-builds/src-min-noconflict/theme-twilight.js'
+            'node_modules/ace-editor-builds/src-min-noconflict/mode-snippets.js',
+            'node_modules/ace-editor-builds/src-min-noconflict/theme-github.js',
         ], 'public/js/vendor.js', 'node_modules')
 
 

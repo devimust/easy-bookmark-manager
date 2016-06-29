@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Easy Bookmark Manager</title>
 
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
     <script>
         /**
          * @see http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml
@@ -46,13 +52,14 @@
     <![endif]-->
 </head>
 
-<body ng-app="bookmarksApp">
+<body ng-app="bookmarksApp" class="ng-cloak">
 
     @yield('content')
 
     <script src="/js/vendor.js"></script>
 
     <script src="{{ elixir('js/main.js') }}"></script>
+
 </body>
 
 </html>
