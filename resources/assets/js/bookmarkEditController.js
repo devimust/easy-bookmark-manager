@@ -80,7 +80,6 @@
             // hide header if opened from window
             if ($routeParams.window == 1) {
                 $scope.fromWindow = true;
-                $('div.row.container-header h1 .hide-for-window').hide();
             }
         };
 
