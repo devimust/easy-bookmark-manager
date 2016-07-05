@@ -1,17 +1,23 @@
+sudo: required
+
+services:
+  - docker
+
 language: php
 
 php:
   - '5.6'
 
 before_script:
-  - cp .env.travis .env
-  - mysql -e 'create database homestead_test;'
+#  - cp .env.travis .env
+#  - mysql -e 'create database homestead_test;'
   - composer self-update
   - composer install --no-interaction
-  - php artisan key:generate
-  - php artisan migrate --seed
-  - php artisan db:seed --class=DummyBookmarksSeeder
+#  - php artisan key:generate
+#  - php artisan migrate --seed
+#  - php artisan db:seed --class=DummyBookmarksSeeder
 #  - php -S localhost:8000 -t public/
 
 script:
   - vendor/bin/phpunit
+  - /bin/bash ./docker/run.sh

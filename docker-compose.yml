@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+    app:
+      build: ./docker/app
+      volumes:
+        - .:/var/www/laravel
+    nginx:
+      build: ./docker/nginx
+      volumes_from:
+        - app
+      volumes:
+        - ./docker/logs/nginx:/var/log/nginx
+      ports:
+        - "80:80"
+      links:
+        - php-fpm
+    php-fpm:
+      build:
+        context: ./docker/php-fpm
+        dockerfile: Dockerfile-56
+      volumes_from:
+        - app
+      volumes:
+        - ./docker/logs/nginx/:/var/log/nginx
+      expose:
+        - "9000"
+      links:
+        - mysql
+    mysql:
+      build: ./docker/mysql
+      volumes:
+        - ./docker/data/mysql:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: bookmarks
+    artisan:
+      build: ./docker/laravel-artisan
+      volumes:
+        - .:/var/www/laravel
+      working_dir: /var/www/laravel
+      entrypoint: ['php', 'artisan']
