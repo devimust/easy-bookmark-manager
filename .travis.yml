@@ -11,22 +11,23 @@ php:
 env:
   DOCKER_COMPOSE_VERSION: 1.7.1
 
-before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-
-before_script:
-#  - cp .env.travis .env
-#  - mysql -e 'create database homestead_test;'
-  - composer self-update
-  - composer install --no-interaction
-#  - php artisan key:generate
-#  - php artisan migrate --seed
-#  - php artisan db:seed --class=DummyBookmarksSeeder
-#  - php -S localhost:8000 -t public/
+#before_install:
+#  - sudo rm /usr/local/bin/docker-compose
+#  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+#  - chmod +x docker-compose
+#  - sudo mv docker-compose /usr/local/bin
+#
+#before_script:
+##  - cp .env.travis .env
+##  - mysql -e 'create database homestead_test;'
+#  - composer self-update
+#  - composer install --no-interaction
+##  - php artisan key:generate
+##  - php artisan migrate --seed
+##  - php artisan db:seed --class=DummyBookmarksSeeder
+##  - php -S localhost:8000 -t public/
 
 script:
-  - vendor/bin/phpunit
-  - /bin/bash ./docker/run.sh
+  - docker --version
+#  - vendor/bin/phpunit
+#  - /bin/bash ./docker/run.sh
