@@ -8,3 +8,5 @@
 .idea
 *.iml
 /public/js/*.js
+/public/css/*
+/public/views/*.html
