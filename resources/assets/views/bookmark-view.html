@@ -55,10 +55,12 @@
 
         <div class="panel">
             <p>
-                <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="newBookmark()">New Bookmark</a>
+                <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="newBookmark()">
+                    {{ 'new.bookmark' | translate }}
+                </a>
 
                 <span class="btn btn-sm btn-primary btn-file btn-block">
-                    Import Bookmarks
+                    {{ 'import.bookmarks' | translate }}
 
                     <input type="file" name="bookmarkfile" role="button"
                         onchange="angular.element(this).scope().uploadFile(this.files)"
@@ -66,11 +68,17 @@
                     <i class="fa fa-spinner fa-pulse fa-lg" ng-if="busyImporting"></i>
                 </span>
 
-                <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="editUser()">Update User</a>
+                <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="editUser()">
+                    {{ 'user.update' | translate }}
+                </a>
 
-                <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="exportData()">Export Data</a>
+                <a href class="btn btn-sm btn-primary btn-block" role="button" ng-click="exportData()">
+                    {{ 'export.bookmarks' | translate }}
+                </a>
 
-                <a href class="btn btn-sm btn-default btn-block" role="button" ng-click="logout()">Logout</a>
+                <a href class="btn btn-sm btn-default btn-block" role="button" ng-click="logout()">
+                    {{ 'user.logout' | translate }}
+                </a>
             </p>
         </div>
 
@@ -80,7 +88,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="has-feedback">
-                    <input id="searchText" class="form-control" ng-model="search" type="text" placeholder="Refine search"
+                    <input id="searchText" class="form-control" ng-model="search" type="text" placeholder="{{ 'search.bookmark' | translate }}"
                            autofocus ng-keyup="searchKeyUp(search)">
                     <span id="search-clear" class="glyphicon glyphicon-remove-circle" ng-click="clearSearch()"></span>
                 </div>
