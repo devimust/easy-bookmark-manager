@@ -3,18 +3,20 @@
 <div class="row" ng-if="viewReady">
     <div class="col-md-12">
         <div class="alert alert-danger" role="alert" ng-show="globalErrorMessage" ng-click="globalErrorMessage=''">
-            <strong>Oh snap!</strong> {{ globalErrorMessage }}
+            <strong>{{ 'message.error' | translate }}</strong> {{ globalErrorMessage }}
         </div>
 
         <div class="alert alert-success" role="alert" ng-show="globalGoodMessage" ng-click="globalGoodMessage=''">
-            <strong>Success!</strong> {{ globalGoodMessage }}
+            <strong>{{ 'message.success' | translate }}</strong> {{ globalGoodMessage }}
         </div>
     </div>
 
     <div class="col-md-3">
 
         <div class="panel panel-primary categories" ng-if="categories.length > 1">
-            <div class="panel-heading">Categories</div>
+            <div class="panel-heading">
+                {{ 'bookmark.categories' | translate }}
+            </div>
 
             <ul class="list-group text-primary">
                 <li ng-repeat="category in categories"
@@ -36,7 +38,9 @@
         </div>
 
         <div class="panel panel-primary" ng-if="tags.length > 1">
-            <div class="panel-heading">Tags</div>
+            <div class="panel-heading">
+                {{'bookmark.tags' | translate }}
+            </div>
 
             <div id="tagcloud">
                 <ul ng-init="calculateMaxCloudTagValue()">
@@ -148,7 +152,7 @@
                 </div>
 
                 <div class="alert" role="alert" ng-if="!loadingBookmarks && filteredBookmarks.length === 0">
-                    no data found, try clicking on some filters
+                    {{ 'bookmarks.nodata' | translate }}
                 </div>
 
                 <div class="alert" role="alert" ng-if="badDataResponse">
