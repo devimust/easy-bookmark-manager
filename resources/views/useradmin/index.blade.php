@@ -24,9 +24,11 @@
                         <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                         <td>{{ $user->administrator ? 'yes' : '' }}</td>
                         <td width="110">
-                            <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-info btn-xs pull-left" style="margin-right: 3px;">Edit</a>
+                            <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-info btn-xs pull-left" style="margin-right: 3px;">
+                                {{ trans('messages.edit') }}
+                            </a>
                             {{ Form::open(['url' => '/admin/user/' . $user->id, 'method' => 'DELETE']) }}
-                            {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs'])}}
+                            {{ Form::submit(trans('messages.delete'), ['class' => 'btn btn-danger btn-xs'])}}
                             {{ Form::close() }}
                         </td>
                     </tr>
@@ -35,7 +37,9 @@
             </table>
         </div>
 
-        <a href="/admin/user/create" class="btn btn-success">Add User</a>
+        <a href="/admin/user/create" class="btn btn-success">
+            {{ trans('messages.user.add') }}
+        </a>
     </div>
 
 @stop
