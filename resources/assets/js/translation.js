@@ -30,7 +30,14 @@
         },
         message : {
             error : 'Oh snap!',
-            Success : 'Success'
+            Success : 'Success',
+            password : {
+                length    : 'Your new password must be at least 5 characters',
+                oneLetter : 'Your new password must contain at least one letter',
+                oneDigit  : 'Your new password must contain at least one digit',
+                match     : 'Both passwords must match',
+                updated : 'Details updated.'
+            }
         },
         settings : {
             name : 'Name',
@@ -41,36 +48,43 @@
     };
 
     var frenchTranslations = {
-        "user.update": "Paramètres",
-        'user.logout' : 'Déconnexion',
+        "user.update"      : "Paramètres",
+        'user.logout'      : 'Déconnexion',
         'export.bookmarks' : 'Exporter favoris',
         'import.bookmarks' : 'Importer favoris',
-        'new.bookmark' : 'Nouveau favoris',
-        'search.bookmark' : 'Chercher parmis les favoris',
+        'new.bookmark'     : 'Nouveau favoris',
+        'search.bookmark'  : 'Chercher parmis les favoris',
         'bookmarks.nodata' : 'Aucun favoris trouvé.',
         bookmark : {
-            title : 'Titre',
-            link : 'Lien',
-            category : 'Catégorie',
-            categories : 'Catégories',
-            tags : 'Mots clés',
-            save : 'Sauver',
-            create : 'Créer',
-            update : 'Mettre à jour',
-            saveandclose : 'Sauver et quitter',
-            delete : 'Supprimer',
-            close : 'Fermer',
-            back : 'Retour',
-            enable : 'Activer',
-            cancel : 'Annuler',
-            search : 'Rechercher une catégorie',
+            title           : 'Titre',
+            link            : 'Lien',
+            category        : 'Catégorie',
+            categories      : 'Catégories',
+            tags            : 'Mots clés',
+            save            : 'Sauver',
+            create          : 'Créer',
+            update          : 'Mettre à jour',
+            saveandclose    : 'Sauver et quitter',
+            delete          : 'Supprimer',
+            close           : 'Fermer',
+            back            : 'Retour',
+            enable          : 'Activer',
+            cancel          : 'Annuler',
+            search          : 'Rechercher une catégorie',
             tagsPlaceholder : 'Ajouter un mot clé',
-            favourite : 'Important',
-            tag : 'Mot clé',
+            favourite       : 'Important',
+            tag             : 'Mot clé'
         },
         message : {
             error : 'Aie ! Une erreur est survenue',
-            success : 'Succès'
+            success : 'Succès',
+            password : {
+                length    : 'Votre nouveau mot de passe doit comporter au moins 5 caractères',
+                oneLetter : 'Votre nouveau mot de passe doit comporte une lettre',
+                oneDigit  : 'Votre nouveau mot de passe doit comporte un chiffre',
+                match     : 'Les deux mots de passe ne correspondent pas',
+                updated : 'Mot de passe mis à jour.'
+            }
         },
         settings : {
             name : 'Nom',

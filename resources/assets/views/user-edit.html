@@ -61,11 +61,11 @@
             </div>
 
             <div class="alert alert-danger" role="alert" ng-show="errorMessage">
-                <strong>Oh snap!</strong> {{ errorMessage }}
+                <strong>{{ 'message.error' | translate}}</strong> {{ errorMessage }}
             </div>
 
             <div class="alert alert-success" role="alert" ng-show="goodMessage">
-                <strong>Success!</strong> {{ goodMessage }}
+                <strong>{{ 'message.success' | translate}}</strong> {{ goodMessage }}
             </div>
 
             <div>
