@@ -4,6 +4,7 @@ return [
     'custom' => [
         'name' => [
             'required' => 'Vous devez saisir votre nom d\'utilisateur.',
+            'unique' => 'Ce nom d\'utilisateur est déjà pris.'
         ],
         'email' => [
             'required' => 'Vous devez saisir votre email.',

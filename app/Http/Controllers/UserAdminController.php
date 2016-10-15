@@ -63,7 +63,7 @@ class UserAdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:users',
             'username' => 'required|unique:users,username|email|min:3',
             'password' => 'required|confirmed|min:5'
         ], $this->getFormMessages());
