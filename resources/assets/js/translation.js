@@ -37,7 +37,13 @@
                 oneDigit  : 'Your new password must contain at least one digit',
                 match     : 'Both passwords must match',
                 updated : 'Details updated.'
-            }
+            },
+            bookmark : {
+                delete : 'Deleted, redirecting...',
+                create : 'Created, closing...',
+                import : 'Imported {{count}} record(s), reloading...'
+            },
+            session : 'No session found, please login via the browser.'
         },
         settings : {
             name : 'Name',
