@@ -90,7 +90,13 @@
                 oneDigit  : 'Votre nouveau mot de passe doit comporte un chiffre',
                 match     : 'Les deux mots de passe ne correspondent pas',
                 updated : 'Mot de passe mis à jour.'
-            }
+            },
+            bookmark : {
+                delete : 'Favoris supprimé, redirection...',
+                create : 'Favoris créé, redirection...',
+                import : '{{count}} favoris supprimé(s), mise à jour...'
+            },
+            session : 'Aucune session trouvée, vous devez d\'abord vous connecter.'
         },
         settings : {
             name : 'Nom',
