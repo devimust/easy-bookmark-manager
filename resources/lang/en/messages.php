@@ -8,6 +8,7 @@ return [
     'user.add' => 'Add user',
     'edit' => 'Edit',
     'delete' => 'Delete',
+    'logout' => "Logout",
     'bookmark' => [
         'notFound' => 'Could not retrieve the item.'
     ],
@@ -16,9 +17,15 @@ return [
     ],
     'user' => [
         'noSession' => 'No user sessions found.',
-        'sessionReached' => 'Active session limit reached. Please logout to clean out session tokens.'
+        'sessionReached' => 'Active session limit reached. Please logout to clean out session tokens.',
+        "admin" => 'User Administration',
+        'name' => 'Name',
+        'mail' => 'Email / Login',
+        'created' => 'Created',
+        'adminRole' => 'Admin'
     ],
     'password' => [
         'match' => 'Both passwords must match.'
-    ]
+    ],
+    'yes' => 'yes'
 ];
