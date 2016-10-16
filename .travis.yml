@@ -1,17 +1,39 @@
+sudo: required
+
+services:
+  - docker
+
 language: php
 
 php:
   - '5.6'
 
+env:
+  DOCKER_COMPOSE_VERSION: 1.7.1
+
+before_install:
+  - sudo sh -c 'echo "deb https://apt.dockerproject.org/repo ubuntu-precise main" > /etc/apt/sources.list.d/docker.list'
+  - sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+  - sudo apt-get update
+  - sudo apt-key update
+  - sudo apt-get -qqy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-engine=1.11.1-0~precise
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose -v
+  - docker -v
+
 before_script:
-  - cp .env.travis .env
-  - mysql -e 'create database homestead_test;'
+##  - cp .env.travis .env
+##  - mysql -e 'create database homestead_test;'
   - composer self-update
   - composer install --no-interaction
-  - php artisan key:generate
-  - php artisan migrate --seed
-  - php artisan db:seed --class=DummyBookmarksSeeder
-#  - php -S localhost:8000 -t public/
+##  - php artisan key:generate
+##  - php artisan migrate --seed
+##  - php artisan db:seed --class=DummyBookmarksSeeder
+##  - php -S localhost:8000 -t public/
 
 script:
   - vendor/bin/phpunit
+  - /bin/bash ./docker/run.sh

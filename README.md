@@ -51,6 +51,13 @@ Example apache virtual host file
 ```
 
 
+### DOCKER
+
+docker-compose run --rm artisan key:generate
+docker-compose run --rm artisan migrate:refresh --seed
+docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
+
+
 ### Development
 
 I welcome any feedback and contributions.
