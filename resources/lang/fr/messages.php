@@ -6,9 +6,13 @@ return array(
     'usernameEmail' => 'L\'email saisi n\'est pas valide.',
     'usernameUnique' => 'Cet email est déjà utilisé.',
     'user.add' => 'Ajouter un utilisateur',
+    'user.edit' => 'Modifier un utilisateur',
     'edit' => 'Editer',
+    'create' => 'Ajouter',
     'delete' => 'Supprimer',
     'logout' => "Déconnexion",
+    'back' => 'Retour',
+    'save' => 'Sauvegarder',
     'bookmark' => [
         'notFound' => 'Impossible de retrouver ce favoris'
     ],
@@ -22,7 +26,10 @@ return array(
         'name' => 'Nom',
         'mail' => 'Email / Identifiant',
         'created' => 'Date de création',
-        'adminRole' => 'Est administrateur'
+        'adminRole' => 'Est administrateur',
+        'password' => 'Mot de passe',
+        'confirm' => 'Confirmation du mot de passe',
+        'isAdmin' => 'Administrateur'
     ],
     'password' => [
         'match' => 'Les deux mots de passe doivent correspondre.'
