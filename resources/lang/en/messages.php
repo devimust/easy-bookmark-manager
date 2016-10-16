@@ -13,6 +13,7 @@ return [
     'logout' => "Logout",
     'back' => 'Back',
     'save' => 'Save',
+    'signin' => 'Sign in',
     'bookmark' => [
         'notFound' => 'Could not retrieve the item.'
     ],

@@ -13,6 +13,7 @@ return array(
     'logout' => "Déconnexion",
     'back' => 'Retour',
     'save' => 'Sauvegarder',
+    'signin' => 'Se connecter',
     'bookmark' => [
         'notFound' => 'Impossible de retrouver ce favoris'
     ],
