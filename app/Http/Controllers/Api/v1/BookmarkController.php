@@ -209,7 +209,7 @@ class BookmarkController extends Controller
         if (!$bookmark) {
             return [
                 'result' => 'error',
-                'message' => 'Could not retrieve the item.'
+                'message' => trans('messages.bookmark.notFound')
             ];
         }
 
@@ -259,7 +259,7 @@ class BookmarkController extends Controller
         if (!$bookmark) {
             return [
                 'result' => 'error',
-                'message' => 'Could not retrieve the item.'
+                'message' => trans('messages.bookmark.notFound')
             ];
         }
 
@@ -296,7 +296,7 @@ class BookmarkController extends Controller
         if (!$bookmark) {
             return [
                 'result' => 'error',
-                'message' => 'Could not retrieve the item.'
+                'message' => trans('messages.bookmark.notFound')
             ];
         }
 
@@ -324,7 +324,7 @@ class BookmarkController extends Controller
         ) {
             return [
                 'result' => 'error',
-                'message' => 'There was a problem with uploading the file.'
+                'message' => trans('messages.upload.error')
             ];
         }
 
