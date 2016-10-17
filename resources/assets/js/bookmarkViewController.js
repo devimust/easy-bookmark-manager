@@ -1,6 +1,6 @@
 (function () {
 
-    var bookmarkViewController = function ($scope, $location, $http, userService, bookmarkService, sessionService, $interval, $timeout, $window) {
+    var bookmarkViewController = function ($scope, $location, $http, userService, bookmarkService, sessionService, $interval, $timeout, $window, $filter) {
 
         $scope.categories = [];
         $scope.tags = [];
@@ -221,7 +221,7 @@
                         $scope.globalErrorMessage = response.message;
                         return;
                     }
-                    $scope.globalGoodMessage = 'Imported ' + response.data.imported + ' record(s), reloading...';
+                    $scope.globalGoodMessage = $filter('translate')('message.bookmark.import', {count : response.data.imported});
                     var interval = $interval(function () {
                         $interval.cancel(interval);
                         $window.location.reload();
@@ -235,7 +235,7 @@
 
     angular.module('bookmarksApp')
         .controller('bookmarkViewController',
-        ['$scope', '$location', '$http', 'userService', 'bookmarkService', 'sessionService', '$interval', '$timeout', '$window',
+        ['$scope', '$location', '$http', 'userService', 'bookmarkService', 'sessionService', '$interval', '$timeout', '$window', '$filter',
             bookmarkViewController]);
 
 }());

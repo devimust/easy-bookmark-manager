@@ -11,6 +11,7 @@
     "ace-editor-builds": "^1.2.0",
     "angular": "^1.4.9",
     "angular-route": "^1.4.9",
+    "angular-translate": "^2.12.1",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
     "jquery": "^1.12.0",

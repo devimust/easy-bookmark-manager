@@ -1,7 +1,7 @@
 (function () {
 
     var bookmarkEditController = function ($scope, $location, $routeParams, $http, $interval, userService,
-                                           bookmarkService, $window) {
+                                           bookmarkService, $window, $filter) {
 
         $scope.viewReady = false;
         $scope.errorMessage = '';
@@ -111,7 +111,7 @@
                         $scope.busyWithAction = false;
                         return;
                     }
-                    $scope.globalGoodMessage = 'Deleted, redirecting...';
+                    $scope.globalGoodMessage = $filter('translate')('message.bookmark.delete');
                     var interval = $interval(function () {
                         $interval.cancel(interval);
                         $location.path('/');
@@ -148,7 +148,7 @@
                     var interval;
 
                     if ($scope.newItem && $scope.fromWindow == 1) {
-                        $scope.goodMessage = 'Created, closing...';
+                        $scope.goodMessage = $filter('translate')('message.bookmark.create');
                         interval = $interval(function () {
                             $interval.cancel(interval);
                             window.close();
@@ -198,7 +198,7 @@
                 $scope.errorMessage = '';
                 if (response.result != 'ok') {
                     if ($scope.newItem && $scope.fromWindow) {
-                        $scope.globalErrorMessage = 'No session found, please login via the browser.';
+                        $scope.globalErrorMessage = $filter('translate')('message.session');
                         return;
                     }
 
@@ -215,6 +215,6 @@
     angular.module('bookmarksApp')
         .controller('bookmarkEditController',
         ['$scope', '$location', '$routeParams', '$http', '$interval', 'userService', 'bookmarkService',
-            '$window', bookmarkEditController]);
+            '$window', '$filter', bookmarkEditController]);
 
 }());

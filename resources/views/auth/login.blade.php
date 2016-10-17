@@ -20,14 +20,14 @@
                     </div>
 
                     <div class='form-group'>
-                        {{ Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) }}
+                        {{ Form::password('password', ['placeholder' => trans('messages.user.password'), 'class' => 'form-control']) }}
                     </div>
 
                     <div class='form-group'>
                         @include('partials/errors')
                     </div>
 
-                    {{ Form::submit('Sign in', ['class' => 'btn btn-primary btn-small btn-block']) }}
+                    {{ Form::submit(trans('messages.signin'), ['class' => 'btn btn-primary btn-small btn-block']) }}
 
                 {{ Form::close() }}
 

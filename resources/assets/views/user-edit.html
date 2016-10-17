@@ -4,7 +4,9 @@
     <div class="col-md-6 col-md-offset-3">
         <form class="form-horizontal">
             <div class="form-group">
-                <label for="inputName" class="col-sm-4 control-label">Name</label>
+                <label for="inputName" class="col-sm-4 control-label">
+                    {{ 'settings.name' | translate }}
+                </label>
 
                 <div class="col-sm-8">
                     <input type="text" class="form-control" ng-model="profile.name" id="inputName">
@@ -12,7 +14,9 @@
             </div>
 
             <div class="form-group">
-                <label for="inputLogin" class="col-sm-4 control-label">Email / Login</label>
+                <label for="inputLogin" class="col-sm-4 control-label">
+                    {{ 'settings.login' | translate }}
+                </label>
 
                 <div class="col-sm-8">
                     <input type="text" class="form-control" ng-model="profile.email" id="inputLogin">
@@ -20,7 +24,9 @@
             </div>
 
             <div class="form-group">
-                <label for="inputLogin" class="col-sm-4 control-label">Theme</label>
+                <label for="inputLogin" class="col-sm-4 control-label">
+                    {{ 'settings.theme' | translate }}
+                </label>
 
                 <div class="col-sm-8">
                     <select class="form-control" select ng-model="profile.theme"
@@ -35,7 +41,9 @@
             </div>
 
             <div class="form-group">
-                <label for="inputPassword1" class="col-sm-4 control-label">New Password</label>
+                <label for="inputPassword1" class="col-sm-4 control-label">
+                    {{ 'settings.password' | translate }}
+                </label>
 
                 <div class="col-sm-8">
                     <input type="password" class="form-control" ng-model="profile.password1" id="inputPassword1">
@@ -43,7 +51,9 @@
             </div>
 
             <div class="form-group">
-                <label for="inputPassword2" class="col-sm-4 control-label">Re-type new password</label>
+                <label for="inputPassword2" class="col-sm-4 control-label">
+                    {{ 'settings.confirm' | translate }}
+                </label>
 
                 <div class="col-sm-8">
                     <input type="password" class="form-control" ng-model="profile.password2" id="inputPassword2">
@@ -51,11 +61,11 @@
             </div>
 
             <div class="alert alert-danger" role="alert" ng-show="errorMessage">
-                <strong>Oh snap!</strong> {{ errorMessage }}
+                <strong>{{ 'message.error' | translate}}</strong> {{ errorMessage }}
             </div>
 
             <div class="alert alert-success" role="alert" ng-show="goodMessage">
-                <strong>Success!</strong> {{ goodMessage }}
+                <strong>{{ 'message.success' | translate}}</strong> {{ goodMessage }}
             </div>
 
             <div>
@@ -64,9 +74,13 @@
                 </div>
 
                 <div class="col-sm-8 col-sm-offset-4" ng-if="!busyWithAction">
-                    <button type="button" class="btn btn-primary" ng-click="updateUser()">Save</button>
+                    <button type="button" class="btn btn-primary" ng-click="updateUser()">
+                        {{ 'bookmark.save' | translate }}
+                    </button>
 
-                    <button type="button" class="btn btn-default" ng-click="cancelUpdate()">Back</button>
+                    <button type="button" class="btn btn-default" ng-click="cancelUpdate()">
+                        {{ 'bookmark.back' | translate }}
+                    </button>
 
                     <!--<button type="button" class="btn btn-danger pull-right" ng-click="resetPassword()">Reset Password</button>-->
                 </div>

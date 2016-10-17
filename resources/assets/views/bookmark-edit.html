@@ -13,7 +13,9 @@
         <form class="form-horizontal" ng-if="viewReady">
 
             <div class="form-group" ng-if="!newItem && !fromWindow">
-                <label for="inputFavourite" class="col-sm-2 control-label">Favourite</label>
+                <label for="inputFavourite" class="col-sm-2 control-label">
+                    {{ 'bookmark.favourite' | translate }}
+                </label>
 
                 <div class="col-sm-10">
                     <div class="checkbox">
@@ -25,19 +27,23 @@
             </div>
 
             <div class="form-group">
-                <label for="inputTitle" class="col-sm-2 control-label">Title</label>
+                <label for="inputTitle" class="col-sm-2 control-label">
+                    {{ 'bookmark.title' | translate }}
+                </label>
 
                 <div class="col-sm-10">
                     <input type="text" class="form-control" ng-model="bookmark.title" id="inputTitle"
-                           placeholder="Title">
+                           placeholder="{{ 'bookmark.title' | translate }}">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputLink" class="col-sm-2 control-label">Link</label>
+                <label for="inputLink" class="col-sm-2 control-label">
+                    {{ 'bookmark.link' | translate }}
+                </label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" ng-model="bookmark.link" id="inputLink" placeholder="Link">
+                    <input type="text" class="form-control" ng-model="bookmark.link" id="inputLink" placeholder="{{ 'bookmark.link' | translate }}">
                 </div>
             </div>
 
@@ -52,17 +58,21 @@
                 </div>
 
                 <div class="col-sm-10" ng-if="!canViewSnippet">
-                    <button type="button" class="btn btn-default btn-xs" ng-click="enableSnippet()">Enable</button>
+                    <button type="button" class="btn btn-default btn-xs" ng-click="enableSnippet()">
+                        {{ 'bookmark.enable' | translate }}
+                    </button>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputCategory" class="col-sm-2 control-label">Category</label>
+                <label for="inputCategory" class="col-sm-2 control-label">
+                    {{ 'bookmark.category' | translate }}
+                </label>
 
                 <div class="col-sm-10">
                     <div angucomplete-alt
                          id="inputCategory"
-                         placeholder="Search categories"
+                         placeholder="{{ 'bookmark.search' | translate }}"
                          initial-value="bookmark.category"
                          maxlength="100"
                          pause="10"
@@ -78,7 +88,9 @@
             </div>
 
             <div class="form-group">
-                <label for="inputTags2" class="col-sm-2 control-label">Tags</label>
+                <label for="inputTags2" class="col-sm-2 control-label">
+                    {{ 'bookmark.tags' | translate }}
+                </label>
 
                 <div class="col-sm-10">
                     <span class="loading-tags">loading tags...</span>
@@ -116,27 +128,30 @@
                 </div>
 
                 <div class="col-sm-10 col-sm-offset-2" ng-if="!busyWithAction">
-                    <button type="button" class="btn btn-primary" ng-if="newItem" ng-click="createBookmark()">Create
+                    <button type="button" class="btn btn-primary" ng-if="newItem" ng-click="createBookmark()">
+                        {{ 'bookmark.create' | translate }}
                     </button>
 
                     <button type="button" class="btn btn-primary" ng-if="!newItem" ng-click="updateBookmark(false)">
-                        Save
+                        {{ 'bookmark.save' | translate }}
                     </button>
 
                     <button type="button" class="btn btn-primary" ng-if="!newItem && !fromWindow"
-                            ng-click="updateBookmark(true)">Save and Close
+                            ng-click="updateBookmark(true)">
+                        {{ 'bookmark.saveandclose' | translate }}
                     </button>
 
                     <button type="button" class="btn btn-default" ng-if="!fromWindow" ng-click="cancelUpdate()">
-                        Back
+                        {{ 'bookmark.back' | translate }}
                     </button>
 
                     <button type="button" class="btn btn-default" ng-if="!newItem && fromWindow" ng-click="closeWindow();">
-                        Close
+                        {{ 'bookmark.close' | translate }}
                     </button>
 
                     <button type="button" class="btn btn-danger pull-right" ng-if="!newItem"
-                            ng-click="deleteBookmark()">Delete
+                            ng-click="deleteBookmark()">
+                        {{ 'bookmark.delete' | translate }}
                     </button>
                 </div>
             </div>
