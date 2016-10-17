@@ -69,6 +69,8 @@ $ gulp && gulp watch
 
 [Easy Bookmark Manager Extension](https://chrome.google.com/webstore/detail/easy-bookmark-manager-ext/hhonlfdhoejpaofmmppaogebkfnbgefi)
 
+[Source](https://github.com/devimust/easy-bookmark-manager-chrome-extension)
+
 
 ### Dev Dependencies and Credits
 
