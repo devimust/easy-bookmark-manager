@@ -1,6 +1,6 @@
 (function () {
 
-    var customSelect2 = function ($timeout, bookmarkService) {
+    var customSelect2 = function ($timeout, bookmarkService, $filter) {
 
         return {
 
@@ -18,11 +18,13 @@
                 var loaded = 0;
                 var data = [];
 
+                var that = this;
+
                 this.initSelect2 = function (el, data) {
                     $('.loading-tags').hide();
 
                     $(el).select2({
-                        placeholder: 'Add tags...',
+                        placeholder: $filter('translate')('bookmark.tagsPlaceholder' ),
                         allowClear: true,
                         tags: true,
                         data: data
@@ -48,7 +50,7 @@
                                 }
 
                                 // Init select2 on current directive element.
-                                this.initSelect2(el, data);
+                                that.initSelect2(el, data);
                             });
 
                     }
@@ -103,7 +105,7 @@
                                 }
 
                                 // Init select2 on current directive element.
-                                this.initSelect2(el, data);
+                                that.initSelect2(el, data);
 
                             });
 
@@ -115,6 +117,6 @@
     };
 
     angular.module('bookmarksApp').
-        directive('customSelect2', [ '$timeout', 'bookmarkService', customSelect2 ]);
+        directive('customSelect2', [ '$timeout', 'bookmarkService', '$filter', customSelect2 ]);
 
 }());

@@ -4,16 +4,7 @@ var API_URL = window.location.origin + '/api/v1/';
 
 (function () {
 
-    //angular.module("pingMod", [])
-    //    .run(function ($http, $interval) {
-    //        var TIME = 1000;
-    //        function ping() {
-    //            $http.get("/ping");
-    //        }
-    //        $interval(ping, TIME);
-    //    });
-
-    angular.module('bookmarksApp', ['ngRoute', 'angucomplete-alt', 'ui.ace']);
+    var app = angular.module('bookmarksApp', ['ngRoute', 'angucomplete-alt', 'ui.ace', 'pascalprecht.translate']);
 
 }());
 

@@ -20,6 +20,8 @@ Step 1:
 $ git clone git@github.com/devimust/easy-bookmark-manager.git
 $ cd easy-bookmark-manager
 $ composer install
+$ npm install
+$ gulp --production
 ```
 
 Step 2: Update database details inside `.env` file.
@@ -66,6 +68,8 @@ $ gulp && gulp watch
 ### Chrome Extension
 
 [Easy Bookmark Manager Extension](https://chrome.google.com/webstore/detail/easy-bookmark-manager-ext/hhonlfdhoejpaofmmppaogebkfnbgefi)
+
+[Source](https://github.com/devimust/easy-bookmark-manager-chrome-extension)
 
 
 ### Dev Dependencies and Credits

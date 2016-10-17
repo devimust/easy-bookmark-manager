@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Lang;
 
 class PagesController extends Controller
 {
@@ -50,7 +51,7 @@ class PagesController extends Controller
             if (!Auth::attempt(['username' => $username, 'password' => $password], true))
             {
                 return \Redirect::back()
-                    ->withErrors('That username/password combo does not exist.');
+                    ->withErrors(trans('messages.loginCombo'));
             }
         }
 

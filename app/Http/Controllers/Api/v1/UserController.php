@@ -22,7 +22,7 @@ class UserController extends Controller
         if (!Auth::check()) {
             return [
                 'result' => 'error',
-                'message' => 'No user sessions found.'
+                'message' => trans('message.user.noSession')
             ];
         }
 
@@ -48,7 +48,7 @@ class UserController extends Controller
             {
                 return [
                     'result' => 'error',
-                    'message' => 'That username/password combo does not exist.'
+                    'message' => trans('messages.loginCombo')
                 ];
             }
         }
@@ -62,7 +62,7 @@ class UserController extends Controller
             // Should we have a bad response now? It appears to be a DOS attack
             return [
                 'result' => 'error',
-                'message' => 'Active session limit reached. Please logout to clean out session tokens.'
+                'message' => trans('messages.user.sessionReached')
             ];
         }
 
@@ -91,7 +91,7 @@ class UserController extends Controller
         if (!$user) {
             return [
                 'result' => 'error',
-                'message' => 'No session found, please login again.'
+                'message' => trans('message.user.noSession')
             ];
         }
 
@@ -121,7 +121,7 @@ class UserController extends Controller
         if (!$user) {
             return [
                 'result' => 'error',
-                'message' => 'No session found, please login again.'
+                'message' => trans('message.user.noSession')
             ];
         }
 
@@ -135,7 +135,7 @@ class UserController extends Controller
             if ($request->input('password1') != $request->input('password2')) {
                 return [
                     'result' => 'error',
-                    'message' => 'Both passwords must match.'
+                    'message' => trans('messages.password.match')
                 ];
             }
             $user->password = \Hash::make($request->input('password1'));

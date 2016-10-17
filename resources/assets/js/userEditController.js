@@ -1,6 +1,6 @@
 (function () {
 
-    var userEditController = function ($scope, $location, $http, $interval, userService) {
+    var userEditController = function ($scope, $location, $http, $interval, userService, $filter) {
 
         $scope.errorMessage = '';
         $scope.goodMessage = '';
@@ -35,19 +35,19 @@
 
             if ($scope.profile.password1.length > 0) {
                 if ($scope.profile.password1.length < 5) {
-                    $scope.errorMessage = 'Your new password must be at least 5 characters';
+                    $scope.errorMessage = $filter('translate')('message.password.length');
                     return;
                 }
                 if ($scope.profile.password1.search(/[a-z]/i) < 0) {
-                    $scope.errorMessage = 'Your new password must contain at least one letter';
+                    $scope.errorMessage = $filter('translate')('message.password.oneLetter');
                     return;
                 }
                 if ($scope.profile.password1.search(/[0-9]/) < 0) {
-                    $scope.errorMessage = 'Your new password must contain at least one digit';
+                    $scope.errorMessage = $filter('translate')('message.password.oneDigit');
                     return;
                 }
                 if ($scope.profile.password1 != $scope.profile.password2) {
-                    $scope.errorMessage = 'Both passwords must match';
+                    $scope.errorMessage = $filter('translate')('message.password.match');
                     return;
                 }
             }
@@ -62,7 +62,7 @@
                         $scope.errorMessage = response.message;
                         return;
                     }
-                    $scope.goodMessage = 'Details updated.';
+                    $scope.goodMessage = $filter('translate')('message.password.updated');
                     $scope.profile.password1 = '';
                     $scope.profile.password2 = '';
                 });
@@ -83,6 +83,6 @@
 
     angular.module('bookmarksApp')
         .controller('userEditController',
-        ['$scope', '$location', '$http', '$interval', 'userService', userEditController]);
+        ['$scope', '$location', '$http', '$interval', 'userService', '$filter', userEditController]);
 
 }());

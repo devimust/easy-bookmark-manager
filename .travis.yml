@@ -3,13 +3,22 @@ language: php
 php:
   - '5.6'
 
-install:
+env:
+  - NODE_RELEASE=4.x
+
+before_install:
   - wget "https://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar"
+  - sudo rm -rf ~/.nvm
+  - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
+  - sudo apt-get install -y nodejs
+  - sudo apt-get install -y libnotify-bin      # fix missing dependency required by gulp-notify
+  - sudo npm install -g gulp
+
+install:
+  - npm install
   - java -jar selenium-server-standalone-2.48.2.jar &
 #  - java -jar selenium-server-standalone-2.48.2.jar > /dev/null 2>&1 &
-  - cd tests && npm install && cd ..
-
-before_script:
+  - gulp --production
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
   - composer self-update
@@ -23,6 +32,4 @@ before_script:
 
 script:
   - vendor/bin/phpunit
-  - cd tests
-  - pwd
   - npm test

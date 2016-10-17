@@ -3,4 +3,11 @@
 /public/storage
 .env
 /.idea
+/public/**/*.map
+/public/build
+.idea
+*.iml
+/public/js/*.js
+/public/css/*
+/public/views/*.html
 /tests/node_modules
