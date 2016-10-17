@@ -3,14 +3,13 @@ language: php
 php:
   - '5.6'
 
-node_js:
-  - "4.x"
-
 env:
-  - TRAVIS_NODE_VERSION="4"
+  - NODE_RELEASE=4.x
 
 before_install:
-  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
+  - sudo rm -rf ~/.nvm
+  - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
+  - sudo apt-get install -y nodejs
   - npm install -g gulp
 
 install:
@@ -20,8 +19,6 @@ install:
   - mysql -e 'create database homestead_test;'
   - composer self-update
   - composer install --no-interaction
-
-before_script:
   - php artisan key:generate
   - php artisan migrate --seed
   - php artisan db:seed --class=DummyBookmarksSeeder
