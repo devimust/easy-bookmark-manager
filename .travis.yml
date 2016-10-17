@@ -3,7 +3,19 @@ language: php
 php:
   - '5.6'
 
-before_script:
+env:
+  - NODE_RELEASE=4.x
+
+before_install:
+  - sudo rm -rf ~/.nvm
+  - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
+  - sudo apt-get install -y nodejs
+  - sudo apt-get install -y libnotify-bin      # fix missing dependency required by gulp-notify
+  - sudo npm install -g gulp
+
+install:
+  - npm install
+  - gulp --production
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
   - composer self-update

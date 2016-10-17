@@ -20,6 +20,8 @@ Step 1:
 $ git clone git@github.com/devimust/easy-bookmark-manager.git
 $ cd easy-bookmark-manager
 $ composer install
+$ npm install
+$ gulp --production
 ```
 
 Step 2: Update database details inside `.env` file.
