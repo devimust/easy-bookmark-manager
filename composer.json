@@ -34,7 +34,9 @@
         "post-install-cmd": [
             "[ ! -f .env ] && php -r \"copy('.env.example', '.env');\" && php artisan key:generate || echo 'Found .env file!'",
             "php artisan clear-compiled",
-            "php artisan optimize"
+            "php artisan optimize",
+            "npm install",
+            "gulp --production"
         ],
         "pre-update-cmd": [
             "php artisan clear-compiled"
