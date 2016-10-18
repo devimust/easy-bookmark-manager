@@ -17,7 +17,7 @@
             create : 'Create',
             update : 'Update',
             saveandclose : 'Save and close',
-            delete : 'Delete',
+            'delete' : 'Delete',
             close : 'Close',
             back : 'Back',
             enable : 'Enable',
@@ -39,9 +39,9 @@
                 updated : 'Details updated.'
             },
             bookmark : {
-                delete : 'Deleted, redirecting...',
-                create : 'Created, closing...',
-                import : 'Imported {{count}} record(s), reloading...'
+                'delete' : 'Deleted, redirecting...',
+                'create' : 'Created, closing...',
+                'import' : 'Imported {{count}} record(s), reloading...'
             },
             session : 'No session found, please login via the browser.'
         },
@@ -71,7 +71,7 @@
             create          : 'Créer',
             update          : 'Mettre à jour',
             saveandclose    : 'Sauver et quitter',
-            delete          : 'Supprimer',
+            'delete'          : 'Supprimer',
             close           : 'Fermer',
             back            : 'Retour',
             enable          : 'Activer',
@@ -92,9 +92,9 @@
                 updated : 'Mot de passe mis à jour.'
             },
             bookmark : {
-                delete : 'Favoris supprimé, redirection...',
+                'delete' : 'Favoris supprimé, redirection...',
                 create : 'Favoris créé, redirection...',
-                import : '{{count}} favoris supprimé(s), mise à jour...'
+                'import' : '{{count}} favoris supprimé(s), mise à jour...'
             },
             session : 'Aucune session trouvée, vous devez d\'abord vous connecter.'
         },
@@ -107,12 +107,12 @@
         }
     };
 
-    angular.module('bookmarksApp').config(function ($translateProvider) {
+    angular.module('bookmarksApp').config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('en', englishTranslations);
 
         $translateProvider.translations('fr', frenchTranslations);
         $translateProvider.useSanitizeValueStrategy(null);
         $translateProvider.determinePreferredLanguage();
-    })
+    }])
 
 }());
