@@ -10,4 +10,4 @@
 /public/js/*.js
 /public/css/*
 /public/views/*.html
-/tests/node_modules
+/tests/screenshots

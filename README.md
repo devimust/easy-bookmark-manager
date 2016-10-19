@@ -6,9 +6,9 @@ Easy (and fast) self-hosted bookmark manager.
 
 ### Demo
 
-You can test easey-bookmark-manager here : [demo](http://bookmarkdemo.miceli.click/)
+You can test easy-bookmark-manager here : [demo](http://bookmarkdemo.miceli.click/)
 
-Login are **admin** as login and **nimda** as password.
+Use **admin** as login and **nimda** as password.
 
 You can also download easy-bookmark-manager [chrome plugin](https://chrome.google.com/webstore/detail/easy-bookmark-manager-ext/hhonlfdhoejpaofmmppaogebkfnbgefi)
 

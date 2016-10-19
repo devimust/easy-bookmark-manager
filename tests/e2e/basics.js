@@ -111,45 +111,45 @@ describe('basic functionality', function() {
             assert.equal(browser.getText('p.prev-next-pages'), '4 / 4');
         });
 
-        it('must show 5 buttons on the main page', function () {
-
-        });
-
-        it('search api should return 2 items', function () {
-
-        });
-
-        it('click on clear should empty search and return 10 items', function () {
-
-        });
-
-        it('click on category Servers should return 4 items and unclick should return 10 items', function () {
-
-        });
-
-        it('click on remote should return 2 items', function () {
-
-        });
-
-        it('click on server should return 3 items (including clicked remote)', function () {
-
-        });
-
-        it('click on category design should result in 4 items (including tags)', function () {
-
-        });
-
-        it('edit item and save', function () {
-
-        });
-
-        it('create new item', function () {
-
-        });
-
-        it('delete item', function () {
-
-        });
+        //it('must show 5 buttons on the main page', function () {
+        //
+        //});
+        //
+        //it('search api should return 2 items', function () {
+        //
+        //});
+        //
+        //it('click on clear should empty search and return 10 items', function () {
+        //
+        //});
+        //
+        //it('click on category Servers should return 4 items and unclick should return 10 items', function () {
+        //
+        //});
+        //
+        //it('click on remote should return 2 items', function () {
+        //
+        //});
+        //
+        //it('click on server should return 3 items (including clicked remote)', function () {
+        //
+        //});
+        //
+        //it('click on category design should result in 4 items (including tags)', function () {
+        //
+        //});
+        //
+        //it('edit item and save', function () {
+        //
+        //});
+        //
+        //it('create new item', function () {
+        //
+        //});
+        //
+        //it('delete item', function () {
+        //
+        //});
 
     });
 });
