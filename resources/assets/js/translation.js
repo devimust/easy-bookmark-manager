@@ -108,11 +108,20 @@
     };
 
     angular.module('bookmarksApp').config(['$translateProvider', function ($translateProvider) {
+
+         // We used native language detector because some browsers like Edge and IE  return en-EN instead
+        // of en on Firefox or Chrome
+
+        var userLang = navigator.language || navigator.userLanguage;
+        userLang = userLang.split('-')[0];
+
         $translateProvider.translations('en', englishTranslations);
 
         $translateProvider.translations('fr', frenchTranslations);
         $translateProvider.useSanitizeValueStrategy(null);
         $translateProvider.determinePreferredLanguage();
-    }])
+
+        $translateProvider.preferredLanguage(userLang);
+    }]);
 
 }());
