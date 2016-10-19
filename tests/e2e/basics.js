@@ -29,7 +29,7 @@ describe('basic functionality', function() {
                 .submitForm('#login-form');
 
             // wait for page to load
-            browser.pause(500);
+            browser.pause(1000);
 
             assert.equal(browser.isVisible('div.bg-danger.alert'), true);
             assert.equal(browser.getText('div.bg-danger.alert ul li'), 'That username/password combo does not exist.');
@@ -42,7 +42,7 @@ describe('basic functionality', function() {
                 .submitForm('#login-form');
 
             // wait for page to load
-            browser.pause(500);
+            browser.pause(1000);
         });
 
         //it('should logout', function () {
