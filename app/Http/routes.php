@@ -36,6 +36,7 @@ Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'PagesController@showIndex');
     Route::get('login', 'PagesController@showLogin');
+    Route::get('register', 'PagesController@showRegister');
     Route::post('auth/login', 'PagesController@login');
     Route::get('auth/logout', 'PagesController@logout');
 

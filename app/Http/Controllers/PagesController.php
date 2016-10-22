@@ -78,4 +78,14 @@ class PagesController extends Controller
         return redirect('/');
     }
 
+    public function showRegister()
+    {
+        // If user is connected we redirect it to homepage
+        if (!Auth::check()) {
+            return view('auth/register');
+        }
+
+        return redirect('/');
+    }
+
 }
