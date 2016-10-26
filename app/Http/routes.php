@@ -37,6 +37,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'PagesController@showIndex');
     Route::get('login', 'PagesController@showLogin');
     Route::get('register', 'PagesController@showRegister');
+    Route::post('auth/register', 'PagesController@register');
     Route::post('auth/login', 'PagesController@login');
     Route::get('auth/logout', 'PagesController@logout');
 
