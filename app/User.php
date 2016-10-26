@@ -47,4 +47,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Tag');
     }
+
+    public static function getFormMessages()
+    {
+        return  [
+            'username.required' => trans('messages.userNameRequired'),
+            'username.email' => trans('messages.usernameEmail'),
+            'username.unique' => trans('messages.usernameUnique')
+        ];
+    }
 }
