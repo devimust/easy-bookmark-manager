@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
 
 class PagesController extends Controller
 {
@@ -86,6 +88,20 @@ class PagesController extends Controller
         }
 
         return redirect('/');
+    }
+
+
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|unique:users',
+            'username' => 'required|unique:users,username|email|min:3',
+            'password' => 'required|confirmed|min:5'
+        ], User::getFormMessages());
+
+        User::create($request->all());
+
+        return Redirect::to('/admin/users');
     }
 
 }
