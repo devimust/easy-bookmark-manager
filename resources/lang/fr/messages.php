@@ -30,7 +30,8 @@ return array(
         'adminRole' => 'Est administrateur',
         'password' => 'Mot de passe',
         'confirm' => 'Confirmation du mot de passe',
-        'isAdmin' => 'Administrateur'
+        'isAdmin' => 'Administrateur',
+        'register' => 'Inscription'
     ],
     'password' => [
         'match' => 'Les deux mots de passe doivent correspondre.'

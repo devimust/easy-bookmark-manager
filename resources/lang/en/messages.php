@@ -30,7 +30,8 @@ return [
         'adminRole' => 'Admin',
         'password' => 'Password',
         'confirm' => 'Confirm Password',
-        'isAdmin' => 'Administrator'
+        'isAdmin' => 'Administrator',
+        'register' => 'Register'
     ],
     'password' => [
         'match' => 'Both passwords must match.'
