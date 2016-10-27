@@ -14,6 +14,7 @@ return array(
     'back' => 'Retour',
     'save' => 'Sauvegarder',
     'signin' => 'Se connecter',
+    'notConfirmed' => 'Vous n\'avez pas confirmé votre compte',
     'bookmark' => [
         'notFound' => 'Impossible de retrouver ce favoris'
     ],

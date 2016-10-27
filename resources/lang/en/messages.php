@@ -14,6 +14,7 @@ return [
     'back' => 'Back',
     'save' => 'Save',
     'signin' => 'Sign in',
+    'notConfirmed' => 'Your account has not been confirmed',
     'bookmark' => [
         'notFound' => 'Could not retrieve the item.'
     ],
