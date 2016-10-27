@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 
@@ -49,6 +50,12 @@ class PagesController extends Controller
         if (!Auth::check()) {
             $username = $request->input('username');
             $password = $request->input('password');
+
+            $user = User::where('username', $username)->first();
+
+            if ($user->confirmed == false) {
+                return \Redirect::back()->withErrors(trans('messages.notConfirmed'));
+            }
 
             if (!Auth::attempt(['username' => $username, 'password' => $password], true))
             {
@@ -99,7 +106,10 @@ class PagesController extends Controller
             'password' => 'required|confirmed|min:5'
         ], User::getFormMessages());
 
-        User::create($request->all());
+        $userData = $request->all();
+        $userData['password'] = Hash::make($userData['password']);
+
+        User::create($userData);
 
         return Redirect::to('/admin/users');
     }
