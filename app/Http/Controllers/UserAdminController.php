@@ -59,7 +59,12 @@ class UserAdminController extends Controller
             'password' => 'required|confirmed|min:5'
         ], User::getFormMessages());
 
-        User::create($request->all());
+        $user = User::create($request->all());
+
+        if (env('ENABLE_ADMIN_MAIL') === false) {
+            $user->confirmed = true;
+            $user->save();
+        }
 
         return Redirect::to('/admin/users');
     }
