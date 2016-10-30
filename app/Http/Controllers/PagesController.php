@@ -109,9 +109,16 @@ class PagesController extends Controller
         $userData = $request->all();
         $userData['password'] = Hash::make($userData['password']);
 
-        User::create($userData);
+        $user = User::create($userData);
 
-        return Redirect::to('/admin/users');
+        // check if mail confirmation is disabled
+        // if mail confirmation is disabled we set user as confirmed
+        if (env('ENABLE_REGISTER_MAIL') === false) {
+            $user->confirmed = true;
+            $user->save();
+        }
+
+        return Redirect::to('/');
     }
 
 }
