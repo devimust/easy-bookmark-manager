@@ -38,7 +38,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('login', 'PagesController@showLogin');
     if (env('ENABLE_REGISTER') === true) {
         Route::get('register', 'PagesController@showRegister');
-        Route::post('auth/register', 'PagesController@register');
+        if (env('ENABLE_REGISTER_MAIL') == true) {
+            Route::post('auth/register', 'PagesController@register')->middleware('mail');
+        } else {
+            Route::post('auth/register', 'PagesController@register');
+        }
+
     }
     Route::post('auth/login', 'PagesController@login');
     Route::get('auth/logout', 'PagesController@logout');
