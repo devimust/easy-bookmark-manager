@@ -13,7 +13,7 @@
 
     <div class="col-md-3">
 
-        <div class="panel panel-primary categories" ng-if="categories.length > 1">
+        <div id="categories" class="panel panel-primary categories" ng-if="categories.length > 1">
             <div class="panel-heading">
                 {{ 'bookmark.categories' | translate }}
             </div>
@@ -37,7 +37,7 @@
             </ul>
         </div>
 
-        <div class="panel panel-primary" ng-if="tags.length > 1">
+        <div id="tags" class="panel panel-primary" ng-if="tags.length > 1">
             <div class="panel-heading">
                 {{'bookmark.tags' | translate }}
             </div>
@@ -89,7 +89,7 @@
     </div>
 
     <div class="col-md-9">
-        <div class="panel panel-primary">
+        <div id="search" class="panel panel-primary">
             <div class="panel-heading">
                 <div class="has-feedback">
                     <input id="searchText" class="form-control" ng-model="search" type="text" placeholder="{{ 'search.bookmark' | translate }}"

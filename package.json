@@ -1,15 +1,14 @@
 {
   "private": true,
   "devDependencies": {
+    "chai": "^3.5.0",
     "del": "^2.2.0",
     "gulp": "^3.8.8",
     "gulp-jshint": "^2.0.0",
     "gulp-shell": "^0.5.2",
+    "gulp-testcafe": "^0.9.0",
     "jshint": "^2.9.1",
-    "chai": "^3.5.0",
-    "wdio-dot-reporter": "0.0.5",
-    "wdio-mocha-framework": "^0.3.1",
-    "webdriverio": "^4.0.9"
+    "testcafe-browser-provider-phantomjs": "^1.0.0"
   },
   "dependencies": {
     "ace-editor-builds": "^1.2.0",
@@ -24,6 +23,6 @@
     "select2": "^4.0.2-rc.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/wdio ./tests/wdio.conf.js"
+    "test": "gulp test"
   }
 }
