@@ -13,7 +13,7 @@
 
     <div class="col-md-3">
 
-        <div class="panel panel-primary categories" ng-if="categories.length > 1">
+        <div id="categories" class="panel panel-primary categories" ng-if="categories.length > 1">
             <div class="panel-heading">
                 {{ 'bookmark.categories' | translate }}
             </div>
@@ -27,7 +27,7 @@
                     <span class="badge">{{category.count}}</span>
                 </li>
 
-                <li class="list-group-item click-item text-center"
+                <li class="list-group-item click-item text-center load-more"
                     ng-class="{'li-hidden': !showDetails}"
                     ng-init="showDetails = true"
                     ng-if="categories.length > 5"
@@ -37,7 +37,7 @@
             </ul>
         </div>
 
-        <div class="panel panel-primary" ng-if="tags.length > 1">
+        <div id="tags" class="panel panel-primary" ng-if="tags.length > 1">
             <div class="panel-heading">
                 {{'bookmark.tags' | translate }}
             </div>
@@ -89,7 +89,7 @@
     </div>
 
     <div class="col-md-9">
-        <div class="panel panel-primary">
+        <div id="search" class="panel panel-primary">
             <div class="panel-heading">
                 <div class="has-feedback">
                     <input id="searchText" class="form-control" ng-model="search" type="text" placeholder="{{ 'search.bookmark' | translate }}"
@@ -98,7 +98,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="search-results">
                 <div class="alert" role="alert" ng-if="loadingBookmarks">
                     Loading <i class="fa fa-spinner fa-pulse fa-lg"></i>
                 </div>
@@ -135,12 +135,12 @@
                 </div>
 
                 <div class="text-center prev-next" ng-if="!loadingBookmarks">
-                    <button type="button" class="btn btn-primary" ng-if="bookmarkResults.page > 1"
+                    <button type="button" class="btn btn-primary button-previous" ng-if="bookmarkResults.page > 1"
                             ng-click="prevPage()">
                         Previous
                     </button>
 
-                    <button type="button" class="btn btn-primary"
+                    <button type="button" class="btn btn-primary button-next"
                             ng-if="bookmarkResults.page < bookmarkResults.maxPages"
                             ng-click="nextPage()">Next
                     </button>

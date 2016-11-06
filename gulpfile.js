@@ -1,6 +1,8 @@
+var gulp = require('gulp');
+var testcafe = require('gulp-testcafe');
 var elixir = require('laravel-elixir');
 
-require('./elixir-extensions')
+require('./elixir-extensions');
 
 /*
  |--------------------------------------------------------------------------
@@ -42,7 +44,7 @@ elixir(function(mix) {
 
     // vendor scripts
     mix
-        .scripts([
+        .combine([
             'node_modules/jquery/dist/jquery.min.js',
             'node_modules/bootstrap/dist/js/bootstrap.min.js',
             'node_modules/angular/angular.min.js',
@@ -76,4 +78,19 @@ elixir(function(mix) {
         'public/js/main.js'
     ]);
 
+});
+
+
+/*
+ |--------------------------------------------------------------------------
+ | e2e Automated Testing
+ |--------------------------------------------------------------------------
+ |
+ | An e2e test suite covering most key functionality across the website.
+ |
+ */
+
+gulp.task('test', function() {
+    return gulp.src('./tests/e2e/auth.test.js')
+        .pipe(testcafe({ browsers: ['phantomjs'] }));
 });

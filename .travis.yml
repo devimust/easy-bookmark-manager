@@ -7,6 +7,7 @@ env:
   - NODE_RELEASE=4.x
 
 before_install:
+  # - wget "https://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar"
   - sudo rm -rf ~/.nvm
   - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
   - sudo apt-get install -y nodejs
@@ -15,6 +16,8 @@ before_install:
 
 install:
   - npm install
+  # - java -jar selenium-server-standalone-2.48.2.jar &
+#  - java -jar selenium-server-standalone-2.48.2.jar > /dev/null 2>&1 &
   - gulp --production
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
@@ -23,7 +26,10 @@ install:
   - php artisan key:generate
   - php artisan migrate --seed
   - php artisan db:seed --class=DummyBookmarksSeeder
-#  - php -S localhost:8000 -t public/
+  - php -S localhost:8000 -t public/ &
+#  - php -S localhost:8000 -t public/ > /dev/null 2>&1 &
+  - sleep 5
 
 script:
   - vendor/bin/phpunit
+  - npm test
