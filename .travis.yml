@@ -32,4 +32,4 @@ install:
 
 script:
   - vendor/bin/phpunit
-  - gulp test
+  - npm test

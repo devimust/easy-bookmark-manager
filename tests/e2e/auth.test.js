@@ -20,7 +20,8 @@ test('Prevent login with invalid credentials', async t => {
     await t
         .typeText('#username', 'admin')
         .typeText('#password', 'badpassword')
-        .click('#submit-button');
+        .click('#submit-button')
+        .wait(1000);
 
     const visible = (await t.select(() => document.querySelector('div.bg-danger.alert'))).visible;
     expect(visible).to.be.true;
@@ -33,11 +34,21 @@ test('Ensure all default elements display correctly after correctly logging in',
     await t
        .typeText('#username', 'admin')
        .typeText('#password', 'nimda')
-       .click('#submit-button');
+       .click('#submit-button')
+       .wait(1000);
 
+    // Expect 8 child elements on the ul ref object
     snapshotElement(await getElementByRef('#categories ul'), 'ul', 8);
 
+    // Check if panel heading match
+    expect((await getElementByRef('#categories div.panel-heading')).innerText).eql('Categories');
+
+    // Expect 37 child elements on the ul ref object
     snapshotElement(await getElementByRef('#tagcloud ul'), 'ul', 37);
 
+    // Check if panel heading match
+    expect((await getElementByRef('#tags div.panel-heading')).innerText).eql('Tags');
+
+    // Expect 11 child elements on the div ref object
     snapshotElement(await getElementByRef('#search div.search-results'), 'div', 11);
 });
