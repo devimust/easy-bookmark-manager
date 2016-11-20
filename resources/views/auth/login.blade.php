@@ -11,6 +11,12 @@
 
             <div class="col-md-4">
 
+                @if (!empty($message))
+                    <div class="bg-success alert">
+                        {{$message}}
+                    </div>
+                @endif
+
                 {{ Form::open(['role' => 'form', 'url' => '/auth/login']) }}
 
                     {!! csrf_field() !!}

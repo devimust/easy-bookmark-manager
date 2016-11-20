@@ -37,5 +37,11 @@ return array(
     'password' => [
         'match' => 'Les deux mots de passe doivent correspondre.'
     ],
+    'account' => [
+        'validated' => 'Votre compte est désormais validé !',
+        'welcome' => 'Merci de votre inscription sur Easy Bookmark Manager.',
+        'confirm' => 'Vous devez confirmer votre compte en cliquant sur ce lien',
+        'confirmLink' => 'Je confirm mon compte'
+    ],
     'yes' => 'oui'
 );
