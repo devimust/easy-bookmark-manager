@@ -115,7 +115,27 @@ class PagesController extends Controller
         // if mail confirmation is disabled we set user as confirmed
         if (env('ENABLE_REGISTER_MAIL') === false) {
             $user->confirmed = true;
+        } else {
+            $user->hashValidation = hash('sha256', $user->username);
+        }
+
+        $user->save();
+
+        return Redirect::to('/');
+    }
+
+    public function validation($hashValidation, Request $request)
+    {
+        $user = User::where('hashValidation', $hashValidation)->first();
+
+        if ($user) {
+            if ($user->confirmed) { return Redirect::to('/'); }
+
+            $user->confirmed = true;
+            $user->hashValidation = null;
             $user->save();
+
+            return view('auth/login', array('message' => trans('messages.account.validated')));
         }
 
         return Redirect::to('/');
