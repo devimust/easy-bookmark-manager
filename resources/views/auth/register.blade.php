@@ -18,7 +18,7 @@
                     </a>
                 </h1>
 
-                {{ Form::open(['role' => 'form', 'url' => 'auth/register']) }}
+                {{ Form::open(['role' => 'form', 'url' => 'auth/register', 'name' => 'register']) }}
 
                 @include('useradmin/registerform')
 
