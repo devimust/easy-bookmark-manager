@@ -103,7 +103,8 @@ class PagesController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:users',
             'username' => 'required|unique:users,username|email|min:3',
-            'password' => 'required|confirmed|min:5'
+            'password' => 'required|confirmed|min:5',
+            'password_confirmation' => 'required|min:5|same:password'
         ], User::getFormMessages());
 
         $userData = $request->all();
