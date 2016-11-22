@@ -41,7 +41,8 @@ return array(
         'validated' => 'Votre compte est désormais validé !',
         'welcome' => 'Merci de votre inscription sur Easy Bookmark Manager.',
         'confirm' => 'Vous devez confirmer votre compte en cliquant sur ce lien',
-        'confirmLink' => 'Je confirm mon compte'
+        'confirmLink' => 'Je confirm mon compte',
+        'validationMessage' => 'Consulter vos emails pour confirmer votre compte'
     ],
     'yes' => 'oui'
 );

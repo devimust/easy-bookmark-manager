@@ -104,7 +104,7 @@ class PagesController extends Controller
             'name' => 'required|unique:users',
             'username' => 'required|unique:users,username|email|min:3',
             'password' => 'required|confirmed|min:5',
-            'password_confirmation' => 'required|min:5|same:password'
+            'password_confirmation' => 'required|min:5'
         ], User::getFormMessages());
 
         $userData = $request->all();
@@ -122,7 +122,7 @@ class PagesController extends Controller
 
         $user->save();
 
-        return Redirect::to('/');
+        return view('auth/login', array('message' => trans('messages.account.validationMessage')));
     }
 
     public function validation($hashValidation, Request $request)

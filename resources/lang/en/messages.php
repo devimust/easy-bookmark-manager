@@ -36,12 +36,13 @@ return [
     ],
     'password' => [
         'match' => 'Both passwords must match.',
-        'welcome' => 'Thanks to register on Easy Bookmark Manager.',
-        'confirm' => 'You have to confirm your account clicking on this link',
-        'confirmLink' => 'Account confirmation'
     ],
     'account' => [
-        'validated' => 'Your account has been validated !'
+        'welcome' => 'Thanks to register on Easy Bookmark Manager.',
+        'confirm' => 'You have to confirm your account clicking on this link',
+        'confirmLink' => 'Account confirmation',
+        'validated' => 'Your account has been validated !',
+        'validationMessage' => 'Check your mail box to validate your account'
     ],
     'yes' => 'yes'
 ];
