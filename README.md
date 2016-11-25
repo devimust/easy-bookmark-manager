@@ -64,7 +64,7 @@ Example apache virtual host file
 ```
 
 
-### Development
+### Development (local native)
 
 I welcome any feedback and contributions.
 
@@ -75,6 +75,19 @@ $ npm install
 $ gulp && gulp watch
 ```
 
+### Development (local docker)
+
+```bash
+# update .env with APP_ENV=local and APP_DEBUG=false
+dc build
+dc up
+dc run --rm composer install
+dc run --rm npm install
+dc run --rm gulp --production
+dc run --rm artisan key:generate
+dc run --rm artisan migrate:refresh --seed
+dc run --rm artisan db:seed --class=DummyBookmarksSeeder
+```
 
 ### Chrome Extension
 
