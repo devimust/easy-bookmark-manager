@@ -3,6 +3,7 @@
 .idea
 *.iml
 *.tar.gz
+docker-compose.yml
 node_modules
 public/storage
 public/**/*.map
