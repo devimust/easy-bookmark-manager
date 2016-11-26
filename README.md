@@ -49,17 +49,18 @@ Step 5: Navigate to http://insert-your-domain.com/ and login with email `admin` 
 Step 6: Optional security measure - to disable the `/admin` section set `ADMIN_ENABLED=false` inside .env file.
 
 Example apache virtual host file
+
 ```apache
 <VirtualHost *:80>
-	ServerName <my-bookmarks.domain.com>
-	DocumentRoot /var/www/<project folder>/public
-	<Directory "/var/www/<project folder>/public">
-		Options Indexes FollowSymLinks
-		AllowOverride All
-		Options -Indexes
-	</Directory>
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ServerName <my-bookmarks.domain.com>
+    DocumentRoot /var/www/{PROJECT_FOLDER}/public
+    <Directory "/var/www/{PROJECT_FOLDER}/public">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Options -Indexes
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
 
@@ -68,12 +69,45 @@ Example apache virtual host file
 
 I welcome any feedback and contributions.
 
+
+#### Local native
+
 ```bash
 # update .env with APP_ENV=local and APP_DEBUG=false
 $ composer install
 $ npm install
 $ gulp && gulp watch
 ```
+
+#### Local docker LAMP stack
+
+```bash
+# update .env with APP_ENV=local and APP_DEBUG=false
+docker-compose build
+docker-compose up
+docker-compose run --rm composer install
+docker-compose run --rm npm install
+docker-compose run --rm gulp --production
+docker-compose run --rm artisan key:generate
+docker-compose run --rm artisan migrate:refresh --seed
+docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
+```
+
+#### Local docker LAMP stack using release candidate
+
+Download latest release candidate and decompress into a folder, then
+
+```bash
+cp docker-compose.sample.yml docker-compose.yml
+cp .env.docker .env
+docker-compose build
+docker-compose up
+docker-compose run --rm artisan key:generate
+docker-compose run --rm artisan migrate:refresh --seed
+docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
+```
+
+goto http://localhost:8000/ and login with `admin`:`nimda`
 
 
 ### Chrome Extension
