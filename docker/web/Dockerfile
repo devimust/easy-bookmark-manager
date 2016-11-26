@@ -10,6 +10,12 @@ RUN apt-get -y install \
     php5 php5-common php5-cli php5-curl \
     php5-mysql php-apc php5-mcrypt
 
+RUN apt-get -y install sudo
+RUN groupadd --gid 1000 web && useradd -d /app --uid 1000 --gid 1000 -G sudo,web,www-data web
+RUN echo 'web ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN sed -i 's/www-data/web/g' /etc/apache2/envvars
+
 RUN rm -r /var/lib/apt/lists/*
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -33,8 +39,10 @@ ENV PHP_POST_MAX_SIZE 10M
 
 # RUN echo 'alias artisan="php artisan"' >> ~/.bashrc
 
+USER web
+
 EXPOSE  80
 
 WORKDIR /app
 
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["sudo", "/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
