@@ -49,17 +49,18 @@ Step 5: Navigate to http://insert-your-domain.com/ and login with email `admin` 
 Step 6: Optional security measure - to disable the `/admin` section set `ADMIN_ENABLED=false` inside .env file.
 
 Example apache virtual host file
+
 ```apache
 <VirtualHost *:80>
-	ServerName <my-bookmarks.domain.com>
-	DocumentRoot /var/www/<project folder>/public
-	<Directory "/var/www/<project folder>/public">
-		Options Indexes FollowSymLinks
-		AllowOverride All
-		Options -Indexes
-	</Directory>
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ServerName <my-bookmarks.domain.com>
+    DocumentRoot /var/www/{PROJECT_FOLDER}/public
+    <Directory "/var/www/{PROJECT_FOLDER}/public">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Options -Indexes
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
 
@@ -67,6 +68,7 @@ Example apache virtual host file
 ### Development
 
 I welcome any feedback and contributions.
+
 
 #### Local native
 
