@@ -21,10 +21,14 @@ tar \
     bootstrap/ \
     config/ \
     database/ \
+    docker/ \
     public/ \
     resources/ \
     storage/ \
     vendor/ \
+    .env.docker \
     .env.example \
-    .htaccess\
+    .htaccess \
+    artisan \
+    docker-compose.sample.yml \
     server.php

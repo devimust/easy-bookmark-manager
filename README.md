@@ -64,9 +64,11 @@ Example apache virtual host file
 ```
 
 
-### Development (local native)
+### Development
 
 I welcome any feedback and contributions.
+
+#### Local native
 
 ```bash
 # update .env with APP_ENV=local and APP_DEBUG=false
@@ -75,19 +77,36 @@ $ npm install
 $ gulp && gulp watch
 ```
 
-### Development (local docker)
+#### Local docker LAMP stack
 
 ```bash
 # update .env with APP_ENV=local and APP_DEBUG=false
-dc build
-dc up
-dc run --rm composer install
-dc run --rm npm install
-dc run --rm gulp --production
-dc run --rm artisan key:generate
-dc run --rm artisan migrate:refresh --seed
-dc run --rm artisan db:seed --class=DummyBookmarksSeeder
+docker-compose build
+docker-compose up
+docker-compose run --rm composer install
+docker-compose run --rm npm install
+docker-compose run --rm gulp --production
+docker-compose run --rm artisan key:generate
+docker-compose run --rm artisan migrate:refresh --seed
+docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
 ```
+
+#### Local docker LAMP stack using release candidate
+
+Download latest release candidate and decompress into a folder, then
+
+```bash
+cp docker-compose.sample.yml docker-compose.yml
+cp .env.docker .env
+docker-compose build
+docker-compose up
+docker-compose run --rm artisan key:generate
+docker-compose run --rm artisan migrate:refresh --seed
+docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
+```
+
+goto http://localhost:8000/ and login with `admin`:`nimda`
+
 
 ### Chrome Extension
 
