@@ -16,15 +16,6 @@ use App\Http\Controllers\Controller;
 class UserAdminController extends Controller
 {
 
-    private function getFormMessages()
-    {
-        return  [
-            'username.required' => trans('messages.userNameRequired'),
-            'username.email' => trans('messages.usernameEmail'),
-            'username.unique' => trans('messages.usernameUnique')
-        ];
-    }
-
     /**
      * Display a listing of the user model.
      *
@@ -66,9 +57,17 @@ class UserAdminController extends Controller
             'name' => 'required|unique:users',
             'username' => 'required|unique:users,username|email|min:3',
             'password' => 'required|confirmed|min:5'
-        ], $this->getFormMessages());
+        ], User::getFormMessages());
 
-        User::create($request->all());
+        $userData = $request->all();
+        $userData['password'] = Hash::make($userData['password']);
+
+        $user = User::create($userData);
+
+        if (env('ENABLE_ADMIN_MAIL') === false) {
+            $user->confirmed = true;
+            $user->save();
+        }
 
         return Redirect::to('/admin/users');
     }
@@ -98,7 +97,7 @@ class UserAdminController extends Controller
             'name' => 'required',
             'username' => 'required|unique:users,username,' . $id . '|email|min:3',
             'password' => 'confirmed|min:5'
-        ], $this->getFormMessages());
+        ], User::getFormMessages());
 
         $user = User::findOrFail($id);
 

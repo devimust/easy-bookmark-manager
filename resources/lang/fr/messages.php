@@ -14,6 +14,7 @@ return array(
     'back' => 'Retour',
     'save' => 'Sauvegarder',
     'signin' => 'Se connecter',
+    'notConfirmed' => 'Vous n\'avez pas confirmé votre compte',
     'bookmark' => [
         'notFound' => 'Impossible de retrouver ce favoris'
     ],
@@ -30,10 +31,18 @@ return array(
         'adminRole' => 'Est administrateur',
         'password' => 'Mot de passe',
         'confirm' => 'Confirmation du mot de passe',
-        'isAdmin' => 'Administrateur'
+        'isAdmin' => 'Administrateur',
+        'register' => 'Inscription'
     ],
     'password' => [
         'match' => 'Les deux mots de passe doivent correspondre.'
+    ],
+    'account' => [
+        'validated' => 'Votre compte est désormais validé !',
+        'welcome' => 'Merci de votre inscription sur Easy Bookmark Manager.',
+        'confirm' => 'Vous devez confirmer votre compte en cliquant sur ce lien',
+        'confirmLink' => 'Je confirm mon compte',
+        'validationMessage' => 'Consulter vos emails pour confirmer votre compte'
     ],
     'yes' => 'oui'
 );

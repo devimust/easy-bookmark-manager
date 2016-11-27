@@ -36,6 +36,16 @@ Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'PagesController@showIndex');
     Route::get('login', 'PagesController@showLogin');
+    if (env('ENABLE_REGISTER') === true) {
+        Route::get('register', 'PagesController@showRegister')->name('register');
+        if (env('ENABLE_REGISTER_MAIL') == true) {
+            Route::post('auth/register', 'PagesController@register')->middleware('mail');
+            Route::get('auth/validation/{hashValidation}', 'PagesController@validation')->name('validation');
+        } else {
+            Route::post('auth/register', 'PagesController@register');
+        }
+
+    }
     Route::post('auth/login', 'PagesController@login');
     Route::get('auth/logout', 'PagesController@logout');
 
