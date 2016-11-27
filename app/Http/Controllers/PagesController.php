@@ -51,9 +51,10 @@ class PagesController extends Controller
             $username = $request->input('username');
             $password = $request->input('password');
 
-            $user = User::where('username', $username)->first();
-
-            if ($user->confirmed == false) {
+            if ($username != '' && !Auth::attempt(['username' => $username, 'password' => $password, 'confirmed' => true]))
+            {
+                // Check if username is not empty
+                // Becaus, if username is empty we have a notConfirmed error instead of loginCombo error
                 return \Redirect::back()->withErrors(trans('messages.notConfirmed'));
             }
 
