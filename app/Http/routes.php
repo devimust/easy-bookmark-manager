@@ -44,13 +44,11 @@ Route::group(['middleware' => ['web']], function () {
         } else {
             Route::post('auth/register', 'PagesController@register');
         }
-
     }
     Route::post('auth/login', 'PagesController@login');
     Route::get('auth/logout', 'PagesController@logout');
 
     Route::get('test', 'PagesController@test');
-
 });
 
 /**

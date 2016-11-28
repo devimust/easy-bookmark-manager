@@ -35,6 +35,12 @@
 
                     {{ Form::submit(trans('messages.signin'), ['class' => 'btn btn-primary btn-small btn-block']) }}
 
+                    @if (env('ENABLE_REGISTER'))
+                        <div class='form-group'>
+                            or <a href="/register">register</a>
+                        </div>
+                    @endif
+
                 {{ Form::close() }}
 
             </div>

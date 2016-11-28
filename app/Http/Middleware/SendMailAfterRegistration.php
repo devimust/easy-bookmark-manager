@@ -26,6 +26,6 @@ class SendMailAfterRegistration
 
         $user = User::where('username', $data['username'])->first();
 
-        MailUtility::sendMail($user);
+        MailUtility::sendRegisterMail($user);
     }
 }

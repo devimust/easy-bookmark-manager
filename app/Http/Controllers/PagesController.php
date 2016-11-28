@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
 
 class PagesController extends Controller
 {
@@ -46,23 +47,44 @@ class PagesController extends Controller
      */
     public function login(Request $request)
     {
-        // User is NOT logged in
-        if (!Auth::check()) {
-            $username = $request->input('username');
-            $password = $request->input('password');
+        // User is logged in
+        if (Auth::check())
+        {
+            return \Redirect::to('/');
+        }
 
-            if ($username != '' && !Auth::attempt(['username' => $username, 'password' => $password, 'confirmed' => true]))
-            {
-                // Check if username is not empty
-                // Becaus, if username is empty we have a notConfirmed error instead of loginCombo error
-                return \Redirect::back()->withErrors(trans('messages.notConfirmed'));
-            }
+        $credentials = [
+            'username' => $request->input('username'),
+            'password' => $request->input('password'),
+        ];
 
-            if (!Auth::attempt(['username' => $username, 'password' => $password], true))
-            {
+        $canRegister = env('ENABLE_REGISTER', false);
+
+        if ($canRegister)
+        {
+            // check for valid login details
+            $valid = Auth::validate($credentials);
+            if (!$valid) {
                 return \Redirect::back()
                     ->withErrors(trans('messages.loginCombo'));
             }
+
+            // check to see if user is confirmed or not
+            $user = User::where('username', $credentials['username'])
+                ->first();
+            if ($user && !$user->confirmed) {
+                return \Redirect::back()
+                    ->withErrors(trans('messages.notConfirmed'));
+            }
+        }
+
+        if (!Auth::attempt([
+            'username' => $credentials['username'],
+            'password' => $credentials['password']
+        ], true))
+        {
+            return \Redirect::back()
+                ->withErrors(trans('messages.loginCombo'));
         }
 
         return \Redirect::to('/');
@@ -102,7 +124,7 @@ class PagesController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:users',
+            'name' => 'required',
             'username' => 'required|unique:users,username|email|min:3',
             'password' => 'required|confirmed|min:5',
             'password_confirmation' => 'required|min:5'
@@ -115,10 +137,11 @@ class PagesController extends Controller
 
         // check if mail confirmation is disabled
         // if mail confirmation is disabled we set user as confirmed
-        if (env('ENABLE_REGISTER_MAIL') === false) {
+        if (env('ENABLE_REGISTER_MAIL', false) === false) {
             $user->confirmed = true;
         } else {
-            $user->hashValidation = hash('sha256', $user->username);
+            // use the application key to make hash a little less predictable
+            $user->hashValidation = hash('sha256', $user->username . env('APP_KEY'));
         }
 
         $user->save();
@@ -129,18 +152,19 @@ class PagesController extends Controller
     public function validation($hashValidation, Request $request)
     {
         $user = User::where('hashValidation', $hashValidation)->first();
-
-        if ($user) {
-            if ($user->confirmed) { return Redirect::to('/'); }
-
-            $user->confirmed = true;
-            $user->hashValidation = null;
-            $user->save();
-
-            return view('auth/login', array('message' => trans('messages.account.validated')));
+        if (!$user) {
+            return Redirect::to('/');
         }
 
-        return Redirect::to('/');
+        if ($user->confirmed) {
+            return Redirect::to('/');
+        }
+
+        $user->confirmed = true;
+        $user->hashValidation = null;
+        $user->save();
+
+        return view('auth/login', array('message' => trans('messages.account.validated')));
     }
 
 }
