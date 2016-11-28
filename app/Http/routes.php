@@ -47,8 +47,6 @@ Route::group(['middleware' => ['web']], function () {
     }
     Route::post('auth/login', 'PagesController@login');
     Route::get('auth/logout', 'PagesController@logout');
-
-    Route::get('test', 'PagesController@test');
 });
 
 /**
