@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             'name'          => 'Admin',
             'username'      => 'admin',
             'password'      => Hash::make('nimda'),
-            'administrator' => true
+            'administrator' => true,
+            'confirmed'     => true
         ]);
     }
 }

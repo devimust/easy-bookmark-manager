@@ -11,6 +11,12 @@
 
             <div class="col-md-4">
 
+                @if (!empty($message))
+                    <div class="bg-success alert">
+                        {{$message}}
+                    </div>
+                @endif
+
                 {{ Form::open(['role' => 'form', 'url' => '/auth/login']) }}
 
                     {!! csrf_field() !!}
@@ -28,6 +34,12 @@
                     </div>
 
                     {{ Form::submit(trans('messages.signin'), ['class' => 'btn btn-primary btn-small btn-block']) }}
+
+                    @if (env('ENABLE_REGISTER'))
+                        <div class='form-group'>
+                            or <a href="/register">register</a>
+                        </div>
+                    @endif
 
                 {{ Form::close() }}
 

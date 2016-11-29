@@ -14,6 +14,7 @@ return [
     'back' => 'Back',
     'save' => 'Save',
     'signin' => 'Sign in',
+    'notConfirmed' => 'Your account has not been confirmed',
     'bookmark' => [
         'notFound' => 'Could not retrieve the item.'
     ],
@@ -30,10 +31,18 @@ return [
         'adminRole' => 'Admin',
         'password' => 'Password',
         'confirm' => 'Confirm Password',
-        'isAdmin' => 'Administrator'
+        'isAdmin' => 'Administrator',
+        'register' => 'Register'
     ],
     'password' => [
-        'match' => 'Both passwords must match.'
+        'match' => 'Both passwords must match.',
+    ],
+    'account' => [
+        'welcome' => 'Thanks to register on Easy Bookmark Manager.',
+        'confirm' => 'You have to confirm your account clicking on this link',
+        'confirmLink' => 'Account confirmation',
+        'validated' => 'Your account has been validated !',
+        'validationMessage' => 'Check your mail box to validate your account'
     ],
     'yes' => 'yes'
 ];
