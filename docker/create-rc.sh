@@ -10,6 +10,8 @@ fi
 
 docker-compose run --rm gulp --production
 
+docker-compose run --rm phpunit
+
 find ./storage -type 'f' | grep -v ".gitignore" | xargs rm -f
 
 TIMESTAMP=$(date +%s)

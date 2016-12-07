@@ -7,21 +7,38 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserRegistrationTest extends TestCase
 {
+
     use WithoutMiddleware;
     use DatabaseTransactions;
 
     private function registerAUser($name = 'mademan', $username = 'mademan@free.fr', $password = 'mademan19', $confirmation = 'mademan19')
     {
-        $response = $this->call('POST', 'auth/register', array(
-            '_token' => csrf_token(),
+        $payload = [
             'name' => $name,
             'username' => $username,
             'password' => $password,
-            'password_confirmation' => $confirmation
-        ));
+            'password_confirmation' => $confirmation,
+            '_token' => csrf_token()
+        ];
+
+        $response = $this->call('POST', 'auth/register', $payload);
 
         return $response;
     }
+
+    /**
+     * Run migration tasks
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        Artisan::call('migrate');
+        // Artisan::call('db:seed');
+    }
+
     /**
      * Test is user is created after register route
      * We disable send mail middleware
@@ -30,16 +47,14 @@ class UserRegistrationTest extends TestCase
      */
     public function testUserRegistration()
     {
+        $beforeRegisterCount = count(User::all());
+        $this->assertEquals(0, $beforeRegisterCount);
 
-        $this->withoutMiddleware();
+        $response = $this->registerAUser();
+        $this->assertEquals(200, $response->getStatusCode());
 
-        $beforeRegister = count(User::all());
-
-        $this->registerAUser();
-
-        $afterRegister = count(User::all());
-
-        $this->assertEquals($afterRegister, $beforeRegister + 1);
+        $afterRegisterCount = count(User::all());
+        $this->assertEquals(1, $afterRegisterCount);
     }
 
     /**
@@ -47,35 +62,17 @@ class UserRegistrationTest extends TestCase
      */
     public function testUserRegistrationFailed()
     {
-        $this->withoutMiddleware();
 
-        $this->registerAUser();
+        $beforeRegisterCount = count(User::all());
+        $this->assertEquals(0, $beforeRegisterCount);
 
-        $this->registerAUser();
+        $response = $this->registerAUser();
+        $this->assertEquals(200, $response->getStatusCode());
 
-        // 2 beacause with seed admin user is automatically created
-        $this->assertEquals(2, count(User::all()));
-    }
+        $response = $this->registerAUser();
+        $this->assertEquals(302, $response->getStatusCode());
 
-    public function testUserRegisterWithoutMailConfirmation()
-    {
-        putenv('ENABLE_REGISTER_MAIL=false');
-
-        $this->registerAUser();
-
-        $addedUser = User::where('name', 'mademan')->first();
-
-        $this->assertEquals(true, $addedUser->confirmed);
-    }
-
-    public function testUserRegisterWithMailConfirmation()
-    {
-        putenv('ENABLE_REGISTER_MAIL=true');
-
-        $this->registerAUser();
-
-        $addedUser = User::where('name', 'mademan')->first();
-
-        $this->assertEquals(false, $addedUser->confirmed);
+        $afterRegisterCount = count(User::all());
+        $this->assertEquals(1, $afterRegisterCount);
     }
 }
