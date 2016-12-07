@@ -23,9 +23,7 @@ if [ ! -f ./docker-compose.yml ]; then
     exit 1
 fi
 
-exit 0
-
-chmod -R a+w ./storage
+#chmod -R a+w ./storage
 
 docker-compose stop
 docker-compose rm -f

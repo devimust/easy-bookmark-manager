@@ -1,19 +1,25 @@
-language: php
+sudo: required
 
-php:
-  - '5.6'
+services:
+  - docker
+
+language: ruby
 
 env:
-  - NODE_RELEASE=4.x
+  - DOCKER_COMPOSE_VERSION: 1.8.1
 
 before_install:
-  - sudo rm -rf ~/.nvm
-  - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
-  - sudo apt-get install -y nodejs
-  - sudo apt-get install -y libnotify-bin      # fix missing dependency required by gulp-notify
-  - sudo npm install -g gulp
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 install:
+  - cp .env.docker .env
+  - cp docker-compose.sample.yml docker-compose.yml
+
+
+
   - npm install
   - gulp --production
   - cp .env.travis .env

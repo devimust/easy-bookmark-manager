@@ -75,6 +75,7 @@ I welcome any feedback and contributions.
 ```bash
 # update .env with APP_ENV=local and APP_DEBUG=false
 $ composer install
+$ vendor/bin/phpunit
 $ npm install
 $ gulp && gulp watch
 ```
@@ -91,6 +92,7 @@ docker-compose run --rm gulp --production
 docker-compose run --rm artisan key:generate
 docker-compose run --rm artisan migrate:refresh --seed
 docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
+docker-compose run --rm phpunit
 ```
 
 #### Local docker LAMP stack using release candidate
@@ -105,6 +107,7 @@ docker-compose up
 docker-compose run --rm artisan key:generate
 docker-compose run --rm artisan migrate:refresh --seed
 docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
+docker-compose run --rm phpunit
 ```
 
 goto http://localhost:8000/ and login with `admin`:`nimda`

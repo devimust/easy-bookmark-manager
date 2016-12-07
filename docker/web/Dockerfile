@@ -8,7 +8,7 @@ RUN apt-get update
 RUN apt-get -y install \
     curl wget apache2 libapache2-mod-php5 \
     php5 php5-common php5-cli php5-curl \
-    php5-mysql php-apc php5-mcrypt
+    php5-mysql php-apc php5-mcrypt php5-sqlite
 
 RUN apt-get -y install sudo
 RUN groupadd --gid 1000 web && useradd -d /app --uid 1000 --gid 1000 -G sudo,web,www-data web

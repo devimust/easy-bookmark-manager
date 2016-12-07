@@ -1,4 +1,4 @@
-@if ($errors->has())
+@if (isset($errors) && $errors->has())
     <div class='bg-danger alert'>
         <ul>
             @foreach ($errors->all() as $error)

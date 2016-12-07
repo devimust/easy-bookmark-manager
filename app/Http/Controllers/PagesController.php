@@ -132,6 +132,7 @@ class PagesController extends Controller
 
         $userData = $request->all();
         $userData['password'] = Hash::make($userData['password']);
+        $userData['administrator'] = false;
 
         $user = User::create($userData);
 
