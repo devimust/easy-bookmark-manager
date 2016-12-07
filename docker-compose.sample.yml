@@ -7,8 +7,6 @@ services:
       - MYSQL_USER=testuser
       - MYSQL_PASSWORD=testpassword
       - MYSQL_ROOT_PASSWORD=rootp4ssword
-    ports:
-      - "3306:3306"
   app:
     image: debian:jessie
     volumes:
