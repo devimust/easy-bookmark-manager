@@ -14,7 +14,7 @@ services:
     volumes:
       - .:/app
   web:
-    build: ./docker/web
+    image: rolckers/web-apache-php
     ports:
       - "8000:80"
     depends_on:
@@ -24,14 +24,14 @@ services:
     volumes_from:
       - app
   composer:
-    build: ./docker/web
+    image: rolckers/web-apache-php
     entrypoint:
       - composer
     command: --help
     volumes_from:
       - app
   artisan:
-    build: ./docker/web
+    image: rolckers/web-apache-php
     entrypoint:
       - php
       - artisan
@@ -41,14 +41,14 @@ services:
     volumes_from:
       - app
   npm:
-    build: ./docker/node
+    image: rolckers/web-nodejs
     command: --help
     entrypoint:
       - npm
     volumes_from:
       - app
   gulp:
-    build: ./docker/node
+    image: rolckers/web-nodejs
     command: --help
     entrypoint:
       - gulp
