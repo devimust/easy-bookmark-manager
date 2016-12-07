@@ -87,12 +87,12 @@ $ gulp && gulp watch
 docker-compose build
 docker-compose up
 docker-compose run --rm composer install
+docker-compose run --rm phpunit
 docker-compose run --rm npm install
 docker-compose run --rm gulp --production
 docker-compose run --rm artisan key:generate
 docker-compose run --rm artisan migrate:refresh --seed
 docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
-docker-compose run --rm phpunit
 ```
 
 #### Local docker LAMP stack using release candidate
@@ -107,7 +107,6 @@ docker-compose up
 docker-compose run --rm artisan key:generate
 docker-compose run --rm artisan migrate:refresh --seed
 docker-compose run --rm artisan db:seed --class=DummyBookmarksSeeder
-docker-compose run --rm phpunit
 ```
 
 goto http://localhost:8000/ and login with `admin`:`nimda`

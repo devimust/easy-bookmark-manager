@@ -14,13 +14,13 @@ if ! [ -x "$(command -v docker-compose)" ]; then
 fi
 
 if [ ! -f ./.env ]; then
-    echo ".env file does not exist, copy and modify from .env.docker"
-    exit 1
+    cp ./.env.docker ./.env
+    echo "creating .env from .env.docker, remember to modify"
 fi
 
 if [ ! -f ./docker-compose.yml ]; then
-    echo "docker-compose.yml file does not exist, copy and modify from docker-compose.sample.yml"
-    exit 1
+    cp ./docker-compose.sample.yml ./docker-compose.yml
+    echo "creating docker-compose.yml from docker-compose.sample.yml, remember to modify"
 fi
 
 #chmod -R a+w ./storage
@@ -29,6 +29,7 @@ docker-compose stop
 docker-compose rm -f
 docker-compose build
 docker-compose run --rm composer install
+docker-compose run --rm phpunit
 docker-compose run --rm npm install
 docker-compose run --rm gulp --production
 docker-compose run --rm artisan key:generate

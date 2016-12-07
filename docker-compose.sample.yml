@@ -40,6 +40,14 @@ services:
       - db
     volumes_from:
       - app
+  phpunit:
+    image: rolckers/web-apache-php
+    entrypoint:
+      - vendor/bin/phpunit
+    links:
+      - db
+    volumes_from:
+      - app
   npm:
     image: rolckers/web-nodejs
     command: --help
