@@ -29,10 +29,10 @@ docker-compose stop
 docker-compose rm -f
 docker-compose build
 docker-compose run --rm composer install
-docker-compose run --rm phpunit
 docker-compose run --rm npm install
 docker-compose run --rm gulp --production
 docker-compose run --rm artisan key:generate
+docker-compose run --rm phpunit
 docker-compose up -d
 sleep 10s
 docker-compose run --rm artisan migrate:refresh --seed
