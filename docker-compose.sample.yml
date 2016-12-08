@@ -47,14 +47,14 @@ services:
     volumes_from:
       - app
   npm:
-    image: rolckers/web-nodejs
+    image: rolckers/web-nodejs:4.6
     command: --help
     entrypoint:
       - npm
     volumes_from:
       - app
   gulp:
-    image: rolckers/web-nodejs
+    image: rolckers/web-nodejs:4.6
     command: --help
     entrypoint:
       - gulp
