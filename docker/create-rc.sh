@@ -17,14 +17,14 @@ if [ -f "$1.tar.gz" ]; then
   echo "the file $1.tar.gz exist, please remove and try again"
   exit 1
 fi
-
+$dat
 docker-compose run --rm gulp --production
 
 docker-compose run --rm phpunit
 
 find ./storage -type 'f' | grep -v ".gitignore" | xargs rm -f
 
-TIMESTAMP=$(date +%s)
+TIMESTAMP=$(date)
 
 echo "$1 created at $TIMESTAMP" >> ./VERSION
 
