@@ -84,6 +84,7 @@ $ gulp watch
 #### Local docker LAMP stack
 
 ```bash
+# run ./docker/prep-dev.sh
 # update .env with APP_ENV=local and APP_DEBUG=false
 docker-compose build
 docker-compose up
