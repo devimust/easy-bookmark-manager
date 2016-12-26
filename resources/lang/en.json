@@ -1,0 +1,53 @@
+{
+    "user.update": "update user",
+    "user.logout": "logout",
+    "user.loggedin": "logged in",
+    "export.bookmarks": "Export bookmarks",
+    "import.bookmarks": "Import bookmarks",
+    "new.bookmark": "New bookmark",
+    "search.bookmark": "Refine search",
+    "bookmarks.nodata": "no data found, try clicking on some filters",
+    "bookmark": {
+        "title": "Title",
+        "link": "Link",
+        "category": "Category",
+        "categories": "Categories",
+        "save": "Save",
+        "create": "Create",
+        "update": "Update",
+        "saveandclose": "Save and close",
+        "delete": "Delete",
+        "close": "Close",
+        "back": "Back",
+        "enable": "Enable",
+        "cancel": "Cancel",
+        "search": "Search categories",
+        "tagsPlaceholder": "Add tags",
+        "favourite": "Favourite",
+        "tag": "Tag",
+        "tags": "Tags"
+    },
+    "message": {
+        "error": "Oh snap!",
+        "Success": "Success",
+        "password": {
+            "length": "Your new password must be at least 5 characters",
+            "oneLetter": "Your new password must contain at least 1 letter",
+            "oneDigit": "Your new password must contain at least 1 digit",
+            "match": "Both passwords must match",
+            "updated": "Details updated"
+        },
+        "bookmark": {
+            "delete": "Deleted, redirecting...",
+            "create": "Created, closing...",
+            "import": "Imported {{count}} record(s), reloading..."
+        },
+        "session": "No session found, please login via the browser"
+    },
+    "settings": {
+        "name": "Name",
+        "login": "Email/Login",
+        "password": "New password",
+        "confirm": "Re-type new password"
+    }
+}

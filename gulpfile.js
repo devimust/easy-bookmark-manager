@@ -21,6 +21,7 @@ elixir(function(mix) {
         'public/js',
         'public/fonts',
         'public/views'
+        // 'public/lang'
     ]);
 
     // vendor fonts
@@ -65,7 +66,8 @@ elixir(function(mix) {
         .scripts([
             'main.js',
             '' // include everything except main.js
-        ], 'public/js/main.js');
+        ], 'public/js/main.js')
+        .lang('public/js/main.js');
 
     // app views
     mix.copy('resources/assets/views', 'public/views');
@@ -75,5 +77,10 @@ elixir(function(mix) {
         'public/css/main.css',
         'public/js/main.js'
     ]);
+
+    // app language files
+    // mix.copy('resources/lang/*.json', 'public/lang');
+
+    // mix.lang2('public/js/main.js');
 
 });

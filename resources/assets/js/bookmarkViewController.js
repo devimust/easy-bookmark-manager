@@ -2,6 +2,10 @@
 
     var bookmarkViewController = function ($scope, $location, $http, userService, bookmarkService, sessionService, $interval, $timeout, $window, $filter) {
 
+
+
+
+
         $scope.categories = [];
         $scope.tags = [];
         $scope.bookmarks = [];
@@ -69,6 +73,11 @@
             for(var i = 5; i < $scope.categories.length; i++){
                 $scope.categories[i].hidden = false;
             }
+        };
+
+        $scope.loggedInUserMessage = function () {
+            var theme = localStorage.getItem('theme') || 'bootstrap-yeti';
+            $scope.profile.theme = theme;
         };
 
         $scope.clearSearch = function () {

@@ -11,6 +11,7 @@ return array(
     'create' => 'Ajouter',
     'delete' => 'Supprimer',
     'logout' => "Déconnexion",
+    'loggedin' => "connecté",
     'back' => 'Retour',
     'save' => 'Sauvegarder',
     'signin' => 'Se connecter',

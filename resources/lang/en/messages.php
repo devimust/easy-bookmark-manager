@@ -11,6 +11,7 @@ return [
     'create' => 'Create',
     'delete' => 'Delete',
     'logout' => "Logout",
+    'loggedin' => "logged in",
     'back' => 'Back',
     'save' => 'Save',
     'signin' => 'Sign in',

@@ -2,9 +2,12 @@
 
 var API_URL = window.location.origin + '/api/v1/';
 
+var LANG_OBJ = 'INSERT LANGUAGE OBJECT'; // this is done via gulp task reading language json files
+
 (function () {
 
     var app = angular.module('bookmarksApp', ['ngRoute', 'angucomplete-alt', 'ui.ace', 'pascalprecht.translate']);
+    console.log(LANG_OBJ.en);
 
 }());
 

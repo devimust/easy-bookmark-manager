@@ -4,6 +4,7 @@
     "del": "^2.2.0",
     "gulp": "^3.8.8",
     "gulp-jshint": "^2.0.0",
+    "gulp-replace": "^0.5.4",
     "gulp-shell": "^0.5.2",
     "jshint": "^2.9.1"
   },
