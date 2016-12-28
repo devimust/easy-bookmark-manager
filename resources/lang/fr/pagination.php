@@ -1,19 +1,9 @@
 <?php
 
-return [
+$lang = 'fr';
 
-    /*
-    |--------------------------------------------------------------------------
-    | Pagination Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by the paginator library to build
-    | the simple pagination links. You are free to change them to anything
-    | you want to customize your views to better match your application.
-    |
-    */
+$dir = dirname(__FILE__);
+$langContents = file_get_contents($dir . '/../' . $lang . '.json');
+$data = json_decode($langContents, true);
 
-    'previous' => '&laquo; Précédent',
-    'next'     => 'Suivant &raquo;',
-
-];
+return $data['pagination'];

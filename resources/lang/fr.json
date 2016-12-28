@@ -2,7 +2,8 @@
     "user": {
         "update": "Paramètres",
         "logout": "Déconnexion",
-        "loggedin": "Connecté en tant que {{user}}"
+        "loggedin": "Connecté en tant que {{user}}",
+        "useradmin": "Gérer les utilisateurs"
     },
     "export.bookmarks": "Exporter favoris",
     "import.bookmarks": "Importer favoris",
@@ -52,5 +53,83 @@
         "theme": "Thème",
         "password": "Nouveau mot de passe",
         "confirm": "Confirmation"
+    },
+    "auth": {
+        "failed": "Aucun utilisateur ne correspond.",
+        "throttle": "Nombre de tentative de connexion d\u00e9pass\u00e9. Patientez :seconds secondes."
+    },
+    "messages": {
+        "loginCombo": "Aucun utilisateur ne correspond.",
+        "userNameRequired": "Vous devez saisir un email.",
+        "usernameEmail": "L'email saisi n'est pas valide.",
+        "usernameUnique": "Cet email est d\u00e9j\u00e0 utilis\u00e9.",
+        "user.add": "Ajouter un utilisateur",
+        "user.edit": "Modifier un utilisateur",
+        "edit": "Editer",
+        "create": "Ajouter",
+        "delete": "Supprimer",
+        "logout": "D\u00e9connexion",
+        "loggedin": "connect\u00e9",
+        "back": "Retour",
+        "save": "Sauvegarder",
+        "signin": "Se connecter",
+        "notConfirmed": "Vous n'avez pas confirm\u00e9 votre compte",
+        "bookmark": {
+            "notFound": "Impossible de retrouver ce favoris"
+        },
+        "upload": {
+            "error": "Une erreur est survenue lors du chargement."
+        },
+        "user": {
+            "noSession": "Aucun session trouv\u00e9e pour cet utilisateur.",
+            "sessionReached": "La session a expir\u00e9. D\u00e9connectez vous pour la renouveller.",
+            "admin": "Gestion des utilisateurs",
+            "name": "Nom",
+            "mail": "Email \/ Identifiant",
+            "created": "Date de cr\u00e9ation",
+            "adminRole": "Est administrateur",
+            "password": "Mot de passe",
+            "confirm": "Confirmation du mot de passe",
+            "isAdmin": "Administrateur",
+            "register": "Inscription"
+        },
+        "password": {
+            "match": "Les deux mots de passe doivent correspondre."
+        },
+        "account": {
+            "validated": "Votre compte est d\u00e9sormais valid\u00e9 !",
+            "welcome": "Merci de votre inscription sur Easy Bookmark Manager.",
+            "confirm": "Vous devez confirmer votre compte en cliquant sur ce lien",
+            "confirmLink": "Je confirm mon compte",
+            "validationMessage": "Consulter vos emails pour confirmer votre compte"
+        },
+        "yes": "oui"
+    },
+    "pagination": {
+        "previous": "&laquo; Pr\u00e9c\u00e9dent",
+        "next": "Suivant &raquo;"
+    },
+    "passwords": {
+        "password": "Votre mot de passe doit contenir 6 caract\u00e8res et \u00eatre identique \u00e0 la confirmation.",
+        "reset": "Votre mot de passe a \u00e9t\u00e9 r\u00e9initialis\u00e9!",
+        "sent": "Votre mot de passe a \u00e9t\u00e9 envoy\u00e9 par mail!",
+        "token": "Ce mot de passe est invalide.",
+        "user": "Aucun utilisateur ne correspond \u00e0 cet email."
+    },
+    "validation": {
+        "custom": {
+            "name": {
+                "required": "Vous devez saisir votre nom d'utilisateur.",
+                "unique": "Ce nom d'utilisateur est d\u00e9j\u00e0 pris."
+            },
+            "email": {
+                "required": "Vous devez saisir votre email."
+            },
+            "password": {
+                "required": "Vous devez saisir votre mot de passe.",
+                "min": "Votre mot de passe doit contenir au moins :min caract\u00e8res.",
+                "confirmed": "Vous devez confirmer votre mot de passe."
+            }
+        }
     }
 }

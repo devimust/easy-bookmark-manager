@@ -16,7 +16,7 @@
             userLang = 'en';
         }
 
-        $translateProvider.useUrlLoader('./lang/' + userLang + '.json');
+        $translateProvider.useUrlLoader('/lang/' + userLang + '.json');
         $translateProvider.useSanitizeValueStrategy(null);
         $translateProvider.preferredLanguage(userLang);
 

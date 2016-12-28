@@ -5,9 +5,18 @@
     <div class="col-lg-10 col-lg-offset-1">
         <h1>
             {{ trans('messages.user.admin') }}
-            <a href="/auth/logout" class="btn btn-default pull-right">
-                {{ trans('messages.logout') }}
-            </a>
+
+            <div  class="btn-group pull-right" role="group" aria-label="Basic example">
+                <a href="/" class="btn btn-default ">
+                    {{ trans("messages.back") }}
+                </a>
+
+                &nbsp;
+
+                <a href="/auth/logout" class="btn btn-default pull-right">
+                    {{ trans('messages.logout') }}
+                </a>
+            </div>
         </h1>
 
         <div class="table-responsive">
