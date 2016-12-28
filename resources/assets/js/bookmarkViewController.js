@@ -2,10 +2,6 @@
 
     var bookmarkViewController = function ($scope, $location, $http, userService, bookmarkService, sessionService, $interval, $timeout, $window, $filter) {
 
-
-
-
-
         $scope.categories = [];
         $scope.tags = [];
         $scope.bookmarks = [];
@@ -26,6 +22,8 @@
         $scope.globalErrorMessage = '';
         $scope.globalGoodMessage = '';
 
+        $scope.loggedInUserMessage = '';
+
         var filterTextTimeout;
         var session = sessionService.getModel();
 
@@ -42,6 +40,12 @@
                         $scope.globalErrorMessage = response.message;
                         $window.location = '/login';
                         return;
+                    }
+
+                    // show logged in user
+                    var username = response.data.username || '';
+                    if (username != '') {
+                        $scope.loggedInUserMessage = $filter('translate')('user.loggedin', {user : username});
                     }
 
                     bookmarkService
@@ -73,11 +77,6 @@
             for(var i = 5; i < $scope.categories.length; i++){
                 $scope.categories[i].hidden = false;
             }
-        };
-
-        $scope.loggedInUserMessage = function () {
-            var theme = localStorage.getItem('theme') || 'bootstrap-yeti';
-            $scope.profile.theme = theme;
         };
 
         $scope.clearSearch = function () {

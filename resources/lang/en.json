@@ -1,7 +1,9 @@
 {
-    "user.update": "update user",
-    "user.logout": "logout",
-    "user.loggedin": "logged in",
+    "user": {
+        "update": "Update user",
+        "logout": "Logout",
+        "loggedin": "Logged in as {{user}}"
+    },
     "export.bookmarks": "Export bookmarks",
     "import.bookmarks": "Import bookmarks",
     "new.bookmark": "New bookmark",
@@ -29,7 +31,7 @@
     },
     "message": {
         "error": "Oh snap!",
-        "Success": "Success",
+        "success": "Success",
         "password": {
             "length": "Your new password must be at least 5 characters",
             "oneLetter": "Your new password must contain at least 1 letter",
@@ -47,6 +49,7 @@
     "settings": {
         "name": "Name",
         "login": "Email/Login",
+        "theme": "Theme",
         "password": "New password",
         "confirm": "Re-type new password"
     }

@@ -1,0 +1,56 @@
+{
+    "user": {
+        "update": "Paramètres",
+        "logout": "Déconnexion",
+        "loggedin": "Connecté en tant que {{user}}"
+    },
+    "export.bookmarks": "Exporter favoris",
+    "import.bookmarks": "Importer favoris",
+    "new.bookmark": "Nouveau favoris",
+    "search.bookmark": "Chercher parmis les favoris",
+    "bookmarks.nodata": "Aucun favoris trouvé.",
+    "bookmark": {
+        "title": "Titre",
+        "link": "Lien",
+        "category": "Catégorie",
+        "categories": "Catégories",
+        "save": "Sauver",
+        "create": "Créer",
+        "update": "Mettre à jour",
+        "saveandclose": "Sauver et quitter",
+        "delete": "Supprimer",
+        "close": "Fermer",
+        "back": "Retour",
+        "enable": "Activer",
+        "cancel": "Annuler",
+        "search": "Rechercher une catégorie",
+        "tagsPlaceholder": "Ajouter un mot clé",
+        "favourite": "Important",
+        "tag": "Mot clé",
+        "tags": "Mots clés"
+    },
+    "message": {
+        "error": "Aie ! Une erreur est survenue",
+        "success": "Succès",
+        "password": {
+            "length": "Votre nouveau mot de passe doit comporter au moins 5 caractères",
+            "oneLetter": "Votre nouveau mot de passe doit comporte une lettre",
+            "oneDigit": "Votre nouveau mot de passe doit comporte un chiffre",
+            "match": "Les deux mots de passe ne correspondent pas",
+            "updated": "Mot de passe mis à jour."
+        },
+        "bookmark": {
+            "delete": "Favoris supprimé, redirection...",
+            "create": "Favoris créé, redirection...",
+            "import": "{{count}} favoris supprimé(s), mise à jour..."
+        },
+        "session": "Aucune session trouvée, vous devez d\"abord vous connecter."
+    },
+    "settings": {
+        "name": "Nom",
+        "login": "Email / Identifiant",
+        "theme": "Thème",
+        "password": "Nouveau mot de passe",
+        "confirm": "Confirmation"
+    }
+}
