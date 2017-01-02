@@ -31,6 +31,7 @@ Route::group(['prefix' => 'api/v1/', 'middleware' => ['web', 'auth']], function 
 
     Route::get('user', 'Api\v1\UserController@edit');
     Route::put('user', 'Api\v1\UserController@update');
+    Route::get('user/shareInfo', 'Api\v1\UserController@shareInfo');
 });
 
 Route::group(['middleware' => ['web']], function () {

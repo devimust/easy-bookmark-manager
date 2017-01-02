@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use Auth;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -165,5 +166,53 @@ class UserController extends Controller
             'result' => 'ok',
             'message' => ''
         ];
+    }
+
+    /**
+     * Retrieve bookmark sharing information.
+     *
+     * @return array
+     */
+    public function shareInfo(Request $request) {
+        $user = Auth::user();
+
+        if (!$user) {
+            return [
+                'result' => 'error',
+                'message' => trans('message.user.noSession')
+            ];
+        }
+
+        $users = ['all'];
+        $collection = User::where('id', '<>', $user->id) // exclude logged in user (ie cannot share with yourself)
+                        ->where(function($query) {
+                            $query
+                                ->orWhere('administrator', '=', '1')
+                                ->orWhere('can_share', '=', '1');
+                            })
+                        ->orderBy('username')
+                        ->get();
+        foreach ($collection as $user) {
+            $users[] = strtolower($user->username);
+        }
+
+        return [
+            'result' => 'ok',
+            'message' => '',
+            'data' => [
+                'canShare' => $user->getCanShareText(),
+                'shareWith' => $users
+            ]
+        ];
+    }
+
+    /**
+     * Scope a query to only include users able to share.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    private function scopeCanShare($query) {
+        return $query->where('can_share', 1);
     }
 }
