@@ -22,6 +22,10 @@
         $scope.globalErrorMessage = '';
         $scope.globalGoodMessage = '';
 
+        $scope.loggedInUserMessage = '';
+
+        $scope.canAccessAdmin = false;
+
         var filterTextTimeout;
         var session = sessionService.getModel();
 
@@ -38,6 +42,18 @@
                         $scope.globalErrorMessage = response.message;
                         $window.location = '/login';
                         return;
+                    }
+
+                    // enable admin link if accessible
+                    var canAccessAdmin = response.data.canAccessAdmin || 'no';
+                    if (canAccessAdmin == 'yes') {
+                        $scope.canAccessAdmin = true;
+                    }
+
+                    // show logged in user
+                    var username = response.data.username || '';
+                    if (username != '') {
+                        $scope.loggedInUserMessage = $filter('translate')('user.loggedin', {user : username});
                     }
 
                     bookmarkService

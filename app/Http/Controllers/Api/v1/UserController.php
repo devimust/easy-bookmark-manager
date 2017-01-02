@@ -28,7 +28,11 @@ class UserController extends Controller
 
         return [
             'result' => 'ok',
-            'message' => ''
+            'message' => '',
+            'data' => [
+                'username' => Auth::user()->username,
+                'canAccessAdmin' => (Auth::user()->administrator && (env('ADMIN_ENABLED') === true) ? 'yes' : 'no')
+            ]
         ];
     }
 

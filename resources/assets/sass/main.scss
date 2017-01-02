@@ -4,6 +4,9 @@
 @import "partials/tag-cloud";
 @import "partials/code-pre-tags";
 
+body {
+    overflow-x:hidden;
+}
 
 .highlight {
   color: #ff0000;
@@ -90,4 +93,19 @@
   &.list {
     padding: 10px 0;
   }
+}
+
+.logged-in-user {
+  float: right;
+  font-size: 0.37em;
+  line-height: 1.8em;
+  margin: 10px 0 0 20px;
+  /* text-align: right; */
+  /* position: relative; */
+  /* top: 14px; */
+  /* right: 0px; */
+  /* width: 300px; */
+  /* display: block; */
+  /* overflow-x: hidden; */
+  /* margin: 0.5em 0 0 30px; */
 }

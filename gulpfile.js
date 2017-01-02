@@ -17,10 +17,12 @@ elixir(function(mix) {
 
     // delete public files
     mix.remove([
+        'public/build',
         'public/css',
         'public/js',
         'public/fonts',
-        'public/views'
+        'public/views',
+        'public/lang'
     ]);
 
     // vendor fonts
@@ -47,6 +49,7 @@ elixir(function(mix) {
             'node_modules/bootstrap/dist/js/bootstrap.min.js',
             'node_modules/angular/angular.min.js',
             'node_modules/angular-translate/dist/angular-translate.min.js',
+            'node_modules/angular-translate-loader-url/angular-translate-loader-url.min.js',
             'node_modules/angular-route/angular-route.min.js',
             'node_modules/select2/dist/js/select2.full.min.js',
             'node_modules/ace-editor-builds/src-min-noconflict/ace.js',
@@ -56,8 +59,7 @@ elixir(function(mix) {
 
 
     // app styles
-    mix
-        .sass('main.scss')
+    mix.sass('main.scss');
 
     // app scripts
     mix
@@ -75,5 +77,8 @@ elixir(function(mix) {
         'public/css/main.css',
         'public/js/main.js'
     ]);
+
+    // app language files
+    mix.copy('resources/lang/*.json', 'public/lang');
 
 });

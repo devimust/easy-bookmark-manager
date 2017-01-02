@@ -65,5 +65,3 @@ if (env('ADMIN_ENABLED') === true) {
         Route::delete('user/{id}', 'UserAdminController@destroy');
     });
 }
-
-

@@ -10,6 +10,6 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
 # Spaces in coffee
-[{package.json,*.yml}]
+[{package.json,*.yml,*.scss}]
 indent_style = space
 indent_size = 2

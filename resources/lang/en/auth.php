@@ -1,19 +1,9 @@
 <?php
 
-return [
+$lang = 'en';
 
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
-    |
-    */
+$dir = dirname(__FILE__);
+$langContents = file_get_contents($dir . '/../' . $lang . '.json');
+$data = json_decode($langContents, true);
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
-];
+return $data['auth'];

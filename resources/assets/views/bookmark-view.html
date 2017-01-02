@@ -80,6 +80,10 @@
                     {{ 'export.bookmarks' | translate }}
                 </a>
 
+                <a href="/admin/users" class="btn btn-sm btn-primary btn-block" role="button" ng-show="canAccessAdmin">
+                    {{ 'user.useradmin' | translate }}
+                </a>
+
                 <a href class="btn btn-sm btn-default btn-block" role="button" ng-click="logout()">
                     {{ 'user.logout' | translate }}
                 </a>
