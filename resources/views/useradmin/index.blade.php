@@ -35,6 +35,9 @@
                         <th>
                             {{ trans('messages.user.adminRole') }}
                         </th>
+                        <th>
+                            {{ trans('messages.user.canShare') }}
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -45,6 +48,7 @@
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                         <td>{{ $user->administrator ? trans('messages.yes') : '' }}</td>
+                        <td>{{ $user->getCanShareText() }}</td>
                         <td width="110">
                             <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-info btn-xs pull-left" style="margin-right: 3px;">
                                 {{ trans('messages.edit') }}

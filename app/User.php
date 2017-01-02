@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'password', 'administrator'
+        'name', 'username', 'password', 'administrator', 'can_share'
     ];
 
     /**
@@ -55,5 +55,21 @@ class User extends Authenticatable
             'username.email' => trans('messages.usernameEmail'),
             'username.unique' => trans('messages.usernameUnique')
         ];
+    }
+
+    /**
+     * See if this user is allowed to share bookmarks by returning
+     * the output message.
+     */
+    public function getCanShareText() {
+        if ($this->can_share) {
+            return trans('messages.yes');
+        }
+
+        if ($this->administrator) {
+            return '(' . trans('messages.yes') . ')';
+        }
+
+        return trans('messages.no');
     }
 }

@@ -91,7 +91,8 @@
             "password": "Password",
             "confirm": "Confirm Password",
             "isAdmin": "Administrator",
-            "register": "Register"
+            "register": "Register",
+            "canShare": "Can share"
         },
         "password": {
             "match": "Both passwords must match."
@@ -103,7 +104,8 @@
             "validated": "Your account has been validated !",
             "validationMessage": "Check your mail box to validate your account"
         },
-        "yes": "yes"
+        "yes": "yes",
+        "no": "no"
     },
     "pagination": {
         "previous": "&laquo; Previous",

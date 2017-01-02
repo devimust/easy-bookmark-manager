@@ -22,3 +22,8 @@
     {{ Form::label('administrator', trans('messages.user.isAdmin')) }}
     {{ Form::checkbox('administrator', 1, null, ['class' => 'form-inline']) }}
 </div>
+
+<div class='form-group'>
+    {{ Form::label('can_share', trans('messages.user.canShare')) }}
+    {{ Form::checkbox('can_share', 1, null, ['class' => 'form-inline']) }}
+</div>

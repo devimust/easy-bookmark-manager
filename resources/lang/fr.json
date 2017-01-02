@@ -91,7 +91,8 @@
             "password": "Mot de passe",
             "confirm": "Confirmation du mot de passe",
             "isAdmin": "Administrateur",
-            "register": "Inscription"
+            "register": "Inscription",
+            "canShare": "Autorisé à partager"
         },
         "password": {
             "match": "Les deux mots de passe doivent correspondre."
@@ -103,7 +104,8 @@
             "confirmLink": "Je confirm mon compte",
             "validationMessage": "Consulter vos emails pour confirmer votre compte"
         },
-        "yes": "oui"
+        "yes": "oui",
+        "no": "non"
     },
     "pagination": {
         "previous": "&laquo; Pr\u00e9c\u00e9dent",

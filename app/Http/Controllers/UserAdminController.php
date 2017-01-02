@@ -93,18 +93,26 @@ class UserAdminController extends Controller
      */
     public function update($id, Request $request)
     {
+        $user = User::findOrFail($id);
+
+        $usernameValidationString = 'required|unique:users,username,' . $id . '|email|min:3';
+
+        // Ignore username email-validation for default admin user.
+        if ($user->username == 'admin') {
+            $usernameValidationString = 'required|unique:users,username,' . $id . '|min:3';
+        }
+
         $this->validate($request, [
             'name' => 'required',
-            'username' => 'required|unique:users,username,' . $id . '|email|min:3',
+            'username' => $usernameValidationString,
             'password' => 'confirmed|min:5'
         ], User::getFormMessages());
-
-        $user = User::findOrFail($id);
 
         $userData = [
             'name' => $request->input('name'),
             'username' => $request->input('username'),
-            'administrator' => $request->input('administrator')
+            'administrator' => $request->input('administrator'),
+            'can_share' => $request->input('can_share'),
         ];
 
         if ($request->input('password') != '') {
