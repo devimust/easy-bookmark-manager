@@ -12,6 +12,14 @@
                     });
             },
 
+            getShareInfo: function () {
+                return $http
+                    .get(API_URL + 'user/shareInfo')
+                    .then(function (response) {
+                        return response.data;
+                    });
+            },
+
             updateDetails: function (data) {
                 return $http
                     .put(API_URL + 'user?' + $.param(data))

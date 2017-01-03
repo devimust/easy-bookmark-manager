@@ -14,6 +14,8 @@
         $scope.categories = [];
         $scope.busyWithAction = false;
         $scope.duplicates = [];
+        $scope.canShare = false;
+        $scope.canShareWith = [];
 
         $scope.bookmark = {
             favourite: false,
@@ -21,7 +23,8 @@
             link: $routeParams.link || '',
             snippet: '',
             category: '',
-            tags: []
+            tags: [],
+            shareAll: false
         };
 
         this.run = function () {
@@ -33,6 +36,17 @@
                         $scope.categories = response.data.categories;
                     }
                 });
+
+            // userService
+            //     .getShareInfo()
+            //     .then(function (response) {
+            //         $scope.errorMessage = '';
+            //         if (response.result == 'ok' && response.data.canShare == 'yes') {
+            //             $scope.canShare = true;
+            //             $scope.canShareWith = response.data.shareWith;
+            //         }
+            //     });
+
 
             if ($scope.newItem) {
                 bookmarkService

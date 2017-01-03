@@ -192,27 +192,19 @@ class UserController extends Controller
                             })
                         ->orderBy('username')
                         ->get();
-        foreach ($collection as $user) {
-            $users[] = strtolower($user->username);
+        foreach ($collection as $item) {
+            $users[] = strtolower($item->username);
         }
+
+        $canShare = ($user->administrator || $user->can_share);
 
         return [
             'result' => 'ok',
             'message' => '',
             'data' => [
-                'canShare' => $user->getCanShareText(),
-                'shareWith' => $users
+                'canShare' => $canShare ? 'yes' : 'no',
+                'shareWith' => $canShare ? $users : []
             ]
         ];
-    }
-
-    /**
-     * Scope a query to only include users able to share.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    private function scopeCanShare($query) {
-        return $query->where('can_share', 1);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\v1;
 use Auth;
 use DB;
 use App\Bookmark;
+use App\User;
+use App\BookmarkShare;
 use Illuminate\Http\Request;
 
 use Response;
@@ -274,6 +276,10 @@ class BookmarkController extends Controller
 
         $this->syncTags($bookmark, $tags);
 
+        $sharedWith = $request->input('sharedWith') != '' ? $request->input('sharedWith') : [];
+
+        $this->syncSharedWith($bookmark, $sharedWith);
+
         return [
             'result' => 'ok',
             'message' => '',
@@ -508,6 +514,11 @@ class BookmarkController extends Controller
             $tags[] = $tag->name;
         }
 
+        $sharedWith = [];
+        foreach ($bookmark->sharedWith()->get() as $shareWith) {
+            $sharedWith[] = $shareWith->user->username;
+        }
+
         return [
             'id' => $bookmark->id,
             'title' => $bookmark->title,
@@ -515,7 +526,9 @@ class BookmarkController extends Controller
             'link' => $bookmark->link,
             'snippet' => $bookmark->snippet,
             'category' => $bookmark->category,
-            'tags' => $tags
+            'tags' => $tags,
+            'shareAll' => (bool)$bookmark->share_all,
+            'sharedWith' => $sharedWith
         ];
     }
 
@@ -562,6 +575,57 @@ class BookmarkController extends Controller
                 $tag->save();
             }
             $bookmark->tags()->attach($tag->id);
+        }
+    }
+
+    /**
+     * Sync up the list of bookmark shares in the database
+     *
+     * @param App\Bookmark $bookmark
+     * @param array $sharedWith
+     */
+    public function syncSharedWith(App\Bookmark $bookmark, $sharedWith)
+    {
+        if (!is_array($sharedWith)) {
+            return;
+        }
+
+        $newSharedWith = $sharedWith;
+        $newSharedWith = array_map('strtolower', $newSharedWith); //force all values to lowercase
+        $newSharedWith = array_unique($newSharedWith); //strip out duplicates
+
+        // Unlink shares we don't need
+        foreach ($bookmark->sharedWith as $share) {
+            $tmpUsername = strtolower($share->user->username);
+            if (!in_array($tmpUsername, $newSharedWith)) {
+                $share->delete();
+            }
+        }
+
+        // Create new shares
+        foreach ($newSharedWith as $username) {
+            $user = User::where('username', $username)->first();
+
+            if (!$user || (!$user->administrator && !$user->can_share)) {
+                continue;
+            }
+
+            $exist = false;
+            foreach ($bookmark->sharedWith as $share) {
+                $tmpUsername = strtolower($share->user->username);
+                if ($username == $tmpUsername) {
+                    $exist = true;
+                }
+            }
+
+            if ($exist) {
+                continue;
+            }
+
+            BookmarkShare::create([
+                'user_id' => $user->id,
+                'bookmark_id' => $bookmark->id
+            ]);
         }
     }
 

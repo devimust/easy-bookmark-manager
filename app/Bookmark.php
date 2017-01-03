@@ -30,7 +30,7 @@ class Bookmark extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'link', 'favourite', 'snippet', 'icon', 'category'
+        'title', 'link', 'favourite', 'snippet', 'icon', 'category', 'share_all'
     ];
 
     /**
@@ -39,6 +39,14 @@ class Bookmark extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag', 'bookmark_tag');
+    }
+
+    /**
+     * Get the shares for the bookmark.
+     */
+    public function sharedWith()
+    {
+        return $this->hasMany('App\BookmarkShare');
     }
 
     /**

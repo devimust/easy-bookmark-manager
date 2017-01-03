@@ -106,6 +106,41 @@
                 </div>
             </div>
 
+
+            <div class="form-group">
+                <label for="inputShareAll" class="col-sm-2 control-label">
+                    {{ 'bookmark.shareall' | translate }}
+                </label>
+
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="bookmark.shareAll" id="inputShareAll">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="!bookmark.shareAll">
+                <label for="inputSharedWith" class="col-sm-2 control-label">
+                    {{ 'bookmark.sharespecific' | translate }}
+                </label>
+
+                <div class="col-sm-10">
+                    <span class="loading-sharedwith">loading shares...</span>
+
+                    <select custom-select-2
+                            id="tagsSelect2"
+                            multiple
+                            tagsattribute="bookmark.sharedWith"
+                            newitemattribute="newItem"
+                            style="width: 100%"
+                            ng-model="bookmark.sharedWith"
+                            class="hidden"></select>
+                </div>
+            </div>
+
+
             <div class="alert alert-danger" role="alert" ng-show="errorMessage">
                 <strong>Oh snap!</strong> {{ errorMessage }}
             </div>

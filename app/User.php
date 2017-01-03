@@ -61,9 +61,10 @@ class User extends Authenticatable
      * See if this user is allowed to share bookmarks by returning
      * the output message.
      */
-    public function getCanShareText() {
+    public function getCanShareText()
+    {
         if ($this->can_share) {
-            return trans('messages.yes');
+            return trans('messages.yes') . '('.$this->can_share.')';
         }
 
         if ($this->administrator) {

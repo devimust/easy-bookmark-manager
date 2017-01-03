@@ -28,7 +28,9 @@
         "tagsPlaceholder": "Add tags",
         "favourite": "Favourite",
         "tag": "Tag",
-        "tags": "Tags"
+        "tags": "Tags",
+        "shareall": "Share with all users",
+        "sharespecific": "Share with some users"
     },
     "message": {
         "error": "Oh snap!",
@@ -63,6 +65,7 @@
         "userNameRequired": "The email field is required.",
         "usernameEmail": "The email must be a valid email address.",
         "usernameUnique": "The email has already been taken.",
+        "usernameReserved": "That email is a reserved word.",
         "user.add": "Add user",
         "user.edit": "Edit user",
         "edit": "Edit",
