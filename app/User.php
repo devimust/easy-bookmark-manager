@@ -37,7 +37,7 @@ class User extends Authenticatable
      */
     public function bookmarks()
     {
-        return $this->hasMany('App\Bookmark');
+        return $this->belongsTo('App\Bookmark');
     }
 
     /**

@@ -53,7 +53,7 @@
 </head>
 
 <body ng-app="bookmarksApp" class="ng-cloak">
-
+{{ csrf_field() }}
     @yield('content')
 
     <script src="/js/vendor.js"></script>

@@ -1,6 +1,6 @@
 (function () {
 
-    var customSelect2 = function ($timeout, bookmarkService, $filter) {
+    var customTagsSelect2 = function ($timeout, bookmarkService, $filter) {
 
         return {
 
@@ -21,10 +21,10 @@
                 var that = this;
 
                 this.initSelect2 = function (el, data) {
-                    $('.loading-tags').hide();
+                    $(el).siblings('.loading-text').hide();
 
                     $(el).select2({
-                        placeholder: $filter('translate')('bookmark.tagsPlaceholder' ),
+                        placeholder: $filter('translate')('bookmark.tagsplaceholder' ),
                         allowClear: true,
                         tags: true,
                         data: data
@@ -117,6 +117,6 @@
     };
 
     angular.module('bookmarksApp').
-        directive('customSelect2', [ '$timeout', 'bookmarkService', '$filter', customSelect2 ]);
+        directive('customTagsSelect2', [ '$timeout', 'bookmarkService', '$filter', customTagsSelect2 ]);
 
 }());

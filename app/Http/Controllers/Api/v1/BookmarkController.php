@@ -33,15 +33,18 @@ class BookmarkController extends Controller
         $pageNr = is_numeric($request->input('page')) ? $request->input('page') : 1;
         $limit = is_numeric($request->input('limit')) && $request->input('limit') < 100 ? $request->input('limit') : 100;
 
-        $collection = Auth::user()
-            ->bookmarks();
+        // $collection = Auth::user()
+        //     ->bookmarks();
+
+        $userId = Auth::id();
+
+        $collection = App\Bookmark::where('user_id', $userId);
 
         $collection = $collection
-            ->select('bookmarks.id', 'title', 'favourite', 'link', 'snippet', 'icon', 'category')
+            ->select('bookmarks.id', 'title', 'favourite', 'link', 'snippet', 'icon', 'category', 'user_id')
             ->distinct();
 
         if (count($categories) || count($tags)) {
-
             if (count($tags)) {
                 $collection = $collection
                     ->join('bookmark_tag', 'bookmarks.id', '=', 'bookmark_tag.bookmark_id')
@@ -79,6 +82,9 @@ class BookmarkController extends Controller
                 });
         }
 
+        // Add all shared items to the collection which are set to be shared by all
+        $collection = $collection->orWhere('share_all', '=', 1);
+
         $totalCount = $collection->count();
 
         // Ensure page count starts at 0
@@ -99,13 +105,15 @@ class BookmarkController extends Controller
 
             $item = [
                 'id' => $bookmark->id,
-                'title' => $bookmark->title,
+                'title' => $bookmark->title . '('.$bookmark->id.')' . '--'.$userId . '--('.$bookmark->id.')--'.$bookmark->share_all,
                 'favourite' => (bool)$bookmark->favourite,
                 'link' => $bookmark->link,
                 'snippet' => $bookmark->snippet,
                 'icon' => $bookmark->icon,
                 'category' => $this->getCategoryIfEmpty($bookmark->category),
-                'tags' => $tags
+                'tags' => $tags,
+                'readonly' => (bool)($userId != $bookmark->user_id),
+                'userid' => $userId
             ];
 
             $bookmarks[] = $item;
@@ -237,13 +245,19 @@ class BookmarkController extends Controller
             $bookmark->save();
         }
 
-        $this->syncTags($bookmark, $request->input('tags'));
+        $tags = $request->input('tags') != '' ? $request->input('tags') : [];
+
+        $this->syncTags($bookmark, $tags);
+
+        $sharedWith = $request->input('sharedWith') != '' ? $request->input('sharedWith') : [];
+
+        $this->syncSharedWith($bookmark, $sharedWith);
 
         return [
             'result' => 'ok',
             'message' => '',
             'data' => [
-                'bookmark' => $this->buildBookmark($bookmark)
+                // 'bookmark' => $this->buildBookmark($bookmark)
             ]
         ];
     }
@@ -307,6 +321,8 @@ class BookmarkController extends Controller
         }
 
         $this->syncTags($bookmark, []);
+
+        $this->syncSharedWith($bookmark, []);
 
         $bookmark->delete();
 
@@ -527,8 +543,8 @@ class BookmarkController extends Controller
             'snippet' => $bookmark->snippet,
             'category' => $bookmark->category,
             'tags' => $tags,
-            'shareAll' => (bool)$bookmark->share_all,
-            'sharedWith' => $sharedWith
+            'share_all' => (bool)$bookmark->share_all,
+            'shared_with' => $sharedWith
         ];
     }
 

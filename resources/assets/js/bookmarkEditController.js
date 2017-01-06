@@ -9,6 +9,7 @@
         $scope.globalGoodMessage = '';
         $scope.globalErrorMessage = '';
         $scope.newItem = false;
+        $scope.newSharedItem = false;
         $scope.fromWindow = false;
         $scope.canViewSnippet = false;
         $scope.categories = [];
@@ -24,7 +25,8 @@
             snippet: '',
             category: '',
             tags: [],
-            shareAll: false
+            share_all: false,
+            share_with: []
         };
 
         this.run = function () {

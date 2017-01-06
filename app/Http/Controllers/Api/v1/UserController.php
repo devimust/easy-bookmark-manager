@@ -183,7 +183,7 @@ class UserController extends Controller
             ];
         }
 
-        $users = ['all'];
+        $users = [];
         $collection = User::where('id', '<>', $user->id) // exclude logged in user (ie cannot share with yourself)
                         ->where(function($query) {
                             $query

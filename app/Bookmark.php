@@ -68,12 +68,33 @@ class Bookmark extends Model
     }
 
     /**
+     * Cast input to boolean type.
+     *
+     * @param $value
+     */
+    public function setShareAllAttribute($value)
+    {
+        $this->attributes['share_all'] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
      * Cast output to boolean type.
      *
      * @param $value
      * @return bool
      */
     public function getFavouriteAttribute($value)
+    {
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
+     * Cast output to boolean type.
+     *
+     * @param $value
+     * @return bool
+     */
+    public function getShareAllAttribute($value)
     {
         return filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
