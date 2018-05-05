@@ -19,7 +19,7 @@ And use this url : http://bookmarkdemo.miceli.click/ as target
 ### Requirements
 
 * webserver (apache2, nginx)
-* php 5.3+
+* php 5.5.9+
 * Laravel 5.2
 * mysql (or laravel supported database)
 
